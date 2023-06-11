@@ -59,6 +59,35 @@
     grid-row: 2;
 }
 
+.trends {
+    grid-column: 1;
+    grid-row: 1;
+}
+.trends > :first-child {
+    font-size: large;
+    font-weight: 700;
+}
+.trends .trend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.homeLink {
+    font-size: large;
+    place-self: center;
+    text-decoration: none;
+    background-color: #722282;
+    padding: 10px;
+    border-radius: 12px;
+    color: white;
+}
+.homeLink:hover {
+    color: #722282;
+}
+.homeLink:visited {
+    color: white;
+}
+
 /* mobile S */
 @media (width >= 320px) {
     :root {
@@ -72,6 +101,7 @@
 
     .newPost {
         grid-column: 2;
+        grid-row: 2;
         width: 100px;
         height: 44px;
         font-size: small;
@@ -79,11 +109,20 @@
 
     .posts {
         grid-column: span 2;
+        grid-row: 4;
     }
 
     .sortDropdown {
+        grid-row: 2;
         width: 100px;
         font-size: small;
+    }
+    .trends {
+        grid-column: span 2;
+    }
+    .homeLink {
+        grid-row: 3;
+        place-self: start;
     }
 }
 
@@ -97,12 +136,24 @@
     }
     .newPost {
         grid-column: 5;
+        grid-row: 1;
+    }
+    .posts {
+        grid-row: 2;
     }
     .sortDropdown {
         grid-column: 2;
+        grid-row: 1;
         width: 100%;
     }
     .posts {
         grid-column: 2 / 6;
+    }
+    .trends {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .homeLink {
+        grid-row: 1;
     }
 }
