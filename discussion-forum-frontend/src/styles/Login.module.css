@@ -1,0 +1,56 @@
+.loginWrapper {
+    display: grid;
+    place-items: center;
+    margin: 7rem 0;
+}
+
+.login {
+    display: grid;
+    place-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 10rem;
+    background: #ffffff;
+    border: 1px solid #ebebeb;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+}
+
+.login img {
+    width: 200px;
+}
+
+.login form {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    gap: 1.5rem;
+}
+
+.login form button {
+    width: 149px;
+    height: 44px;
+    background: #722282;
+    color: white;
+    border: none;
+    border-radius: 12px;
+}
+
+/* mobile S */
+@media (width >= 320px) {
+    .login {
+        padding: 1.5rem;
+    }
+}
+
+/* mobile L */
+@media (width >= 425px) {
+    .login {
+        padding: 1.5rem 2.5rem;
+    }
+}
+
+/* tablet */
+@media (width >= 768px) {
+    .login {
+        padding: 1.5rem 10rem;
+    }
+}

@@ -1,0 +1,151 @@
+:root {
+    --_size: 1.5rem;
+}
+
+.createWrapper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    margin-top: calc(var(--_size) * 2);
+}
+.cancel{
+    background-color: #A5A5A5 !important;
+    border: 0;
+}
+
+.create {
+    grid-column: 3 / span 8;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #ffffff;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    margin-bottom: var(--_size);
+    padding: calc(var(--_size) * 2);
+    gap: calc(var(--_size) * 2);
+    align-items: center;
+}
+
+/* .create label,
+.create input,
+.create select {
+    display: block;
+    width: 100%;
+}
+
+.create label {
+    font-weight: bold;
+}
+
+.create input,
+.create input:active,
+.create input:focus,
+.create input:focus-visible,
+.create input:focus-within,
+.create select,
+.create select:active,
+.create select:focus,
+.create select:focus-visible,
+.create select:focus-within,
+.card {
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.create select {
+    position: relative;
+    top: 5.5px;
+}
+
+.create input[type='date'] {
+    position: relative;
+    top: 2px;
+}
+*/
+.create .upload {
+    display: grid;
+    place-items: center;
+    width: 149px;
+    height: 44px;
+    background: #722282;
+    color: white;
+    border-radius: 12px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.create input[type='file'] {
+    display: none;
+} 
+
+.submit {
+    grid-column: span 3;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.submit button {
+    width: 149px;
+    height: 44px;
+    background: #722282;
+    color: white;
+    border: none;
+    border-radius: 12px;
+}
+
+.performanceRequirements {
+    grid-column: span 3;
+}
+
+.postDescription {
+    grid-column: span 3;
+}
+
+/* mobile S */
+@media (width >= 320px) {
+    :root {
+        --_size: 1rem;
+    }
+
+    .createWrapper {
+        display: block;
+    }
+
+    .create {
+        grid-column: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: normal;
+    }
+
+    div:has(>.upload) {
+        align-self: center;
+    }
+
+    .submit {
+        flex-direction: column-reverse;
+        gap: 5px;
+        align-self: center;
+    }
+}
+
+/* tablet */
+@media (width >= 768px) {
+    .create {
+        display: grid;
+    }
+    .submit {
+        flex-direction: initial;
+    }
+}
+
+/* laptop */
+@media (width >= 1024px) {
+    .createWrapper {
+        display: grid;
+    }
+    .create {
+        grid-column: 3 / span 8;
+    }
+}

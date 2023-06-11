@@ -1,0 +1,231 @@
+:root {
+    --_size: 1.5rem;
+}
+
+.postWrapper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    margin-top: calc(var(--_size) * 2);
+}
+
+.post {
+    grid-column: 3 / span 8;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    background: #ffffff;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    margin-bottom: var(--_size);
+}
+
+.postHighlight {
+    grid-column: 1 / 7;
+    width: 100%;
+}
+
+.postHighlight img {
+    width: 100%;
+    display: block;
+}
+
+.postUser {
+    grid-column: span 4;
+    display: flex;
+    align-items: center;
+    padding: calc(var(--_size) * 0.2);
+}
+
+.postUser img {
+    border-radius: 50%;
+    width: 75px;
+}
+
+.postUserName {
+    margin-left: calc(var(--_size) * 0.4);
+    line-height: 1.1;
+}
+
+.postUserName p {
+    margin: 0;
+}
+
+.postUserName a {
+    text-decoration: none;
+    font-size: calc(var(--_size) * 0.5);
+}
+
+.sampleLinks {
+    padding: calc(var(--_size) * 0.75);
+    grid-column: span 2;
+    place-self: end;
+    align-self: center;
+}
+
+.sampleLinks a {
+    display: block;
+    text-decoration: none;
+    color: purple;
+}
+
+.postBody {
+    grid-column: 1 / 7;
+    margin-top: calc(var(--_size) * 0.4);
+    padding-left: calc(var(--_size));
+    padding-right: var(--_size);
+}
+
+.postTags {
+    display: flex;
+    gap: var(--_size);
+}
+
+.postBody a {
+    text-decoration: none;
+    color: purple;
+}
+
+.postFooter {
+    grid-column: 1 / 7;
+    padding: calc(var(--_size));
+    display: flex;
+    justify-content: space-between;
+}
+
+.postFooter button {
+    background: transparent;
+    border: none;
+}
+
+.comments {
+    grid-column: 3 / span 8;
+    background-color: #fff;
+    padding: var(--_size);
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    margin-bottom: var(--_size);
+}
+
+.commentBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentBox textarea,
+.commentBox textarea:focus,
+.commentBox textarea:focus-visible,
+.commentBox textarea:focus-within,
+.commentBox textarea:target {
+    resize: none;
+    display: block;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.commentBox button {
+    width: 149px;
+    height: 44px;
+    background: #722282;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    align-self: flex-end;
+    margin-block: var(--_size);
+}
+
+.commentHead {
+    font-size: var(--_size);
+}
+
+.comment {
+    display: flex;
+    gap: var(--_size);
+    background-color: #fff;
+}
+
+.commentHeader {
+    display: flex;
+    gap: calc(var(--_size) * 0.2);
+}
+
+.postDescription strong {
+    font-size: 24px;
+}
+
+/* mobile S */
+@media (width >= 320px) {
+    :root {
+        --_size: 1rem;
+    }
+    .post {
+        grid-template-columns: repeat(2, 1fr);
+        grid-column: span 2;
+    }
+    .postUser {
+        font-size: medium;
+        grid-column: span 1;
+    }
+    .postUserName a {
+        text-decoration: none;
+        font-size: medium;
+        color: black;
+    }
+    .postUser img {
+        width: 40px;
+    }
+    .sampleLinks {
+        font-size: x-small;
+        grid-column: 2;
+        padding-right: calc(var(--_size) * .5);
+        grid-column: span 1;
+    }
+    .postBody {
+        grid-column: span 2;
+        margin-top: 0;
+        font-size: small;
+    }
+    .postTags {
+        flex-wrap: wrap;
+        margin-bottom: 5px;
+        gap: 5px;
+    }
+    .postBody a {
+        font-size: small;
+    }
+    .postFooter {
+        grid-column: span 2;
+        font-size: small;
+        padding-top: 0;
+    }
+    .postWrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .comments {
+        grid-row: auto;
+        grid-column: span 2;
+    }
+    .postDescription strong {
+        font-size: medium;
+    }
+}
+
+/* mobile M */
+@media (width >= 375px) {
+    .sampleLinks {
+        font-size: small;
+    }
+}
+
+@media (width >= 1024px) {
+    .postWrapper {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    .post {
+        grid-column: 2 / 6;
+    }
+    .comments {
+        grid-column: 2 / 6;
+    }
+}

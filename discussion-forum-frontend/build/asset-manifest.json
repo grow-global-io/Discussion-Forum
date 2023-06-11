@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.84f68286.css",
+    "main.js": "/static/js/main.b1a29a51.js",
+    "static/media/aco-logo.png": "/static/media/aco-logo.c0e03c5bc3ff269a6b2b.png",
+    "index.html": "/index.html",
+    "main.84f68286.css.map": "/static/css/main.84f68286.css.map",
+    "main.b1a29a51.js.map": "/static/js/main.b1a29a51.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.84f68286.css",
+    "static/js/main.b1a29a51.js"
+  ]
+}

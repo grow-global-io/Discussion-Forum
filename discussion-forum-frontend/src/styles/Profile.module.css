@@ -1,0 +1,241 @@
+:root {
+    --_size: 1.5rem;
+}
+
+.ProfileToggle {
+    position: absolute;
+    width: 242px;
+    background: #ffffff;
+    border: 1px solid #eaedf0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    right: 50px;
+}
+
+.profileHead {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background: #ffffff;
+    border: 1px solid #eaedf0;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.profileHead .user {
+    grid-column: span 2;
+    display: flex;
+    align-items: flex-end;
+    place-self: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.profileHead .profileRoute {
+    grid-column: span 2;
+    border-top: 1px solid #eaedf0;
+    padding: 20px 10px;
+}
+
+.profileRoute p {
+    padding: 0;
+    margin: 0;
+}
+
+.profileRoute a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    justify-content: space-between;
+    color: purple;
+}
+
+.profileLogout {
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding-block: 20px;
+    width: 125px;
+    height: 75px;
+    color: purple;
+    display: flex;
+    align-items: center;
+}
+
+.profileLogout .icon {
+    pointer-events: none;
+    width: 28px;
+    height: 28px;
+}
+
+.profileWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background: #ffffff;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+}
+
+.profileUser {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profileUser div p {
+    margin: 0;
+    font-size: 20px;
+}
+
+.profileUser button {
+    background: #722282;
+    border: none;
+    color: white;
+    padding: 5px;
+    padding-inline: 10px;
+    border-radius: 12px;
+}
+
+.profileUser img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+
+.userDetails {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.userDetails > :first-child {
+    grid-column: span 2;
+    display: flex;
+    gap: 20px;
+}
+
+.userDetails > :first-child div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.userDetails > :nth-child(2){
+    grid-column: span 2;
+}
+
+.create {
+    grid-column: 3 / span 8;
+    background: #ffffff;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    margin-bottom: var(--_size);
+    padding: calc(var(--_size) * 2);
+    gap: calc(var(--_size) * 2);
+    align-items: center;
+}
+
+/* .create label,
+.create input,
+.create select {
+    display: block;
+    width: 100%;
+}
+
+.create label {
+    font-weight: bold;
+}
+
+.create input,
+.create input:active,
+.create input:focus,
+.create input:focus-visible,
+.create input:focus-within {
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.create input[type='date'] {
+    position: relative;
+    top: 2px;
+} */
+
+.submit {
+    grid-column: span 3;
+    display: flex;
+    justify-content: center;
+}
+
+.submit button {
+    width: 149px;
+    height: 44px;
+    background: #722282;
+    color: white;
+    border: none;
+    border-radius: 12px;
+}
+
+@media (width >= 320px) {
+    :root {
+        --_size: 1rem;
+    }
+    .ProfileToggle {
+        width: 200px;
+        right: 0;
+        font-size: small;
+    }
+    .profileWrapper {
+        margin: 0;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+    .profileUser {
+        flex-direction: column;
+        gap: 0;
+    }
+    .profileUser div {
+        display: flex;
+        flex-direction: column;
+    }
+    .profileUser div p {
+        text-align: center;
+    }
+    .profileUser button {
+        padding: 5px;
+        font-size: x-small;
+    }
+    .userDetails {
+        grid-template-columns: auto;
+    }
+    .userDetails > :first-child {
+        gap: 0;
+        flex-direction: column;
+        font-size: small;
+    }
+    .create {
+        display: block;
+        margin: 10px 0;
+    }
+    
+    .create > * {
+        margin-block: 10px;
+    }
+}
+
+@media (width >= 768px) {
+    .profileWrapper {
+        margin-top: 20px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (width >= 1024px) {
+    .profileWrapper {
+        padding: 50px;
+        margin: 50px 150px;
+    }
+    .create {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin: auto 150px;
+    }
+}
