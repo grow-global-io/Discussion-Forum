@@ -79,7 +79,7 @@ const Login = () => {
                     toast.success('Check email for OTP')
                 },
                 function (error) {
-                    console.log('FAILED...', error)
+                    throw('FAILED...', error)
                 }
             )
         setOtp(true)
@@ -90,7 +90,6 @@ const Login = () => {
             // toast.success('Login Successful !!')
             toast.success('OTP verified')
             setOtp(false);
-           console.log(formInput)
             // Write your Login redirection code here
 
             

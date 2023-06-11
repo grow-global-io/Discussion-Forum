@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Post.module.css';
 
 const PostFooter = ({ data, post, like, dislike, handleComments }) => {
-    console.log(data)
-    console.log(post.likedBy?.includes(data.userId))
     const navigate = useNavigate();
     const [likes, setLikes] = useState(post.likedBy?.length);
     const [isLiked, setIsLiked] = useState(post.likedBy?.includes(data.userId));

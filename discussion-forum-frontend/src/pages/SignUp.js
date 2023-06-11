@@ -38,7 +38,6 @@ const Signup = () => {
         toast.success('OTP sent successfully');
       })
       .catch(function (error) {
-        console.log('Failed to send OTP:', error);
         toast.error('Failed to send OTP');
       });
   };
@@ -74,7 +73,6 @@ const Signup = () => {
             
           })
           .catch((error) => {
-            console.log('Signup error:', error);
             toast.error('Signup failed');
           });
       }

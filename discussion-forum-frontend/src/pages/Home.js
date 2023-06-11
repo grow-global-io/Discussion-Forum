@@ -38,7 +38,6 @@ const Home = () => {
       .then((data) => {
         setPost(data);
         setTemporaryPost(data);
-        console.log("data", data)
         for (let index = 0; index < data.length; index++) {
           const element = data[index];
           let tags = element.tags;
@@ -50,7 +49,6 @@ const Home = () => {
           }
         }
       });
-    console.log("🚀 ~ unique ~ unique:", unique)
   }, [sortBy]);
 
   const createNewPost = () => {
@@ -66,11 +64,9 @@ const Home = () => {
     // })
     //   .then((data) => data.json())
     //   .then((data) => setPost(data));
-    console.log(e.target.outerText) // tag clicked on
     const tagsPost = temporaryPost.filter((p) => {
       for (let index = 0; index < p.tags.length; index++) {
         const element = p.tags[index];
-        console.log("🚀 ~ tagsPost ~ element:", element)
         if ('#' + element === e.target.outerText) {
           return true;
         } else {
@@ -79,7 +75,6 @@ const Home = () => {
         return false;
       }
     })
-    console.log("🚀 ~ tagsPost ~ tagsPost:", tagsPost)
     setPost(tagsPost);
   }
 

@@ -32,7 +32,6 @@ export default function ProtectedRoutes() {
         //     console.log(err);
         // })
         const id = localStorage.getItem("uid")
-        console.log(id)
         fetch(Backend_URL+"user/get/"+id).then(data=>data.json()).then(data=>{dispatch(getUser(data))})
     }, [dispatch])
     if (true) {

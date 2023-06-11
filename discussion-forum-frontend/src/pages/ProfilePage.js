@@ -45,7 +45,6 @@ const ProfilePage = () => {
             setUser(data);
             setCoverImage(data.photoURL)
             CoverPhoto = data.photoURL
-            console.log(data, "ssssssssssssss")
             dispatch(getUser(data))
         })
     }, [])
@@ -115,11 +114,9 @@ const ProfilePage = () => {
     const sendToBackend = (compressedImage) => {
         // Send the compressed image to the backend
         // Implement your API call or data submission logic here
-        console.log(compressedImage)
         setCoverImage(compressedImage)
         CoverPhoto = compressedImage
     };
-    console.log(user)
     const submitHandler = (e) => {
         e.preventDefault();
     }

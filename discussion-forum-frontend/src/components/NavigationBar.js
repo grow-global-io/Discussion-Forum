@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 const NavigationBar = () => {
   const user = useSelector((state) => state.auth.userInfo);
-  console.log(user)
   const [visible, setVisible] = useState(false);
 
   const userProfileImage = user.photoURL  ? (

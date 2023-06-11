@@ -18,7 +18,6 @@ export async function userProfileLoader({ params }) {
 
 const ProfileView = () => {
     const user = useLoaderData();
-    console.log(user);
 
     return (
         <div className={styles.profileWrapper}>

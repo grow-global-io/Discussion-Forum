@@ -1,7 +1,6 @@
 import styles from '../styles/Post.module.css';
 
 const PostComments = ({  comment }) => {
-    console.log(comment)
     return (
         <div className={styles.comment}>
             <img

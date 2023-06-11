@@ -76,7 +76,6 @@ const Login = () => {
                     toast.success('Check email for OTP')
                 },
                 function (error) {
-                    console.log('FAILED...', error)
                 }
             )
         setOtp(true)
@@ -97,7 +96,6 @@ const Login = () => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
                     if (!data) {
                         toast.error('Sign Up first')
                         // navigate to signup page
@@ -113,7 +111,7 @@ const Login = () => {
 
                 })
                 .catch((err) => {
-                    console.log(err);
+                    throw err
                 });
 
             // Write your Login redirection code here
