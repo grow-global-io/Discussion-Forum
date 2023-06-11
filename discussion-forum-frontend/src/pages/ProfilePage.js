@@ -26,7 +26,7 @@ export async function profileAction({ request, params }) {
         method: "POST",
         body: JSON.stringify(values)
     })
-    return redirect('/profile/' + params.id);
+    return window.location.reload();
 }
 
 const ProfilePage = () => {
@@ -119,6 +119,7 @@ const ProfilePage = () => {
         setCoverImage(compressedImage)
         CoverPhoto = compressedImage
     };
+    console.log(user)
     const submitHandler = (e) => {
         e.preventDefault();
     }
@@ -200,10 +201,10 @@ const ProfilePage = () => {
                         </label>
                     </div>
                     <div>
-                        <TextField name='name' color='secondary' id="name" label="Name" defaultValue={user.displayName} variant="outlined" style={{ width: '100%' }} />
+                        <TextField name='displayName' color='secondary' id="displayName" label="Name" defaultValue={user.displayName} variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
-                        <TextField type='email' color='secondary' name="email" id="email" label="Email" variant="outlined" style={{ width: '100%' }} />
+                        <TextField type='email' color='secondary' name="email" id="email" label="Email" defaultValue={user.email}  variant="outlined" style={{ width: '100%' }} disabled/>
                     </div>
                     <div>
                         <TextField type="date" color='secondary' name="dob" id="dob" InputLabelProps={{ shrink: true, required: true }} label='Date of Birth' variant="outlined" style={{ width: '100%' }} />
