@@ -19,13 +19,12 @@ let CoverPhoto;
 export async function profileAction({ request, params }) {
     const data = await request.formData();
     const { ...values } = Object.fromEntries(data);
-    values["photos"] = [
-        { value: "" }
-    ]
-    values["photos"][0].value = CoverPhoto;
-    await fetch(Backend_URL+"user/update-profile/"+params.id,{
-        method:"POST",
-        body:JSON.stringify(values)
+    
+    values.photoURL = CoverPhoto;
+    //debugger
+    await fetch(Backend_URL + "user/update-profile/" + params.id, {
+        method: "POST",
+        body: JSON.stringify(values)
     })
     return redirect('/profile/' + params.id);
 }
@@ -40,13 +39,13 @@ const ProfilePage = () => {
     const [coverImage, setCoverImage] = useState("");
 
     useEffect(() => {
-        fetch(Backend_URL+"user/get/" + id, {
+        fetch(Backend_URL + "user/get/" + id, {
             method: "GET"
         }).then(data => data.json()).then(data => {
             setUser(data);
             setCoverImage(data.photoURL)
             CoverPhoto = data.photoURL
-            console.log(data,"ssssssssssssss")
+            console.log(data, "ssssssssssssss")
             dispatch(getUser(data))
         })
     }, [])
