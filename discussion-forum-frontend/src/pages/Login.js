@@ -179,8 +179,10 @@ const Login = () => {
                                     </Form>
                                 }
 
-                                <p>Login using</p>
-                                <Button variant="outlined" color='secondary' onClick={googleSignIn} startIcon={<FcGoogle />}>Google</Button>
+                                {
+                                //     <p>Login using</p>
+                                // <Button variant="outlined" color='secondary' onClick={googleSignIn} startIcon={<FcGoogle />}>Google</Button>
+                                }
                                 {/* <Button variant="outlined" color="primary" startIcon={<FaDiscord />}>
                                     Discord
                                 </Button>

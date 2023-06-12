@@ -6,21 +6,32 @@ import { useEffect, useState } from 'react';
 import { Container, ProgressBar } from 'react-bootstrap';
 import { AiOutlineCalendar, AiOutlineMail } from 'react-icons/ai';
 import { Form, redirect, useParams } from 'react-router-dom';
-
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { Backdrop, InputLabel } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { BsGlobe, BsPersonCircle } from 'react-icons/bs';
-import { FaGuitar } from 'react-icons/fa';
+import { BsGenderAmbiguous } from "react-icons/bs";
+import { FaGuitar} from 'react-icons/fa';
+import { IoIosPeople } from "react-icons/io";
 import { Backend_URL } from '../Constants/backend';
 import { getUser } from '../features/auth/authSlice';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import FormHelperText from '@mui/material/FormHelperText';
 
 let CoverPhoto;
-
+let ethnicityValue=[];
+let genderValue=[];
 export async function profileAction({ request, params }) {
     const data = await request.formData();
     const { ...values } = Object.fromEntries(data);
-    
     values.photoURL = CoverPhoto;
+    // console.log(ethnicityValue);
+    // console.log(genderValue);
+    values.ethnicity = ethnicityValue; // Add ethnicity value
+    values.gender = genderValue; // Add gender value
+    console.log(values);
     //debugger
     await fetch(Backend_URL + "user/update-profile/" + params.id, {
         method: "POST",
@@ -35,9 +46,25 @@ const ProfilePage = () => {
     // const user = useSelector((state) => state.auth.userInfo);
     const [user, setUser] = useState()
     const [edit, setEdit] = useState(false);
-
+    
+    const [ethnicity, setEthnicity] = useState([]);
+    const [gender, setGender] = useState('');
     const [coverImage, setCoverImage] = useState("");
-
+    const ethnicityOptions = [
+        'American Indian or Alaska Native',
+        'Asian',
+        'Black or African American',
+        'Hispanic or Latino',
+        'Native Hawaiian or Other Pacific Islander',
+        'White'
+      ];
+      
+      const genderOptions = [
+        'Male',
+        'Female',
+        'Others'
+      ];
+      
     useEffect(() => {
         fetch(Backend_URL + "user/get/" + id, {
             method: "GET"
@@ -119,6 +146,10 @@ const ProfilePage = () => {
     };
     const submitHandler = (e) => {
         e.preventDefault();
+        console.log(e.target,'here');
+        console.log(ethnicity);
+        console.log(gender);
+        // profileAction(e.target, ethnicity, gender);
     }
 
     // const user = {
@@ -179,6 +210,20 @@ const ProfilePage = () => {
                                     {user.website}
                                 </div>
                             }
+                            {
+                                user.ethnicity &&
+                                <div>
+                                    <IoIosPeople className='icon' />
+                                    {user.ethnicity}
+                                </div>
+                            }
+                            {
+                                user.gender &&
+                                <div>
+                                    <BsGenderAmbiguous className='icon' />
+                                    {user.gender}
+                                </div>
+                            }
                         </div>
                         <div>
                             <p>Profile Filled</p>
@@ -215,6 +260,56 @@ const ProfilePage = () => {
                     <div>
                         <TextField label="Website" color='secondary' name="website" id="website" variant="outlined" style={{ width: '100%' }} />
                     </div>
+                    <div>
+  <FormControl variant="outlined" style={{ width: '100%' }}>
+    <InputLabel>Ethnicity</InputLabel>
+    <Select
+      multiple
+      value={ethnicity}
+      onChange={(e) => {setEthnicity(e.target.value);
+        console.log(e.target.value);
+        ethnicityValue=e.target.value
+    }}
+      label="Ethnicity"
+      renderValue={(selected) => selected.join(', ')}
+      input={<OutlinedInput label="Ethnicity" />}
+      style={{ marginTop: '8px' }}
+    >
+      {ethnicityOptions.map((option) => (
+        <MenuItem key={option} value={option}>
+          {option}
+        </MenuItem>
+      ))}
+    </Select>
+    {
+        // <FormHelperText>Please select your ethnicity</FormHelperText>
+    }
+  </FormControl>
+</div>
+<div>
+  <FormControl variant="outlined" style={{ width: '100%' }}>
+    <InputLabel>Gender</InputLabel>
+    <Select
+      value={gender}
+      onChange={(e) => {setGender(e.target.value);
+        genderValue = e.target.value
+    }}
+      label="Gender"
+      input={<OutlinedInput label="Gender" />}
+      style={{ marginTop: '8px' }}
+    >
+      {genderOptions.map((option) => (
+        <MenuItem key={option} value={option}>
+          {option}
+        </MenuItem>
+      ))}
+    </Select>
+    {
+        // <FormHelperText>Please select your gender</FormHelperText>
+    }
+  </FormControl>
+</div>
+                    
                     <div className={styles.submit} onSubmit={submitHandler}>
                         <button type="submit">Save Profile</button>
                     </div>
