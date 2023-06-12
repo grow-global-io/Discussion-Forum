@@ -43,6 +43,8 @@ var ChipArr = [];
 
 export async function createAction({ request }) {
 
+    console.log(CoverPhoto, "skskdkskskd")
+    console.log(ChipArr, "sssssssssssss")
     const data = await request.formData();
     const { ...values } = Object.fromEntries(data);
     // values["userInfo"] = user
@@ -57,6 +59,8 @@ export async function createAction({ request }) {
         values['composerWebsite'] = "http://" + values['composerWebsite']
     }
     
+    console.log("test", JSON.stringify(values));
+    debugger
     await fetch(Backend_URL + "post/create", {
         method: "POST",
         body: JSON.stringify(values)
@@ -240,9 +244,10 @@ const CreatePage = () => {
                         <TextField name='soloist' color='secondary' id="soloist" label="Soloist" variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
-                        <MuiChipsInput value={tagArr} onChange={(e) => {
+                        <MuiChipsInput placeholder='Enter Your Tags' value={tagArr} onChange={(e) => {
                             setTagArr(e)
                             ChipArr = e
+                            console.log(ChipArr)
                         }} />
                         {/* <TextField name='tags' color='secondary' required id="tags" label="Post Tags" variant="outlined" style={{width: '100%'}} placeholder='new band guitarist' /> */}
                     </div>

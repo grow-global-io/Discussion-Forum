@@ -17,12 +17,14 @@ const Post = ({ post, showMore }) => {
     const data = {
         userId: user.uid
     }
+    console.log(data)
     const like = async () => {
         if (Object.keys(user).length > 0) {
             const res = await fetch(Backend_URL+"post/add-like/" + post.id, {
                 method: "POST",
                 body: JSON.stringify(data)
             })
+            console.log(res)
         }
         else {
             navigate("/login")
@@ -36,12 +38,14 @@ const Post = ({ post, showMore }) => {
             method: "DELETE",
             body: JSON.stringify(data)
         })
+        console.log(res)
     }
 
     const handleComments = () => {
         navigate('/post/' + post.id + '#comments');
         navigate(0);
     }
+    console.log("post,sds",post)
     return (
         <div className={styles.post}>
 
@@ -52,9 +56,9 @@ const Post = ({ post, showMore }) => {
                 <a href={post.composerWebsite} target='_blank' rel="noreferrer">
                     <IoMdLink /> View Website
                 </a>
-                <a href={post.representativeWorkSample} target='_blank' rel="noreferrer">
+                {/* <a href={post.representativeWorkSample} target='_blank' rel="noreferrer">
                     <IoMdLink /> View Sample
-                </a>
+                </a> */}
             </div>
             <div className={styles.postBody}>
                 {post.tags && (<div className={styles.postTags}>
