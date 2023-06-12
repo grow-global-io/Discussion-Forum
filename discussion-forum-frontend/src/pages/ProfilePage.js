@@ -12,7 +12,7 @@ import { Backdrop, InputLabel } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { BsGlobe, BsPersonCircle } from 'react-icons/bs';
 import { BsGenderAmbiguous } from "react-icons/bs";
-import { FaGuitar} from 'react-icons/fa';
+import { FaGuitar } from 'react-icons/fa';
 import { IoIosPeople } from "react-icons/io";
 import { Backend_URL } from '../Constants/backend';
 import { getUser } from '../features/auth/authSlice';
@@ -21,8 +21,8 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import FormHelperText from '@mui/material/FormHelperText';
 
 let CoverPhoto;
-let ethnicityValue=[];
-let genderValue=[];
+let ethnicityValue = [];
+let genderValue = [];
 export async function profileAction({ request, params }) {
     const data = await request.formData();
     const { ...values } = Object.fromEntries(data);
@@ -46,7 +46,7 @@ const ProfilePage = () => {
     // const user = useSelector((state) => state.auth.userInfo);
     const [user, setUser] = useState()
     const [edit, setEdit] = useState(false);
-    
+
     const [ethnicity, setEthnicity] = useState([]);
     const [gender, setGender] = useState('');
     const [coverImage, setCoverImage] = useState("");
@@ -57,14 +57,14 @@ const ProfilePage = () => {
         'Hispanic or Latino',
         'Native Hawaiian or Other Pacific Islander',
         'White'
-      ];
-      
-      const genderOptions = [
+    ];
+
+    const genderOptions = [
         'Male',
         'Female',
         'Others'
-      ];
-      
+    ];
+
     useEffect(() => {
         fetch(Backend_URL + "user/get/" + id, {
             method: "GET"
@@ -83,7 +83,7 @@ const ProfilePage = () => {
             // Send the compressed image to the backend
             sendToBackend(compressedImage);
         } catch (error) {
-            console.error('Error compressing image:', error);
+            console.error('Error compresing image:', error);
         }
     };
     const compressAndEncodeImage = (file) => {
@@ -146,7 +146,7 @@ const ProfilePage = () => {
     };
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log(e.target,'here');
+        console.log(e.target, 'here');
         console.log(ethnicity);
         console.log(gender);
         // profileAction(e.target, ethnicity, gender);
@@ -246,7 +246,7 @@ const ProfilePage = () => {
                         <TextField name='displayName' color='secondary' id="displayName" label="Name" defaultValue={user.displayName} variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
-                        <TextField type='email' color='secondary' name="email" id="email" label="Email" defaultValue={user.email}  variant="outlined" style={{ width: '100%' }} disabled/>
+                        <TextField type='email' color='secondary' name="email" id="email" label="Email" defaultValue={user.email} variant="outlined" style={{ width: '100%' }} disabled />
                     </div>
                     <div>
                         <TextField type="date" color='secondary' name="dob" id="dob" InputLabelProps={{ shrink: true, required: true }} label='Date of Birth' variant="outlined" style={{ width: '100%' }} />
@@ -261,55 +261,57 @@ const ProfilePage = () => {
                         <TextField label="Website" color='secondary' name="website" id="website" variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
-  <FormControl variant="outlined" style={{ width: '100%' }}>
-    <InputLabel>Ethnicity</InputLabel>
-    <Select
-      multiple
-      value={ethnicity}
-      onChange={(e) => {setEthnicity(e.target.value);
-        console.log(e.target.value);
-        ethnicityValue=e.target.value
-    }}
-      label="Ethnicity"
-      renderValue={(selected) => selected.join(', ')}
-      input={<OutlinedInput label="Ethnicity" />}
-      style={{ marginTop: '8px' }}
-    >
-      {ethnicityOptions.map((option) => (
-        <MenuItem key={option} value={option}>
-          {option}
-        </MenuItem>
-      ))}
-    </Select>
-    {
-        // <FormHelperText>Please select your ethnicity</FormHelperText>
-    }
-  </FormControl>
-</div>
-<div>
-  <FormControl variant="outlined" style={{ width: '100%' }}>
-    <InputLabel>Gender</InputLabel>
-    <Select
-      value={gender}
-      onChange={(e) => {setGender(e.target.value);
-        genderValue = e.target.value
-    }}
-      label="Gender"
-      input={<OutlinedInput label="Gender" />}
-      style={{ marginTop: '8px' }}
-    >
-      {genderOptions.map((option) => (
-        <MenuItem key={option} value={option}>
-          {option}
-        </MenuItem>
-      ))}
-    </Select>
-    {
-        // <FormHelperText>Please select your gender</FormHelperText>
-    }
-  </FormControl>
-</div>
-                    
+                        <FormControl variant="outlined" style={{ width: '100%' }}>
+                            <InputLabel>Ethnicity</InputLabel>
+                            <Select
+                                multiple
+                                value={ethnicity}
+                                onChange={(e) => {
+                                    setEthnicity(e.target.value);
+                                    console.log(e.target.value);
+                                    ethnicityValue = e.target.value
+                                }}
+                                label="Ethnicity"
+                                renderValue={(selected) => selected.join(', ')}
+                                input={<OutlinedInput label="Ethnicity" />}
+                                style={{ marginTop: '8px' }}
+                            >
+                                {ethnicityOptions.map((option) => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                            {
+                                // <FormHelperText>Please select your ethnicity</FormHelperText>
+                            }
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl variant="outlined" style={{ width: '100%' }}>
+                            <InputLabel>Gender</InputLabel>
+                            <Select
+                                value={gender}
+                                onChange={(e) => {
+                                    setGender(e.target.value);
+                                    genderValue = e.target.value
+                                }}
+                                label="Gender"
+                                input={<OutlinedInput label="Gender" />}
+                                style={{ marginTop: '8px' }}
+                            >
+                                {genderOptions.map((option) => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                            {
+                                // <FormHelperText>Please select your gender</FormHelperText>
+                            }
+                        </FormControl>
+                    </div>
+
                     <div className={styles.submit} onSubmit={submitHandler}>
                         <button type="submit">Save Profile</button>
                     </div>

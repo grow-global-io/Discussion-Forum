@@ -27,7 +27,7 @@ const Login = () => {
     const [formInput, updateFormInput] = useState({
         displayName: "",
         email: '',
-        photoURL:"https://as2.ftcdn.net/v2/jpg/02/17/34/67/1000_F_217346782_7XpCTt8bLNJqvVAaDZJwvZjm0epQmj6j.jpg",
+        photoURL: "https://as2.ftcdn.net/v2/jpg/02/17/34/67/1000_F_217346782_7XpCTt8bLNJqvVAaDZJwvZjm0epQmj6j.jpg",
         otp: ''
     })
     const googleSignIn = async () => {
@@ -90,38 +90,39 @@ const Login = () => {
             // toast.success('Login Successful !!')
             toast.success('OTP verified')
             setOtp(false);
-           console.log(formInput)
+            console.log(formInput)
             // Write your Login redirection code here
 
-            
+
             // if (Object.keys(res).length > 0) {
-                // localStorage.setItem("uid", res.uid);
-                // localStorage.setItem("displayName", res.displayName);
-                // localStorage.setItem("email", res.email);
+            // localStorage.setItem("uid", res.uid);
+            // localStorage.setItem("displayName", res.displayName);
+            // localStorage.setItem("email", res.email);
             //     dispatch(getUser(res)); navigate("/")
             // }
             // else{
 
-                // }
-                const data ={
-                    displayName:formInput.displayName,
-                    photoURL:formInput.photoURL,
-                    email:formInput.email,
-                    uid:uuidv4()
-                }
-    
-                fetch(Backend_URL + "user/create", {
-                    method: "POST",
-                    body: JSON.stringify(data)
-                }).then(data => data.json()).then(data => { dispatch(getUser(data)); navigate("/");
-            
+            // }
+            const data = {
+                displayName: formInput.displayName,
+                photoURL: formInput.photoURL,
+                email: formInput.email,
+                uid: uuidv4()
+            }
+
+            fetch(Backend_URL + "user/create", {
+                method: "POST",
+                body: JSON.stringify(data)
+            }).then(data => data.json()).then(data => {
+                dispatch(getUser(data)); navigate("/");
+
                 localStorage.setItem("uid", data.uid);
                 localStorage.setItem("displayName", data.displayName);
                 localStorage.setItem("email", data.email);
             })
 
-            
-            
+
+
         } else {
             toast.error('Wrong OTP entered.')
         }
@@ -166,7 +167,7 @@ const Login = () => {
                                                     displayName: e.target.value
                                                 }))
                                             }
-                                            label="Enter Your Name" variant="outlined" color='secondary' style={{ width: '400px' }} 
+                                            label="Enter Your Name" variant="outlined" color='secondary' style={{ width: '400px' }}
                                         />
                                         <TextField type='email' onChange={
                                             (e) =>
@@ -178,10 +179,10 @@ const Login = () => {
                                         <button type="submit" onClick={() => triggerOTP()}>Login</button>
                                     </Form>
                                 }
-
+                                <></>
                                 {
-                                //     <p>Login using</p>
-                                // <Button variant="outlined" color='secondary' onClick={googleSignIn} startIcon={<FcGoogle />}>Google</Button>
+                                    //     <p>Login using</p>
+                                    // <Button variant="outlined" color='secondary' onClick={googleSignIn} startIcon={<FcGoogle />}>Google</Button>
                                 }
                                 {/* <Button variant="outlined" color="primary" startIcon={<FaDiscord />}>
                                     Discord
