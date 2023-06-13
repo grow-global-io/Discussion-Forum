@@ -123,7 +123,7 @@ const Home = () => {
                     </div>
                 </aside> */}
         <div className={styles.trends}>
-          <p>Popular Trends</p>
+          <p>Popular Tags</p>
           {post ? (
             <Trends tags={unique} sort={sortByTag} />
           ) : (<></>)}
