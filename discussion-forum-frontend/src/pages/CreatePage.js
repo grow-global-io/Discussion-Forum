@@ -187,7 +187,7 @@ const CreatePage = () => {
                         <TextField name='primaryContact' color='secondary' id="primaryContact" label="Primary Contact/Email" variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
-                        <TextField type="date" color='secondary' name='premiereDate' id="premiereDate" label="Premier Date" InputLabelProps={{ shrink: true, required: true }} variant="outlined" style={{ width: '100%' }} />
+                        <TextField type="date" color='secondary' name='premiereDate' id="premiereDate" label="Premiere Date" InputLabelProps={{ shrink: true, required: true }} variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
                         <TextField type='number' name='totalCommissionFee' color='secondary' id="totalCommissionFee" label="Total Commission Fee" variant="outlined" style={{ width: '100%' }} />
@@ -219,7 +219,7 @@ const CreatePage = () => {
                         <TextField type='number' name='partnersCommittedToDate' color='secondary' id="partnersCommittedToDate" label="Partners Committed to Date" variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
-                        <TextField name='rangeOfConsortiumPartnerCommissionFees' color='secondary' id="rangeOfConsortiumPartnerCommissionFees" label="Range of Consortium Partner Commission Fees" variant="outlined" style={{ width: '100%' }} />
+                        <TextField name='rangeOfConsortiumPartnerCommissionFees' color='secondary' id="rangeOfConsortiumPartnerCommissionFees" label="Partner Fee Range" variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
                         <TextField type='time' name='duration' color='secondary' id="duration" label="Duration" variant="outlined" InputLabelProps={{ shrink: true, required: true }} style={{ width: '100%' }} />
