@@ -129,7 +129,28 @@
         align-self: center;
     }
 }
+.lightButton {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+  
+.checkboxInput {
+    margin-right: 0.5rem;
+}
 
+.checkboxText {
+    font-size: 1rem;
+    color: #333; 
+
+}
+.checkboxContainer{
+    grid-column: span 3/auto;
+}
 /* tablet */
 @media (width >= 768px) {
     .create {

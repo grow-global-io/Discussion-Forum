@@ -53,7 +53,7 @@ export async function createAction({ request }) {
     values["comments"] = []
     values["likedBy"] = []
     values["cover-photo"] = CoverPhoto
-
+    values["userConfirmation"] = true;
     //Tatz
     if(values['composerWebsite'].substring(0, 4).toLowerCase() != "http"){
         values['composerWebsite'] = "http://" + values['composerWebsite']
@@ -70,7 +70,7 @@ export async function createAction({ request }) {
 
 const CreatePage = () => {
     const [tagArr, setTagArr] = useState([]);
-
+    const [userConfirmation, setUserConfirmation] = useState(false);
     const user = useSelector((state) => state.auth.userInfo);
     const [coverImage, setCoverImage] = useState('');
     const [post, setPost] = useState('');
@@ -294,11 +294,25 @@ const CreatePage = () => {
                         <label className={styles.upload} htmlFor="coverPhoto">Cover Photo<input type="file" name="coverPhoto" id="coverPhoto" accept="image/x-png,image/gif,image/jpeg" onChange={(e) => handleImageUpload(e)} /></label>
                     </div>
                     <img src={coverImage} alt="" style={{ width: '100%', gridColumn: 'span 3' }} />
+                    <div className={styles.checkboxContainer}>
+                    <label >
+                        <input
+                        type="checkbox"
+                        className={styles.checkboxInput}
+                        checked={userConfirmation}
+                        onChange={(e) => setUserConfirmation(e.target.checked)}
+                        /> 
+                        <span className={styles.checkboxText}>
+                            I confirm to have approved all these details for public posting
+
+                        </span>
+                    </label>
+                    </div>
                     <div className={styles.submit}>
                         <Link to="/home">
                             <button>Cancel</button>
                         </Link>
-                        <button type="submit">Post</button>
+                        <button className={userConfirmation ? '' : styles.lightButton} disabled={!userConfirmation} type="submit">Post</button>
                     </div>
                 </Form>
             </div>
