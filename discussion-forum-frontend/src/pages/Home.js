@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 // import { post } from '../assets/post-data';
 import { CircularProgress } from "@mui/material";
 import { Backend_URL } from "../Constants/backend";
+import Heading from '../components/Heading'
 import Post from "../components/Post";
 import Trends from "../components/Trends";
 import styles from "../styles/Home.module.css";
@@ -92,7 +93,7 @@ const Home = () => {
           <CircularProgress />
         </div>
       )}
-
+      <Heading />
       <div className={styles.home}>
         {user.id && (
           <button className={styles.newPost} onClick={createNewPost}>
@@ -132,7 +133,10 @@ const Home = () => {
         <div className={styles.posts}>
           {post ? (
             post.map((p) => (
-              <Post user={user} post={p} key={p.id} showMore={false} />
+              <>
+
+                <Post user={user} post={p} key={p.id} showMore={false} />
+              </>
             ))
           ) : (
             <></>

@@ -34,6 +34,7 @@ const NavigationBar = () => {
                 alt="American Composers Orchestra"
                 height="50"
               />
+              &nbsp;&nbsp;<h9>National Co-Commissioning Hub</h9>
             </Link>
           </Navbar.Brand>
           
