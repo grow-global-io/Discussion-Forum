@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Container, Image, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import BrandLogo from "../assets/aco-logo.png";
-import ProfileToggle from "./ProfileToggle";
-import { Link } from "react-router-dom";
 import styles from "../styles/Home.module.css";
-import { useNavigate } from "react-router-dom";
+import ProfileToggle from "./ProfileToggle";
 
 const NavigationBar = () => {
   const user = useSelector((state) => state.auth.userInfo);
@@ -27,16 +26,18 @@ const NavigationBar = () => {
     <>
       <Navbar className="shadow">
         <Container>
-          <Navbar.Brand>
-            <Link to="/">
-              <Image
-                src={BrandLogo}
-                alt="American Composers Orchestra"
-                height="50"
-              />
-              &nbsp;&nbsp;<h9>National Co-Commissioning Hub</h9>
-            </Link>
-          </Navbar.Brand>
+          <div className="d-flex flex-column flex-sm-row align-items-sm-center">
+            <Navbar.Brand>
+              <Link to="/">
+                <Image
+                  src={BrandLogo}
+                  alt="American Composers Orchestra"
+                  height="50"
+                />
+              </Link>
+            </Navbar.Brand>
+                <Link to="/" style={{color: '#722282', display: 'inline'}}>National Co-Commissioning Hub</Link>
+          </div>
           
           <Navbar.Collapse className="justify-content-end">
           {!user.id && (
