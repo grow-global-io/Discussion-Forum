@@ -1,5 +1,5 @@
 import { Chip } from '@mui/material';
-import styles from '../styles/Post.module.css';
+import styles from '../styles/Home.module.css';
 
 import { AiFillHeart, AiOutlineComment, AiOutlineHeart } from 'react-icons/ai';
 import { IoMdLink } from 'react-icons/io';
@@ -14,7 +14,7 @@ const Heading = ({ post, showMore }) => {
     
     
     return (
-        <div className={styles.post}>
+        <div className={styles.heading}>
 <i>
                 The National Co-Commissioning Hub is an online forum for orchestras, composers, and commissioners to discover, initiate, and/or join consortium commissions throughout the US. The Hub is administered by the <a href="https://americancomposers.org/">American Composers Orchestra</a>, was initiated with <a href="https://roco.org/">ROCO</a>, <a href="https://composersforum.org/">American Composers Forum</a>, and <a herf="https://newmusicusa.org/">New Music USA</a>, and is a resource within ACF's <a href="https://composersforum.org/anatomy-of-a-commission/#:~:text=Designed%20for%20both%20music%20creators,creators%20and%20encourage%20equitable%20experiences.">Anatomy of a Commission </a>initiative.
 

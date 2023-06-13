@@ -9,6 +9,20 @@
     gap: var(--_size);
 }
 
+.heading {
+    background: #ffffff;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    margin-block: var(--_size);
+    padding: var(--_size);
+    overflow: auto;
+    max-height: 150px;
+}
+
+.heading a {
+    color: #722282;
+}
+
 .newPost {
     grid-column: 9 / 11;
     grid-row: 1;
@@ -155,5 +169,8 @@
     }
     .homeLink {
         grid-row: 1;
+    }
+    .heading {
+        max-height: none;
     }
 }
