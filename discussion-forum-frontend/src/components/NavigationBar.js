@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Image, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,12 +6,18 @@ import BrandLogo from "../assets/aco-logo.png";
 import styles from "../styles/Home.module.css";
 import ProfileToggle from "./ProfileToggle";
 import { TextField } from "@mui/material";
+import { Backend_URL } from "../Constants/backend";
 
 const NavigationBar = () => {
   const user = useSelector((state) => state.auth.userInfo);
   const [visible, setVisible] = useState(false);
   const [toggler, setToggler] = useState(false);
+  const [togglerData,setTogglerData] = useState([])
+  useEffect(()=>{
+    fetch(Backend_URL+"post/get-data").then(data=>data.json()).then(data=>{data.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate)); setTogglerData(data.slice(0,3))})
+  },[])
 
+  console.log(togglerData)
   const userProfileImage = user.photoURL ? (
     <Image
       src={user.photoURL}
@@ -66,7 +72,8 @@ const NavigationBar = () => {
 
         </Container>
       </Navbar>
-      <ProfileToggle user={user} show={visible} className="mt-3 mt-md-0" />
+      
+      <ProfileToggle user={user} show={visible} />
     </div>
   );
 };

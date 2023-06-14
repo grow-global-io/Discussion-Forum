@@ -13,7 +13,6 @@ import styles from '../styles/Post.module.css';
 export async function commentAction({ request }) {
     const data = await request.formData();
     const { ...values } = await Object.fromEntries(data);
-    console.log(JSON.stringify(values));
 }
 
 
@@ -23,8 +22,6 @@ const PostPage = () => {
 
     const handleSubmit= (e)=>{
         e.preventDefault()
-        console.log(textAreaRef.current.value)
-        console.log(checked)
         /**
          * userDisplayName
          * userId
@@ -65,7 +62,6 @@ const PostPage = () => {
     const { id } = useParams()
     const [data, setData] = useState()
     const [comments, setComments] = useState()
-    console.log(data)
     useEffect(() => {
         fetch(Backend_URL+"post/get-data/" + id).then(data => data.json()).then(data => {
             setData(data);

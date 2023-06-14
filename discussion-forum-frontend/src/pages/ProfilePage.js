@@ -31,7 +31,6 @@ export async function profileAction({ request, params }) {
     // console.log(genderValue);
     values.ethnicity = ethnicityValue; // Add ethnicity value
     values.gender = genderValue; // Add gender value
-    console.log(values);
     //debugger
     await fetch(Backend_URL + "user/update-profile/" + params.id, {
         method: "POST",
@@ -146,9 +145,6 @@ const ProfilePage = () => {
     };
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log(e.target, 'here');
-        console.log(ethnicity);
-        console.log(gender);
         // profileAction(e.target, ethnicity, gender);
     }
 
@@ -268,7 +264,6 @@ const ProfilePage = () => {
                                 value={ethnicity}
                                 onChange={(e) => {
                                     setEthnicity(e.target.value);
-                                    console.log(e.target.value);
                                     ethnicityValue = e.target.value
                                 }}
                                 label="Ethnicity"

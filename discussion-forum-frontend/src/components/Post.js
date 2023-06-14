@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { Chip } from '@mui/material';
 import styles from '../styles/Post.module.css';
 
@@ -17,14 +19,12 @@ const Post = ({ post, showMore }) => {
     const data = {
         userId: user.uid
     }
-    console.log(data)
     const like = async () => {
         if (Object.keys(user).length > 0) {
             const res = await fetch(Backend_URL+"post/add-like/" + post.id, {
                 method: "POST",
                 body: JSON.stringify(data)
             })
-            console.log(res)
         }
         else {
             navigate("/login")
@@ -38,14 +38,12 @@ const Post = ({ post, showMore }) => {
             method: "DELETE",
             body: JSON.stringify(data)
         })
-        console.log(res)
     }
 
     const handleComments = () => {
         navigate('/post/' + post.id + '#comments');
         navigate(0);
     }
-    console.log("post,sds",post)
     return (
         <div className={styles.post}>
 
@@ -69,7 +67,7 @@ const Post = ({ post, showMore }) => {
                     ))}
                 </div>)}
                 <p>
-                    <h7>Composer Name: </h7>
+                    <p>Composer Name: </p>
                     {post.composerName}
                 </p>
                 <p>
@@ -83,7 +81,7 @@ const Post = ({ post, showMore }) => {
                 </p>
 
                 {showMore && (
-                    <>
+                    <React.Fragment>
                         <p>
                             <b>Funding Status: </b>
                             {post.fundingStatus}{' '}
@@ -130,7 +128,7 @@ const Post = ({ post, showMore }) => {
                             <strong>Post Description </strong> 
                             <p style={{marginTop: '10px'}} dangerouslySetInnerHTML={{__html: post.postDescription}}></p>
                         </p>
-                    </>
+                    </React.Fragment>
                 )}
                 {post.coverPhoto && (
                     <div className={styles.postHighlight}>
