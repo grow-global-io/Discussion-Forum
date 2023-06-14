@@ -1,4 +1,4 @@
-import {Box, Chip,  FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box, Chip, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { MuiChipsInput } from "mui-chips-input";
 import {
     CreateTableButton,
@@ -44,17 +44,17 @@ var ChipArr = [];
 const DOC = {
     type: 'doc',
     content: [
-      {
-        type: 'paragraph',
-        content: [
-          {
-            type: 'text',
-            text: 'This is editable ',
-          },
-        ],
-      },
+        {
+            type: 'paragraph',
+            content: [
+                {
+                    type: 'text',
+                    text: 'This is editable ',
+                },
+            ],
+        },
     ],
-  };
+};
 export async function createAction({ request }) {
 
     const data = await request.formData();
@@ -67,7 +67,7 @@ export async function createAction({ request }) {
     values["cover-photo"] = CoverPhoto
     values["userConfirmation"] = true;
     //Tatz
-    if(values['composerWebsite'].substring(0, 4).toLowerCase() != "http"){
+    if (values['composerWebsite'].substring(0, 4).toLowerCase() != "http") {
         values['composerWebsite'] = "http://" + values['composerWebsite']
     }
     if (values['representativeWorkSample'].substring(0, 4).toLowerCase() != "http") {
@@ -83,32 +83,19 @@ const EditPage = () => {
     // const { setContent } = useRemirrorContext();
     const [ethnicity, setEthnicity] = useState([]);
     const ethnicityOptions = [
-        'Jewish',
-        'Russian',
-        'German',
-        'Hispanic',
-        'Chinese',
-        'Armenian',
-        'Cuban',
-        'Argentine',
-        'French',
-        'Czech',
-        'Puerto Rican',
-        'Brazilian',
-        'Venezuelan',
-        'Irish',
-        'Bulgarian',
-        'Mexican',
-        'Spanish',
-        'Korean',
-        'Polish',
-        'Italian',
-        'Greek',
+        'American Indian or Alaska Native',
+        'Asian',
+        'Black or African American',
+        'Hispanic or Latine',
+        'Native Hawaiian or Other Pacific Islander',
+        'White'
     ];
     const genderOptions = [
-        'Male',
         'Female',
-        'Others'
+        'Male',
+        'Nonbinary',
+        'Gender Nonconforming',
+        'A Different Gender Identity'
     ];
     const [tagArr, setTagArr] = useState([]);
     const [userConfirmation, setUserConfirmation] = useState(false);
@@ -117,10 +104,10 @@ const EditPage = () => {
     const [post, setPost] = useState('');
     const [data, setData] = useState();
     const { id } = useParams()
-    const [postDescription,setPostDescription] = useState();
+    const [postDescription, setPostDescription] = useState();
     useEffect(() => {
-        fetch(Backend_URL+"post/get-data/" + id).then(data => data.json()).then(data => {
-            console.log('postdata',data);
+        fetch(Backend_URL + "post/get-data/" + id).then(data => data.json()).then(data => {
+            console.log('postdata', data);
             setData(data);
             console.log(data.postDescription);
             setPost(data.postDescription);
@@ -131,7 +118,7 @@ const EditPage = () => {
 
     useEffect(() => {
         console.log(post);
-    },[post]);
+    }, [post]);
     const { manager, state } = useRemirror({
         extensions: () => [
             new BoldExtension(),
@@ -152,7 +139,7 @@ const EditPage = () => {
         content: '',
         stringHandler: htmlToProsemirrorNode,
     });
-    
+
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
         try {
@@ -224,207 +211,207 @@ const EditPage = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setData((prevData) => ({
-          ...prevData,
-          [name]: value,
+            ...prevData,
+            [name]: value,
         }));
-      };
-    return  data ? 
-    (
-        <Container>
-            <div className={styles.createWrapper}>
-                <Form className={styles.create} method="post">
-                    <input type="hidden" name="userId" defaultValue={user.uid} />
-                    <input type="hidden" name="userDisplayName" defaultValue={user.displayName} />
-                    <input type="hidden" name="userProfilePhoto" defaultValue={user.photoURL} />
-                    <div>
-                        <TextField name='composerName' color='secondary' required id="composerName" onChange={handleChange} value={data?.composerName||''}  label="Composer Name" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField name='composerWebsite' color='secondary'  onChange={handleChange} value={data?.composerWebsite||''} id="composerWebsite" label="Composer Website" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField name='representativeWorkSample' onChange={handleChange} value={data?.representativeWorkSample||''} color='secondary' id="representativeWorkSample" label="Representative Work Sample" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField onChange={handleChange} value={data?.leadCommissioner||''} name='leadCommissioner' color='secondary' id="leadCommissioner" label="Lead Commissioner" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField onChange={handleChange} value={data?.primaryContact||''} name='primaryContact' color='secondary' id="primaryContact" label="Primary Contact/Email" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField onChange={handleChange} value={data?.premiereDate||''} type="date" color='secondary' name='premiereDate' id="premiereDate" label="Premiere Date" InputLabelProps={{ shrink: true, required: true }} variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField onChange={handleChange} value={data?.totalCommissionFee||''} type='number' name='totalCommissionFee' color='secondary' id="totalCommissionFee" label="Total Commission Fee" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <FormControl fullWidth>
-                            <InputLabel id='fundingStatus-label' color='secondary'>Funding Status</InputLabel>
-                            <Select name='fundingStatus'  labelId="fundingStatus-label" color='secondary' required id='fundingStatus' label='Funding Status'
-                            
-                            defaultValue="seekingFunding">
-                                <MenuItem value="seekingFunding">
-                                    Seeking Funding
-                                </MenuItem>
-                                <MenuItem value="partiallyFunded">
-                                    Partially Funded
-                                </MenuItem>
-                                <MenuItem value="FullyFunded">Fully Funded</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div>
-                        <TextField type='number' name='numberOfPartnersSought' color='secondary' onChange={handleChange} value={data?.numberOfPartnersSought||''} id="numberOfPartnersSought" label="Number of Partners Sought" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField type='number' onChange={handleChange} value={data?.fundsCommittedToDate||''} name='fundsCommittedToDate' color='secondary' id="fundsCommittedToDate" label="Funds Committed to Date" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField type='date' name='deadlineToJoinConsortium' color='secondary' onChange={handleChange} value={data?.deadlineToJoinConsortium||''} id="deadlineToJoinConsortium" label="Deadline to Join Consortium" variant="outlined" InputLabelProps={{ shrink: true, required: true }} style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField type='number' onChange={handleChange} value={data?.partnersCommittedToDate||''} name='partnersCommittedToDate' color='secondary' id="partnersCommittedToDate" label="Partners Committed to Date" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField onChange={handleChange} value={data?.rangeOfConsortiumPartnerCommissionFees||''} name='rangeOfConsortiumPartnerCommissionFees' color='secondary' id="rangeOfConsortiumPartnerCommissionFees" label="Partner Fee Range" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField type='time' onChange={handleChange} value={data?.duration||''} name='duration' color='secondary' id="duration" label="Duration" variant="outlined" InputLabelProps={{ shrink: true, required: true }} style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <FormControl fullWidth>
-                            <InputLabel id='instrumentation-label' color='secondary'>Instrumentation</InputLabel>
-                            <Select name='instrumentation' labelId="instrumentation-label" id='instrumentation' color='secondary' required label='Instrumentation' defaultValue="fixed">
-                                <MenuItem value="fixed">
-                                    Fixed
-                                </MenuItem>
-                                <MenuItem value="flexible">
-                                    Flexible
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div>
-                        <TextField onChange={handleChange} value={data?.conductor||''} name='duration' name='conductor' color='secondary' id="conductor" label="Conductor" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <TextField onChange={handleChange} value={data?.soloist||''} name='soloist' color='secondary' id="soloist" label="Soloist" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div>
-                        <MuiChipsInput placeholder='Enter Your Tags'  value={data?.tags
-                        } onChange={(e) => {
-                            setTagArr(e)
-                            ChipArr = e
-                        }} />
-                        {/* <TextField name='tags' color='secondary' required id="tags" label="Post Tags" variant="outlined" style={{width: '100%'}} placeholder='new band guitarist' /> */}
-                    </div>
-                    <div>
+    };
+    return data ?
+        (
+            <Container>
+                <div className={styles.createWrapper}>
+                    <Form className={styles.create} method="post">
+                        <input type="hidden" name="userId" defaultValue={user.uid} />
+                        <input type="hidden" name="userDisplayName" defaultValue={user.displayName} />
+                        <input type="hidden" name="userProfilePhoto" defaultValue={user.photoURL} />
+                        <div>
+                            <TextField name='composerName' color='secondary' required id="composerName" onChange={handleChange} value={data?.composerName || ''} label="Composer Name" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField name='composerWebsite' color='secondary' onChange={handleChange} value={data?.composerWebsite || ''} id="composerWebsite" label="Composer Website" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField name='representativeWorkSample' onChange={handleChange} value={data?.representativeWorkSample || ''} color='secondary' id="representativeWorkSample" label="Representative Work Sample" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField onChange={handleChange} value={data?.leadCommissioner || ''} name='leadCommissioner' color='secondary' id="leadCommissioner" label="Lead Commissioner" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField onChange={handleChange} value={data?.primaryContact || ''} name='primaryContact' color='secondary' id="primaryContact" label="Primary Contact/Email" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField onChange={handleChange} value={data?.premiereDate || ''} type="date" color='secondary' name='premiereDate' id="premiereDate" label="Premiere Date" InputLabelProps={{ shrink: true, required: true }} variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField onChange={handleChange} value={data?.totalCommissionFee || ''} type='number' name='totalCommissionFee' color='secondary' id="totalCommissionFee" label="Total Commission Fee" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
                             <FormControl fullWidth>
-                                <InputLabel color='secondary' id="demo-multiple-name-label">Ethnicity</InputLabel>
-                                <Select
-                                color='secondary' 
-                                labelId="demo-multiple-name-label"
-                                id="demo-multiple-name"
-                                multiple
-                                value={ethnicity}
-                                onChange={(e) => setEthnicity(e.target.value)}
-                                renderValue={(selected) => (
-                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                        {selected.map((value) => (
-                                            <Chip color='secondary' key={value} label={value} />
-                                        ))}
-                                    </Box>
-                                )}
-                                >
-                                {ethnicityOptions.map(option => (
-                                    <MenuItem key={option} value={option}>{option}</MenuItem>
-                                ))}
+                                <InputLabel id='fundingStatus-label' color='secondary'>Funding Status</InputLabel>
+                                <Select name='fundingStatus' labelId="fundingStatus-label" color='secondary' required id='fundingStatus' label='Funding Status'
+
+                                    defaultValue="seekingFunding">
+                                    <MenuItem value="seekingFunding">
+                                        Seeking Funding
+                                    </MenuItem>
+                                    <MenuItem value="partiallyFunded">
+                                        Partially Funded
+                                    </MenuItem>
+                                    <MenuItem value="FullyFunded">Fully Funded</MenuItem>
                                 </Select>
                             </FormControl>
-                        <input type="hidden" name="ethnicity" id='ethnicity' value={ethnicity} />
-                    </div>
-                    <div>
-                        <FormControl fullWidth>
-                            <InputLabel id='gender-label' color='secondary'>Gender</InputLabel>
-                            <Select defaultValue='' labelId="gender-label" name='gender' id='gender' color='secondary' required label='Gender'>
-                                {genderOptions.map((option) => (
-                                    <MenuItem key={option} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div className={styles.performanceRequirements}>
-                        <TextField onChange={handleChange} value={data?.performanceRequirements||''} name='performanceRequirements' color='secondary' id="performanceRequirements" label="Performance Requirements" variant="outlined" style={{ width: '100%' }} />
-                    </div>
-                    <div className={styles.postDescription}>
-                        <InputLabel htmlFor="postDescription">
-                            Post Description
-                        </InputLabel>
-                        <input
-                            type="hidden"
-                            name="postDescription"
-                            id="postDescription"
-                            value={post} required
-                        />
-                        
-                        <div className="remirror-theme" name="card" id="card">
-                            <ThemeProvider>
-                                <Remirror
-                                    manager={manager}
-                                    initialContent={data?.postDescription||''}
-                                    
-                                    onChange={(paramater) => {
-                                        setPost(
-                                            prosemirrorNodeToHtml(
-                                                paramater.state.doc
-                                            )
-                                        );
-                                    }}
-                                    autoRender="end"
-                                >
-                                    <Toolbar style={{ flexWrap: 'wrap' }}>
-                                        <ToggleBoldButton />
-                                        <ToggleItalicButton />
-                                        <ToggleUnderlineButton />
-                                        <ToggleStrikeButton />
-                                        <HeadingLevelButtonGroup showAll />
-                                        <ListButtonGroup />
-                                        <CreateTableButton />
-                                    </Toolbar>
-                                </Remirror>
-                            </ThemeProvider>
                         </div>
-                    </div>
-                    <div>
-                        <label className={styles.upload} htmlFor="coverPhoto">Cover Photo<input type="file" name="coverPhoto" id="coverPhoto" accept="image/x-png,image/gif,image/jpeg" onChange={(e) => handleImageUpload(e)} /></label>
-                    </div>
-                    <img src={coverImage} alt="" style={{ width: '100%', gridColumn: 'span 3' }} />
-                    <div className={styles.checkboxContainer}>
-                    <label >
-                        <input
-                        type="checkbox"
-                        className={styles.checkboxInput}
-                        checked={userConfirmation}
-                        onChange={(e) => setUserConfirmation(e.target.checked)}
-                        /> 
-                        <span className={styles.checkboxText}>
-                            I confirm to have approved all these details for public posting
+                        <div>
+                            <TextField type='number' name='numberOfPartnersSought' color='secondary' onChange={handleChange} value={data?.numberOfPartnersSought || ''} id="numberOfPartnersSought" label="Number of Partners Sought" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField type='number' onChange={handleChange} value={data?.fundsCommittedToDate || ''} name='fundsCommittedToDate' color='secondary' id="fundsCommittedToDate" label="Funds Committed to Date" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField type='date' name='deadlineToJoinConsortium' color='secondary' onChange={handleChange} value={data?.deadlineToJoinConsortium || ''} id="deadlineToJoinConsortium" label="Deadline to Join Consortium" variant="outlined" InputLabelProps={{ shrink: true, required: true }} style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField type='number' onChange={handleChange} value={data?.partnersCommittedToDate || ''} name='partnersCommittedToDate' color='secondary' id="partnersCommittedToDate" label="Partners Committed to Date" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField onChange={handleChange} value={data?.rangeOfConsortiumPartnerCommissionFees || ''} name='rangeOfConsortiumPartnerCommissionFees' color='secondary' id="rangeOfConsortiumPartnerCommissionFees" label="Partner Fee Range" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField onChange={handleChange} value={data?.duration || ''} name='duration' color='secondary' id="duration" label="Duration" variant="outlined" InputLabelProps={{ shrink: true, required: true }} style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <FormControl fullWidth>
+                                <InputLabel id='instrumentation-label' color='secondary'>Instrumentation</InputLabel>
+                                <Select name='instrumentation' labelId="instrumentation-label" id='instrumentation' color='secondary' required label='Instrumentation' defaultValue="fixed">
+                                    <MenuItem value="fixed">
+                                        Fixed
+                                    </MenuItem>
+                                    <MenuItem value="flexible">
+                                        Flexible
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div>
+                            <TextField onChange={handleChange} value={data?.conductor || ''} name='duration' name='conductor' color='secondary' id="conductor" label="Conductor" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <TextField onChange={handleChange} value={data?.soloist || ''} name='soloist' color='secondary' id="soloist" label="Soloist" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div>
+                            <MuiChipsInput placeholder='Enter Your Tags' value={data?.tags
+                            } onChange={(e) => {
+                                setTagArr(e)
+                                ChipArr = e
+                            }} />
+                            {/* <TextField name='tags' color='secondary' required id="tags" label="Post Tags" variant="outlined" style={{width: '100%'}} placeholder='new band guitarist' /> */}
+                        </div>
+                        <div>
+                            <FormControl fullWidth>
+                                <InputLabel color='secondary' id="demo-multiple-name-label">Composer Race/Ethnicity</InputLabel>
+                                <Select
+                                    color='secondary'
+                                    labelId="demo-multiple-name-label"
+                                    id="demo-multiple-name"
+                                    multiple
+                                    value={ethnicity}
+                                    onChange={(e) => setEthnicity(e.target.value)}
+                                    renderValue={(selected) => (
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                            {selected.map((value) => (
+                                                <Chip color='secondary' key={value} label={value} />
+                                            ))}
+                                        </Box>
+                                    )}
+                                >
+                                    {ethnicityOptions.map(option => (
+                                        <MenuItem key={option} value={option}>{option}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <input type="hidden" name="ethnicity" id='ethnicity' value={ethnicity} />
+                        </div>
+                        <div>
+                            <FormControl fullWidth>
+                                <InputLabel id='gender-label' color='secondary'>Composer Gender</InputLabel>
+                                <Select defaultValue='' labelId="gender-label" name='gender' id='gender' color='secondary' required label='Gender'>
+                                    {genderOptions.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className={styles.performanceRequirements}>
+                            <TextField onChange={handleChange} value={data?.performanceRequirements || ''} name='performanceRequirements' color='secondary' id="performanceRequirements" label="Detailed Instrumentation and Performance Requirements" variant="outlined" style={{ width: '100%' }} />
+                        </div>
+                        <div className={styles.postDescription}>
+                            <InputLabel htmlFor="postDescription">
+                                Post Description
+                            </InputLabel>
+                            <input
+                                type="hidden"
+                                name="postDescription"
+                                id="postDescription"
+                                value={post} required
+                            />
 
-                        </span>
-                    </label>
-                    </div>
-                    <div className={styles.submit}>
-                        <Link to="/home">
-                            <button>Cancel</button>
-                        </Link>
-                        <button className={userConfirmation ? '' : styles.lightButton} disabled={!userConfirmation} type="submit">Post</button>
-                    </div>
-                </Form>
-            </div>
-        </Container>
-    ):"Loading..."
+                            <div className="remirror-theme" name="card" id="card">
+                                <ThemeProvider>
+                                    <Remirror
+                                        manager={manager}
+                                        initialContent={data?.postDescription || ''}
+
+                                        onChange={(paramater) => {
+                                            setPost(
+                                                prosemirrorNodeToHtml(
+                                                    paramater.state.doc
+                                                )
+                                            );
+                                        }}
+                                        autoRender="end"
+                                    >
+                                        <Toolbar style={{ flexWrap: 'wrap' }}>
+                                            <ToggleBoldButton />
+                                            <ToggleItalicButton />
+                                            <ToggleUnderlineButton />
+                                            <ToggleStrikeButton />
+                                            <HeadingLevelButtonGroup showAll />
+                                            <ListButtonGroup />
+                                            <CreateTableButton />
+                                        </Toolbar>
+                                    </Remirror>
+                                </ThemeProvider>
+                            </div>
+                        </div>
+                        <div>
+                            <label className={styles.upload} htmlFor="coverPhoto">Cover Photo<input type="file" name="coverPhoto" id="coverPhoto" accept="image/x-png,image/gif,image/jpeg" onChange={(e) => handleImageUpload(e)} /></label>
+                        </div>
+                        <img src={coverImage} alt="" style={{ width: '100%', gridColumn: 'span 3' }} />
+                        <div className={styles.checkboxContainer}>
+                            <label >
+                                <input
+                                    type="checkbox"
+                                    className={styles.checkboxInput}
+                                    checked={userConfirmation}
+                                    onChange={(e) => setUserConfirmation(e.target.checked)}
+                                />
+                                <span className={styles.checkboxText}>
+                                    I confirm to have approved all these details for public posting
+
+                                </span>
+                            </label>
+                        </div>
+                        <div className={styles.submit}>
+                            <Link to="/home">
+                                <button>Cancel</button>
+                            </Link>
+                            <button className={userConfirmation ? '' : styles.lightButton} disabled={!userConfirmation} type="submit">Post</button>
+                        </div>
+                    </Form>
+                </div>
+            </Container>
+        ) : "Loading..."
 };
 
 export default EditPage;

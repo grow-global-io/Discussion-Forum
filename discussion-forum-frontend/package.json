@@ -18,6 +18,8 @@
     "crypto": "^1.0.1",
     "filereader": "^0.10.3",
     "firebase": "^9.22.2",
+    "firebase-tools": "^12.3.1",
+    "global": "^4.4.0",
     "mui-chips-input": "^2.0.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",

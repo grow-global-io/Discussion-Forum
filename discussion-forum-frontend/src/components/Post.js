@@ -121,7 +121,7 @@ const Post = ({ post, showMore }) => {
                             {post.soloist}
                         </p>
                         <p>
-                            <strong>Composer Ethnicity: </strong>
+                            <strong>Composer Race/Ethnicity: </strong>
                             {post.ethnicity}
                         </p>
                         <p>

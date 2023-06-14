@@ -53,13 +53,13 @@ export async function createAction({ request }) {
     values["cover-photo"] = CoverPhoto
     values["userConfirmation"] = true;
     //Tatz
-    if(values['composerWebsite'].substring(0, 4).toLowerCase() != "http"){
+    if (values['composerWebsite'].substring(0, 4).toLowerCase() != "http") {
         values['composerWebsite'] = "http://" + values['composerWebsite']
     }
     if (values['representativeWorkSample'].substring(0, 4).toLowerCase() != "http") {
         values['representativeWorkSample'] = "http://" + values['representativeWorkSample']
     }
-    
+
     await fetch(Backend_URL + "post/create", {
         method: "POST",
         body: JSON.stringify(values)
@@ -75,32 +75,19 @@ const CreatePage = () => {
     const [post, setPost] = useState('');
     const [ethnicity, setEthnicity] = useState([]);
     const ethnicityOptions = [
-        'Jewish',
-        'Russian',
-        'German',
-        'Hispanic',
-        'Chinese',
-        'Armenian',
-        'Cuban',
-        'Argentine',
-        'French',
-        'Czech',
-        'Puerto Rican',
-        'Brazilian',
-        'Venezuelan',
-        'Irish',
-        'Bulgarian',
-        'Mexican',
-        'Spanish',
-        'Korean',
-        'Polish',
-        'Italian',
-        'Greek',
+        'American Indian or Alaska Native',
+        'Asian',
+        'Black or African American',
+        'Hispanic or Latine',
+        'Native Hawaiian or Other Pacific Islander',
+        'White'
     ];
     const genderOptions = [
-        'Male',
         'Female',
-        'Others'
+        'Male',
+        'Nonbinary',
+        'Gender Nonconforming',
+        'A Different Gender Identity'
     ];
 
     const { manager, state } = useRemirror({
@@ -193,7 +180,7 @@ const CreatePage = () => {
         CoverPhoto = compressedImage
     };
 
- 
+
 
     return (
         <Container>
@@ -282,10 +269,10 @@ const CreatePage = () => {
                         {/* <TextField name='tags' color='secondary' required id="tags" label="Post Tags" variant="outlined" style={{width: '100%'}} placeholder='new band guitarist' /> */}
                     </div>
                     <div>
-                            <FormControl fullWidth>
-                                <InputLabel color='secondary' id="demo-multiple-name-label">Composer Ethnicity</InputLabel>
-                                <Select
-                                color='secondary' 
+                        <FormControl fullWidth>
+                            <InputLabel color='secondary' id="demo-multiple-name-label">Composer Race/Ethnicity</InputLabel>
+                            <Select
+                                color='secondary'
                                 labelId="demo-multiple-name-label"
                                 id="demo-multiple-name"
                                 multiple
@@ -298,18 +285,18 @@ const CreatePage = () => {
                                         ))}
                                     </Box>
                                 )}
-                                >
+                            >
                                 {ethnicityOptions.map(option => (
                                     <MenuItem key={option} value={option}>{option}</MenuItem>
                                 ))}
-                                </Select>
-                            </FormControl>
+                            </Select>
+                        </FormControl>
                         <input type="hidden" name="ethnicity" id='ethnicity' value={ethnicity} />
                     </div>
                     <div>
                         <FormControl fullWidth>
                             <InputLabel id='gender-label' color='secondary'>Composer Gender</InputLabel>
-                          <Select defaultValue='' labelId="gender-label" name='gender' id='gender' color='secondary' required label='Gender'>
+                            <Select defaultValue='' labelId="gender-label" name='gender' id='gender' color='secondary' required label='Gender'>
                                 {genderOptions.map((option) => (
                                     <MenuItem key={option} value={option}>
                                         {option}
@@ -319,18 +306,18 @@ const CreatePage = () => {
                         </FormControl>
                     </div>
                     <div className={styles.checkboxContainer}>
-                    <label >
-                        <input
-                        name='publicPosting'
-                        id='publicPosting'
-                        type="checkbox"
-                        className={styles.checkboxInput}
-                        /> 
-                        <span className={styles.checkboxText}>
+                        <label >
+                            <input
+                                name='publicPosting'
+                                id='publicPosting'
+                                type="checkbox"
+                                className={styles.checkboxInput}
+                            />
+                            <span className={styles.checkboxText}>
                                 If demographic data has been provided, I confirm that the composer has approved these details for public posting
 
-                        </span>
-                    </label>
+                            </span>
+                        </label>
                     </div>
                     <div className={styles.performanceRequirements}>
                         <TextField name='performanceRequirements' color='secondary' id="performanceRequirements" label="Detailed Instrumentation and Performance Requirements" variant="outlined" style={{ width: '100%' }} />
@@ -376,18 +363,18 @@ const CreatePage = () => {
                     </div>
                     <img src={coverImage} alt="" style={{ width: '100%', gridColumn: 'span 3' }} />
                     <div className={styles.checkboxContainer}>
-                    <label >
-                        <input
-                        type="checkbox"
-                        className={styles.checkboxInput}
-                        checked={userConfirmation}
-                        onChange={(e) => setUserConfirmation(e.target.checked)}
-                        /> 
-                        <span className={styles.checkboxText}>
-                            I confirm to have approved all these details for public posting
+                        <label >
+                            <input
+                                type="checkbox"
+                                className={styles.checkboxInput}
+                                checked={userConfirmation}
+                                onChange={(e) => setUserConfirmation(e.target.checked)}
+                            />
+                            <span className={styles.checkboxText}>
+                                I confirm to have approved all these details for public posting
 
-                        </span>
-                    </label>
+                            </span>
+                        </label>
                     </div>
                     <div className={styles.submit}>
                         <Link to="/home">
