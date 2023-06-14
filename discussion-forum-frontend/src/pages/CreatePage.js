@@ -280,7 +280,7 @@ const CreatePage = () => {
                     </div>
                     <div>
                             <FormControl fullWidth>
-                                <InputLabel color='secondary' id="demo-multiple-name-label">Ethnicity</InputLabel>
+                                <InputLabel color='secondary' id="demo-multiple-name-label">Composer Ethnicity</InputLabel>
                                 <Select
                                 color='secondary' 
                                 labelId="demo-multiple-name-label"
@@ -305,8 +305,8 @@ const CreatePage = () => {
                     </div>
                     <div>
                         <FormControl fullWidth>
-                            <InputLabel id='gender-label' color='secondary'>Gender</InputLabel>
-                            <Select defaultValue='' labelId="gender-label" name='gender' id='gender' color='secondary' required label='Gender'>
+                            <InputLabel id='gender-label' color='secondary'>Composer Gender</InputLabel>
+                          <Select defaultValue='' labelId="gender-label" name='gender' id='gender' color='secondary' required label='Gender'>
                                 {genderOptions.map((option) => (
                                     <MenuItem key={option} value={option}>
                                         {option}
@@ -314,6 +314,20 @@ const CreatePage = () => {
                                 ))}
                             </Select>
                         </FormControl>
+                    </div>
+                    <div className={styles.checkboxContainer}>
+                    <label >
+                        <input
+                        name='publicPosting'
+                        id='publicPosting'
+                        type="checkbox"
+                        className={styles.checkboxInput}
+                        /> 
+                        <span className={styles.checkboxText}>
+                        The creator of this post confirms that the composer has approved these details for public posting
+
+                        </span>
+                    </label>
                     </div>
                     <div className={styles.performanceRequirements}>
                         <TextField name='performanceRequirements' color='secondary' id="performanceRequirements" label="Performance Requirements" variant="outlined" style={{ width: '100%' }} />

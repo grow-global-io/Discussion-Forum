@@ -140,7 +140,7 @@ const Post = ({ post, showMore }) => {
                 )}
                 {post.coverPhoto && (
                     <div className={styles.postHighlight}>
-                        <img src={post["cover-photo"]} width={300} alt="" />
+                        <img src={post["cover-photo"]} width={300} style={{margin: '0 auto'}} alt="" />
                     </div>
                 )}
             </div>

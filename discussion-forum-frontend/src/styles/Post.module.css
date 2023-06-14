@@ -218,6 +218,12 @@
     }
 }
 
+@media (width >= 768px) {
+    .postHighlight img {
+        width: auto;
+    }
+}
+
 @media (width >= 1024px) {
     .postWrapper {
         grid-template-columns: repeat(6, 1fr);
