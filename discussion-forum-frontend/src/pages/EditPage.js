@@ -122,15 +122,11 @@ const EditPage = () => {
             setData(data);
             console.log(data.postDescription);
             setPost(data.postDescription);
-            console.log(post);
             setCoverImage(data["cover-photo"]);
             // console.log(data["cover-photo"])
         })
     }, [])
-    useEffect(() => {
-        console.log(data);
-        console.log(post.userDisplayName);
-    },[data]);
+
     useEffect(() => {
         console.log(post);
     },[post]);
@@ -230,7 +226,8 @@ const EditPage = () => {
           [name]: value,
         }));
       };
-    return (
+    return  data ? 
+    (
         <Container>
             <div className={styles.createWrapper}>
                 <Form className={styles.create} method="post">
@@ -359,8 +356,6 @@ const EditPage = () => {
                     <div className={styles.performanceRequirements}>
                         <TextField onChange={handleChange} value={data?.performanceRequirements||''} name='performanceRequirements' color='secondary' id="performanceRequirements" label="Performance Requirements" variant="outlined" style={{ width: '100%' }} />
                     </div>
-                    debugger
-                    <div>{post}</div>
                     <div className={styles.postDescription}>
                         <InputLabel htmlFor="postDescription">
                             Post Description
@@ -371,11 +366,12 @@ const EditPage = () => {
                             id="postDescription"
                             value={post} required
                         />
+                        
                         <div className="remirror-theme" name="card" id="card">
                             <ThemeProvider>
                                 <Remirror
                                     manager={manager}
-                                    initialContent={state}
+                                    initialContent={data?.postDescription||''}
                                     
                                     onChange={(paramater) => {
                                         setPost(
@@ -426,7 +422,7 @@ const EditPage = () => {
                 </Form>
             </div>
         </Container>
-    );
+    ):"Loading..."
 };
 
 export default EditPage;
