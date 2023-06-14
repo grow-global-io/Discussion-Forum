@@ -7,7 +7,7 @@ const PostFooter = ({ data, post, like, dislike, handleComments }) => {
     const navigate = useNavigate();
     const [likes, setLikes] = useState(post.likedBy?.length);
     const [isLiked, setIsLiked] = useState(post.likedBy?.includes(data.userId));
-
+    console.log(data);
     const handleLike = () => {
         setLikes(() => {
             return likes + 1;
@@ -23,7 +23,11 @@ const PostFooter = ({ data, post, like, dislike, handleComments }) => {
         setIsLiked(false);
         dislike();
     }
-
+    const handleEdit = () => {
+        // Perform the edit action
+        console.log('Edit button clicked!');
+        navigate('/edit-post/' + post.id);
+    }
     return (
         <div className={styles.postFooter}>
                 {post.likedBy && !isLiked ? (
@@ -41,6 +45,12 @@ const PostFooter = ({ data, post, like, dislike, handleComments }) => {
                     <AiOutlineComment />{' '}
                     {post.comments ? post.comments.length : 0}
                 </button>
+                {true && (
+                    
+                    <button onClick={handleEdit}>
+                        {post.userId}Edit{data.userId }
+                    </button>
+                )}
             </div>
     );
 }

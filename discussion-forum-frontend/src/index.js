@@ -15,6 +15,7 @@ import SignUp from './pages/SignUp';
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import Root from './routes/Root';
 import "./styles/styles.css";
+import EditPage from './pages/EditPage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
         path: '/user/:id/:username',
         element: <ProfileView />,
         loader: userProfileLoader
+      },
+      {
+        path:"/edit-post/:id",
+        element:<EditPage />,
       }
     ]
   },
