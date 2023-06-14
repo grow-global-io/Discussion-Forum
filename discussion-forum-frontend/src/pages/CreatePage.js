@@ -56,6 +56,9 @@ export async function createAction({ request }) {
     if(values['composerWebsite'].substring(0, 4).toLowerCase() != "http"){
         values['composerWebsite'] = "http://" + values['composerWebsite']
     }
+    if (values['representativeWorkSample'].substring(0, 4).toLowerCase() != "http") {
+        values['representativeWorkSample'] = "http://" + values['representativeWorkSample']
+    }
     
     await fetch(Backend_URL + "post/create", {
         method: "POST",
@@ -324,7 +327,7 @@ const CreatePage = () => {
                         className={styles.checkboxInput}
                         /> 
                         <span className={styles.checkboxText}>
-                        The creator of this post confirms that the composer has approved these details for public posting
+                                If demographic data has been provided, I confirm that the composer has approved these details for public posting
 
                         </span>
                     </label>

@@ -70,7 +70,9 @@ export async function createAction({ request }) {
     if(values['composerWebsite'].substring(0, 4).toLowerCase() != "http"){
         values['composerWebsite'] = "http://" + values['composerWebsite']
     }
-    
+    if (values['representativeWorkSample'].substring(0, 4).toLowerCase() != "http") {
+        values['representativeWorkSample'] = "http://" + values['representativeWorkSample']
+    }
     await fetch(Backend_URL + "post/create", {
         method: "POST",
         body: JSON.stringify(values)

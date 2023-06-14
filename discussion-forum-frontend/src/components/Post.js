@@ -54,9 +54,9 @@ const Post = ({ post, showMore }) => {
                 <a href={post.composerWebsite} target='_blank' rel="noreferrer">
                     <IoMdLink /> View Website
                 </a>
-                {/* <a href={post.representativeWorkSample} target='_blank' rel="noreferrer">
+                <a href={post.representativeWorkSample} target='_blank' rel="noreferrer">
                     <IoMdLink /> View Sample
-                </a> */}
+                </a>
             </div>
             <div className={styles.postBody}>
                 {post.tags && (<div className={styles.postTags}>
@@ -121,11 +121,11 @@ const Post = ({ post, showMore }) => {
                             {post.soloist}
                         </p>
                         <p>
-                            <strong>Ethnicity: </strong>
+                            <strong>Composer Ethnicity: </strong>
                             {post.ethnicity}
                         </p>
                         <p>
-                            <strong>Gender: </strong>
+                            <strong>Composer Gender: </strong>
                             {post.gender}
                         </p>
                         <p>
