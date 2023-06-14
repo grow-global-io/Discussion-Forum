@@ -102,6 +102,13 @@
     color: white;
 }
 
+.results {
+    position: absolute;
+    top: 150px;
+    padding: 5px;
+    left: 0;
+}
+
 /* mobile S */
 @media (width >= 320px) {
     :root {
@@ -137,6 +144,21 @@
     .homeLink {
         grid-row: 3;
         place-self: start;
+    }
+}
+
+/* mobile M */
+@media (width >= 375px) {
+    .results {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* tablet */
+@media (width >= 768px) {
+    .results {
+        top: 110px;
     }
 }
 

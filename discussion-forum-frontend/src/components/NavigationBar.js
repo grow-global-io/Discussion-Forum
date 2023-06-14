@@ -1,12 +1,12 @@
+import { TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Card, Container, Image, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { Backend_URL } from "../Constants/backend";
 import BrandLogo from "../assets/aco-logo.png";
 import styles from "../styles/Home.module.css";
 import ProfileToggle from "./ProfileToggle";
-import { TextField } from "@mui/material";
-import { Backend_URL } from "../Constants/backend";
 
 const NavigationBar = () => {
   const user = useSelector((state) => state.auth.userInfo);
@@ -58,12 +58,24 @@ const NavigationBar = () => {
             </Navbar.Brand>
             <Link to="/" style={{ color: '#722282', display: 'inline' }}>National Co-Commissioning Hub</Link>
           </div>
-          <TextField variant="standard" fullWidth style={{ maxWidth: 600 }} className="mx-5 mt-3 mt-md-0" type="search"
+          <Navbar.Collapse className="justify-content-end">
+            {!user.id && (
+              <button
+                className={styles.newPost}
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login
+              </button>
+            )}
+            {userProfileImage}
+          </Navbar.Collapse>
+          <TextField variant="standard" fullWidth className="mx-5 mt-3 mt-md-0" type="search"
             onChange={(e) => changeHandler(e)}
             placeholder="Search..." onFocus={() => {
               setToggler(true)
             }}  
-            autocomplete="false"
             
             onBlur={()=>{
               setTimeout(()=>{
@@ -72,12 +84,7 @@ const NavigationBar = () => {
             }}
             />
           {
-            toggler && <Card style={{
-              position: "absolute",
-              right: "50vw",
-              top: "80px",
-              padding: "10px 30px"
-            }} >
+            toggler && <Card className={styles.results}>
               {filteredData.length>0? filteredData.map(each => {
                 return (
                   <div onClick={()=>redirectHandler(each)}  style={{textDecoration:"none",color:"black", borderBottom:"1px solid rgba(0,0,0,0.25)", minWidth:"300px"}} className="d-flex justify-content-between">
@@ -107,19 +114,6 @@ const NavigationBar = () => {
               }
             </Card>
           }
-          <Navbar.Collapse className="justify-content-end">
-            {!user.id && (
-              <button
-                className={styles.newPost}
-                onClick={() => {
-                  navigate("/login");
-                }}
-              >
-                Login
-              </button>
-            )}
-            {userProfileImage}
-          </Navbar.Collapse>
 
         </Container>
       </Navbar>
