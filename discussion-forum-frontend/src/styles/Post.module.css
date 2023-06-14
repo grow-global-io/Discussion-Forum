@@ -88,7 +88,7 @@
     grid-column: 1 / 7;
     padding: calc(var(--_size));
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .postFooter button {

@@ -3,6 +3,7 @@ import { AiFillHeart, AiOutlineComment, AiOutlineHeart } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Post.module.css';
 
+import { FaRegEdit } from 'react-icons/fa';
 const PostFooter = ({ data, post, like, dislike, handleComments }) => {
     const navigate = useNavigate();
     const [likes, setLikes] = useState(post.likedBy?.length);
@@ -45,10 +46,9 @@ const PostFooter = ({ data, post, like, dislike, handleComments }) => {
                     <AiOutlineComment />{' '}
                     {post.comments ? post.comments.length : 0}
                 </button>
-                {true && (
-                    
+                {data.userId === post.userId && (
                     <button onClick={handleEdit}>
-                        {post.userId}Edit{data.userId }
+                        <FaRegEdit />
                     </button>
                 )}
             </div>
