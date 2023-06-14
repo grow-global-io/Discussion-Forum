@@ -69,10 +69,10 @@ const Login = () => {
         }
         emailjs
             .send(
-                'service_b3tfuxp',
-                'template_oul3w55',
+                'service_5gdzlon',
+                'template_rf1wj7v',
                 templateParams,
-                'wYWNPlxaAjQrG0S0w'
+                'V02Ae6OjPmCFPW1ft'
             )
             .then(
                 function (response) {
@@ -177,7 +177,7 @@ const Login = () => {
                                         <button type="submit" onClick={() => triggerOTP()}>Login</button>
                                     </Form>
                                 }
-                               
+
                                 {
                                     //     <p>Login using</p>
                                     // <Button variant="outlined" color='secondary' onClick={googleSignIn} startIcon={<FcGoogle />}>Google</Button>

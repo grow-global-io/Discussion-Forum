@@ -250,7 +250,7 @@ const CreatePage = () => {
                         <TextField name='rangeOfConsortiumPartnerCommissionFees' color='secondary' id="rangeOfConsortiumPartnerCommissionFees" label="Partner Fee Range" variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
-                        <TextField type='time' name='duration' color='secondary' id="duration" label="Duration" variant="outlined" InputLabelProps={{ shrink: true, required: true }} style={{ width: '100%' }} />
+                        <TextField name='duration' color='secondary' id="duration" label="Duration" variant="outlined" InputLabelProps={{ shrink: true, required: true }} style={{ width: '100%' }} />
                     </div>
                     <div>
                         <FormControl fullWidth>
@@ -330,7 +330,7 @@ const CreatePage = () => {
                     </label>
                     </div>
                     <div className={styles.performanceRequirements}>
-                        <TextField name='performanceRequirements' color='secondary' id="performanceRequirements" label="Performance Requirements" variant="outlined" style={{ width: '100%' }} />
+                        <TextField name='performanceRequirements' color='secondary' id="performanceRequirements" label="Detailed Instrumentation and Performance Requirements" variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div className={styles.postDescription}>
                         <InputLabel htmlFor="postDescription">

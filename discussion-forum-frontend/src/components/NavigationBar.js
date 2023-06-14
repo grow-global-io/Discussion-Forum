@@ -63,6 +63,7 @@ const NavigationBar = () => {
             placeholder="Search..." onFocus={() => {
               setToggler(true)
             }}  
+            autocomplete="false"
             
             onBlur={()=>{
               setTimeout(()=>{
