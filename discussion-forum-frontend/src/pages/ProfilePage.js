@@ -2,35 +2,34 @@ import { useDispatch } from 'react-redux';
 
 import styles from '../styles/Profile.module.css';
 
+import { Backdrop, InputLabel } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import MenuItem from '@mui/material/MenuItem';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import { Container, ProgressBar } from 'react-bootstrap';
 import { AiOutlineCalendar, AiOutlineMail } from 'react-icons/ai';
-import { Form, redirect, useParams } from 'react-router-dom';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { Backdrop, InputLabel } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import { BsGlobe, BsPersonCircle } from 'react-icons/bs';
-import { BsGenderAmbiguous } from "react-icons/bs";
+import { BsGenderAmbiguous, BsGlobe, BsPersonCircle } from 'react-icons/bs';
 import { FaGuitar } from 'react-icons/fa';
 import { IoIosPeople } from "react-icons/io";
+import { Form, redirect, useParams } from 'react-router-dom';
 import { Backend_URL } from '../Constants/backend';
 import { getUser } from '../features/auth/authSlice';
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import FormHelperText from '@mui/material/FormHelperText';
 
 let CoverPhoto;
-let ethnicityValue = [];
-let genderValue = [];
+// let ethnicityValue = [];
+// let genderValue = [];
 export async function profileAction({ request, params }) {
     const data = await request.formData();
     const { ...values } = Object.fromEntries(data);
     values.photoURL = CoverPhoto;
     // console.log(ethnicityValue);
     // console.log(genderValue);
-    values.ethnicity = ethnicityValue; // Add ethnicity value
-    values.gender = genderValue; // Add gender value
+    // values.ethnicity = ethnicityValue; // Add ethnicity value
+    // values.gender = genderValue; // Add gender value
     //debugger
     await fetch(Backend_URL + "user/update-profile/" + params.id, {
         method: "POST",
@@ -46,23 +45,23 @@ const ProfilePage = () => {
     const [user, setUser] = useState()
     const [edit, setEdit] = useState(false);
 
-    const [ethnicity, setEthnicity] = useState([]);
-    const [gender, setGender] = useState('');
+    // const [ethnicity, setEthnicity] = useState([]);
+    // const [gender, setGender] = useState('');
     const [coverImage, setCoverImage] = useState("");
-    const ethnicityOptions = [
-        'American Indian or Alaska Native',
-        'Asian',
-        'Black or African American',
-        'Hispanic or Latino',
-        'Native Hawaiian or Other Pacific Islander',
-        'White'
-    ];
+    // const ethnicityOptions = [
+    //     'American Indian or Alaska Native',
+    //     'Asian',
+    //     'Black or African American',
+    //     'Hispanic or Latino',
+    //     'Native Hawaiian or Other Pacific Islander',
+    //     'White'
+    // ];
 
-    const genderOptions = [
-        'Male',
-        'Female',
-        'Others'
-    ];
+    // const genderOptions = [
+    //     'Male',
+    //     'Female',
+    //     'Others'
+    // ];
 
     useEffect(() => {
         fetch(Backend_URL + "user/get/" + id, {
@@ -206,7 +205,7 @@ const ProfilePage = () => {
                                     {user.website}
                                 </div>
                             }
-                            {
+                            {/* {
                                 user.ethnicity &&
                                 <div>
                                     <IoIosPeople className='icon' />
@@ -219,7 +218,7 @@ const ProfilePage = () => {
                                     <BsGenderAmbiguous className='icon' />
                                     {user.gender}
                                 </div>
-                            }
+                            } */}
                         </div>
                         <div>
                             <p>Profile Filled</p>
@@ -256,7 +255,7 @@ const ProfilePage = () => {
                     <div>
                         <TextField label="Website" color='secondary' name="website" id="website" variant="outlined" style={{ width: '100%' }} />
                     </div>
-                    <div>
+                    {/* <div>
                         <FormControl variant="outlined" style={{ width: '100%' }}>
                             <InputLabel>Ethnicity</InputLabel>
                             <Select
@@ -305,7 +304,7 @@ const ProfilePage = () => {
                                 // <FormHelperText>Please select your gender</FormHelperText>
                             }
                         </FormControl>
-                    </div>
+                    </div> */}
 
                     <div className={styles.submit} onSubmit={submitHandler}>
                         <button type="submit">Save Profile</button>

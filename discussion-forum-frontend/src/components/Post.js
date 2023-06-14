@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import { Chip } from '@mui/material';
 import styles from '../styles/Post.module.css';
@@ -121,6 +121,14 @@ const Post = ({ post, showMore }) => {
                             {post.soloist}
                         </p>
                         <p>
+                            <strong>Ethnicity: </strong>
+                            {post.ethnicity}
+                        </p>
+                        <p>
+                            <strong>Gender: </strong>
+                            {post.gender}
+                        </p>
+                        <p>
                             <strong>Performance Requirements: </strong>
                             {post.performanceRequirements}
                         </p>
@@ -132,7 +140,7 @@ const Post = ({ post, showMore }) => {
                 )}
                 {post.coverPhoto && (
                     <div className={styles.postHighlight}>
-                        <img src={post["cover-photo"]} alt="" />
+                        <img src={post["cover-photo"]} width={300} alt="" />
                     </div>
                 )}
             </div>

@@ -1,5 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { MuiChipsInput } from "mui-chips-input";
+import { Box, Chip, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import {
     CreateTableButton,
     HeadingLevelButtonGroup,
@@ -13,12 +12,12 @@ import {
     Toolbar,
     useRemirror,
 } from '@remirror/react';
+import { MuiChipsInput } from "mui-chips-input";
 import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Form, Link, redirect } from 'react-router-dom';
 import { htmlToProsemirrorNode, prosemirrorNodeToHtml } from 'remirror';
-import { Backend_URL } from '../Constants/backend'
 import {
     BoldExtension,
     BulletListExtension,
@@ -36,6 +35,7 @@ import {
     UnderlineExtension,
 } from 'remirror/extensions';
 import 'remirror/styles/all.css';
+import { Backend_URL } from '../Constants/backend';
 import styles from '../styles/Create.module.css';
 
 var CoverPhoto;
@@ -70,6 +70,36 @@ const CreatePage = () => {
     const user = useSelector((state) => state.auth.userInfo);
     const [coverImage, setCoverImage] = useState('');
     const [post, setPost] = useState('');
+    const [ethnicity, setEthnicity] = useState([]);
+    const ethnicityOptions = [
+        'Jewish',
+        'Russian',
+        'German',
+        'Hispanic',
+        'Chinese',
+        'Armenian',
+        'Cuban',
+        'Argentine',
+        'French',
+        'Czech',
+        'Puerto Rican',
+        'Brazilian',
+        'Venezuelan',
+        'Irish',
+        'Bulgarian',
+        'Mexican',
+        'Spanish',
+        'Korean',
+        'Polish',
+        'Italian',
+        'Greek',
+    ];
+    const genderOptions = [
+        'Male',
+        'Female',
+        'Others'
+    ];
+
     const { manager, state } = useRemirror({
         extensions: () => [
             new BoldExtension(),
@@ -160,6 +190,8 @@ const CreatePage = () => {
         CoverPhoto = compressedImage
     };
 
+ 
+
     return (
         <Container>
             <div className={styles.createWrapper}>
@@ -191,14 +223,14 @@ const CreatePage = () => {
                     <div>
                         <FormControl fullWidth>
                             <InputLabel id='fundingStatus-label' color='secondary'>Funding Status</InputLabel>
-                            <Select labelId="fundingStatus-label" color='secondary' required id='fundingStatus' label='Funding Status' defaultValue="seekingFunding">
-                                <MenuItem value="seekingFunding">
+                            <Select labelId="fundingStatus-label" color='secondary' required name='fundingStatus' id='fundingStatus' label='Funding Status' defaultValue="seekingFunding">
+                                <MenuItem value="Seeking Funding">
                                     Seeking Funding
                                 </MenuItem>
-                                <MenuItem value="partiallyFunded">
+                                <MenuItem value="Partially Funded">
                                     Partially Funded
                                 </MenuItem>
-                                <MenuItem value="fullyFunded">Fully Funded</MenuItem>
+                                <MenuItem value="Fully Funded">Fully Funded</MenuItem>
                             </Select>
                         </FormControl>
                     </div>
@@ -223,11 +255,11 @@ const CreatePage = () => {
                     <div>
                         <FormControl fullWidth>
                             <InputLabel id='instrumentation-label' color='secondary'>Instrumentation</InputLabel>
-                            <Select labelId="instrumentation-label" id='instrumentation' color='secondary' required label='Instrumentation' defaultValue="fixed">
-                                <MenuItem value="fixed">
+                            <Select labelId="instrumentation-label" name='instrumentation' id='instrumentation' color='secondary' required label='Instrumentation' defaultValue="fixed">
+                                <MenuItem value="Fixed">
                                     Fixed
                                 </MenuItem>
-                                <MenuItem value="flexible">
+                                <MenuItem value="Flexible">
                                     Flexible
                                 </MenuItem>
                             </Select>
@@ -245,6 +277,43 @@ const CreatePage = () => {
                             ChipArr = e
                         }} />
                         {/* <TextField name='tags' color='secondary' required id="tags" label="Post Tags" variant="outlined" style={{width: '100%'}} placeholder='new band guitarist' /> */}
+                    </div>
+                    <div>
+                            <FormControl fullWidth>
+                                <InputLabel color='secondary' id="demo-multiple-name-label">Ethnicity</InputLabel>
+                                <Select
+                                color='secondary' 
+                                labelId="demo-multiple-name-label"
+                                id="demo-multiple-name"
+                                multiple
+                                value={ethnicity}
+                                onChange={(e) => setEthnicity(e.target.value)}
+                                renderValue={(selected) => (
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                        {selected.map((value) => (
+                                            <Chip color='secondary' key={value} label={value} />
+                                        ))}
+                                    </Box>
+                                )}
+                                >
+                                {ethnicityOptions.map(option => (
+                                    <MenuItem key={option} value={option}>{option}</MenuItem>
+                                ))}
+                                </Select>
+                            </FormControl>
+                        <input type="hidden" name="ethnicity" id='ethnicity' value={ethnicity} />
+                    </div>
+                    <div>
+                        <FormControl fullWidth>
+                            <InputLabel id='gender-label' color='secondary'>Gender</InputLabel>
+                            <Select defaultValue='' labelId="gender-label" name='gender' id='gender' color='secondary' required label='Gender'>
+                                {genderOptions.map((option) => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     </div>
                     <div className={styles.performanceRequirements}>
                         <TextField name='performanceRequirements' color='secondary' id="performanceRequirements" label="Performance Requirements" variant="outlined" style={{ width: '100%' }} />
