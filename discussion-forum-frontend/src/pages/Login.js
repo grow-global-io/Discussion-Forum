@@ -175,7 +175,9 @@ const Login = () => {
                                                 }))
                                         } name='email' id="email" label="Enter Your Email" variant="outlined" color='secondary' style={{ width: '400px' }} />
                                         <button type="submit" onClick={() => triggerOTP()}>Login</button>
+                                        <button type="submit" onClick={googleSignIn}>Login with Google</button>
                                     </Form>
+                                    
                                 }
 
                                 {
