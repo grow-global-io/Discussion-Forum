@@ -1,7 +1,3 @@
 .ag-paging-panel{
     flex-wrap: wrap !important;
 }
-
-.ag-cell-value{
-    top: 10px;
-}
