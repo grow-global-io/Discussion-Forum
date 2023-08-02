@@ -59,6 +59,18 @@ const NavigationBar = () => {
             <Link to="/" style={{ color: '#722282', display: 'inline' }}>National Co-Commissioning Hub</Link>
           </div>
           <Navbar.Collapse className="justify-content-end">
+          <TextField variant="outlined" color="secondary" fullWidth className="mx-2 mx-sm-5 mt-3 mt-md-0" type="search"
+            onChange={(e) => changeHandler(e)}
+            label="Search" onFocus={() => {
+              setToggler(true)
+            }}  
+            
+            onBlur={()=>{
+              setTimeout(()=>{
+                setToggler(false)
+              },[200  ])
+            }}
+            />
             {!user.id && (
               <button
                 className={styles.newPost}
@@ -71,9 +83,9 @@ const NavigationBar = () => {
             )}
             {userProfileImage}
           </Navbar.Collapse>
-          <TextField variant="standard" fullWidth className="mx-5 mt-3 mt-md-0" type="search"
+          {/* <TextField variant="outlined" color="secondary" fullWidth className="mx-5 mt-3 mt-md-0" type="search"
             onChange={(e) => changeHandler(e)}
-            placeholder="Search..." onFocus={() => {
+            label="Search" onFocus={() => {
               setToggler(true)
             }}  
             
@@ -82,12 +94,12 @@ const NavigationBar = () => {
                 setToggler(false)
               },[200  ])
             }}
-            />
+            /> */}
           {
             toggler && <Card className={styles.results}>
               {filteredData.length>0? filteredData.map(each => {
                 return (
-                  <div onClick={()=>redirectHandler(each)}  style={{textDecoration:"none",color:"black", borderBottom:"1px solid rgba(0,0,0,0.25)", minWidth:"300px"}} className="d-flex justify-content-between">
+                  <div onClick={()=>redirectHandler(each)}  style={{textDecoration:"none",color:"black", borderBottom:"1px solid rgba(0,0,0,0.25)"}} className="d-flex justify-content-between">
                     <div className="">
                       <p>{each.composerName}</p>
                       <p>{each.leadCommissioner}</p>
@@ -99,7 +111,7 @@ const NavigationBar = () => {
                 )
               }):togglerData.map(each => {
                 return (
-                  <div onClick={()=>redirectHandler(each)}  style={{textDecoration:"none",color:"black", borderBottom:"1px solid rgba(0,0,0,0.25)", minWidth:"300px"}} className="d-flex justify-content-between">
+                  <div onClick={()=>redirectHandler(each)}  style={{textDecoration:"none",color:"black", borderBottom:"1px solid rgba(0,0,0,0.25)"}} className="d-flex justify-content-between">
                     <div className="">
                       <p>{each.composerName}</p>
                       <p>{each.leadCommissioner}</p>

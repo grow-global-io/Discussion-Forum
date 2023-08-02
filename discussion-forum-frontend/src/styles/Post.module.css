@@ -229,8 +229,15 @@
         grid-template-columns: repeat(6, 1fr);
     }
     .post {
+        grid-column: auto;
+    }
+    .postWrapper .full {
         grid-column: 2 / 6;
     }
+    /* .postHighlight.full {
+        height: 150px;
+        overflow: hidden;
+    } */
     .comments {
         grid-column: 2 / 6;
     }

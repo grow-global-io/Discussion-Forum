@@ -45,7 +45,7 @@ const Post = ({ post, showMore }) => {
         navigate(0);
     }
     return (
-        <div className={styles.post}>
+        <div className={`${styles.post} ${showMore ? styles.full : ''}`}>
 
             <div className={styles.postUser}>
                 <UserProfile post={post} />
@@ -139,7 +139,7 @@ const Post = ({ post, showMore }) => {
                     </React.Fragment>
                 )}
                 {post.coverPhoto && (
-                    <div className={styles.postHighlight}>
+                    <div className={styles.postHighlight} style={{overflow: `${showMore ? 'auto' : 'hidden'}`, aspectRatio: `${showMore ? '' : '1 / 0.5'}`}}>
                         <img src={post["cover-photo"]} width={300} style={{margin: '0 auto'}} alt="" />
                     </div>
                 )}
