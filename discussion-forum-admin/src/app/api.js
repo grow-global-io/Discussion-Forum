@@ -1,5 +1,6 @@
 import axios from "axios";
-const baseURL = "http://localhost:5000/commissioning-hub/us-central1/api";
+// const baseURL = "http://localhost:5000/commissioning-hub/us-central1/api";
+const baseURL = " https://us-central1-commissioning-hub.cloudfunctions.net/api"
 // export const fetchUsers = async () => {
 //     try {
 //       const response = await axios.get(`${baseURL}/user/getUser`);
