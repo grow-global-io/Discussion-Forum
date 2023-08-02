@@ -193,5 +193,53 @@ router.post('/create', async (req, res) => {
     res.status(500).send('An error occurred while creating the item.');
   }
 });
-
+router.post('/update/:id', async (req, res) => {
+  try {
+    // console.log(req.body)
+    // const data = JSON.parse(req.body);
+    const data = req.body;
+    const  id  = req.params.id;
+    const querySpec = {
+      query: 'SELECT * FROM c WHERE c.id = @postId',
+      parameters: [{ name: '@postId', value: id }]
+    };
+    const { resources } = await container.items.query(querySpec).fetchAll();
+    if(resources.length === 0){
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    const post = resources[0];
+    // post update is done by the admin side
+    // if(post.userId !== userId){
+    //   return res.status(401).json({ error: 'Unauthorized' });
+    // }
+    container.item(id).replace(data);
+    res.status(200).json(data);
+  } catch (error) {
+    console.error('Error appending post:', error);
+    res.status(500).send('An error occurred while appending the post.');
+  }
+});
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const querySpec = {
+      query: 'SELECT * FROM c WHERE c.id = @postId',
+      parameters: [{ name: '@postId', value: postId }]
+    };
+    const { resources } = await container.items.query(querySpec).fetchAll();
+    if(resources.length === 0){
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    const post = resources[0];
+    // deletion is done by the admin side only
+    // if(post.userId !== userId){
+    //   return res.status(401).json({ error: 'Unauthorized' });
+    // }
+    await container.item(postId).delete();
+    res.status(200).json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    console.error('Error appending post:', error);
+    res.status(500).send('An error occurred while appending the post.');
+  }
+});
 module.exports = router;

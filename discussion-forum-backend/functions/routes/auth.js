@@ -126,5 +126,9 @@ router.get(
     failureRedirect: "/login/failed",
   })
 );
-
+router.get("/user/getalluser", async (req, res) =>{
+  console.log('here');
+  const { resources: users } = await container.items.readAll().fetchAll();
+  res.json(users);
+});
 module.exports = router
