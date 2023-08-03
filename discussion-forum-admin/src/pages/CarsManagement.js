@@ -6,7 +6,7 @@ import 'ag-grid-community/styles/ag-theme-material.css';
 import { Box, Button, Grid, Modal, Stack, TextField  } from '@mui/material';
 import { Add, Close } from '@mui/icons-material';
 import { toast } from 'react-hot-toast';
-import { fetchPosts,updatePost } from '../app/api';
+import { fetchPosts,updatePost,deletePost } from '../app/api';
 const CarsManagement = () => {
   const [posts, setPosts] = useState([]);
   // useEffect(async () => {
@@ -25,6 +25,7 @@ const CarsManagement = () => {
     const response = await fetchPosts();
     console.log(response);
     setPosts(response);
+    setRowData([]);
     setRowData(response);
   };
   useEffect(() => {
@@ -165,6 +166,24 @@ const CarsManagement = () => {
       toast.error("Something went wrong")
     }
   }
+  const handlePostDelete = async (data) => {
+    // console.log('data ',data)
+    console.log('id',data.id)
+    setUpdateClicked(true)
+    try {
+      // api to delete post
+      const response = await deletePost(data.id);
+      toast.dismiss();
+      toast.success("Post deleted Successfully")
+      console.log(response)
+      fetchData();
+      setOpen(false)
+    }
+    catch (e) {
+      console.log(e)
+      toast.error("Something went wrong")
+    }
+  }
   return (
     <div className="ag-theme-material" style={{ height: "70vh", width: "100%" }}>
       <h3>Post Management</h3>
@@ -285,7 +304,8 @@ const CarsManagement = () => {
                     onClick={
                       () => {
                         setDeleteClicked(false)
-                        toast.success("Car has been successfully deleted!")
+                        toast.loading("deleting the post!")
+                        handlePostDelete(modalData);
                         setOpen(false)
                       }
                     }

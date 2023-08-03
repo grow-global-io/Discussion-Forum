@@ -10,8 +10,7 @@ const containerId = 'Users';
 
 const cosmosClient = new CosmosClient({ endpoint, key });
 const container = cosmosClient.database(databaseId).container(containerId);
-
-
+const postContainer = cosmosClient.database(databaseId).container('Posts');
 router.post('/update-profile/:id', async (req, res) => {
   try {
     const {id} = req.params
@@ -97,4 +96,41 @@ router.post('/create', async (req, res) => {
       res.status(500).send('An error occurred while retrieving the user data.');
     }
   });
+  router.get("/getUser", async (req, res) =>{
+    console.log('here');
+    const { resources: users } = await container.items.readAll().fetchAll();
+    res.json(users);
+  });
+  router.delete('/delete/:id', async(req,res) =>{
+    try {
+   
+      const id = req.params.id;
+      const querySpec = {
+        query: 'SELECT * FROM c WHERE c.id = @id',
+        parameters: [
+          { name: '@id', value: id }
+        ]
+      };
+      // Execute the query to retrieve the specific user
+      const { resources: matchingUsers } = await container.items.query(querySpec).fetchAll();
+      // console.log(matchingUsers);
+      const uid = matchingUsers[0].uid;
+      console.log('uid',uid);
+      const querySpecForpost = {
+        query: 'SELECT * FROM c WHERE c.userId = @userId',
+        parameters: [{ name: '@userId', value: uid }]
+      };
+      const { resources: posts } = await postContainer.items.query(querySpecForpost).fetchAll();
+      const numberOfPost = posts.length;
+      for(let i=0;i<posts.length;i++){
+        // console.log("postId",posts[i].id);
+        postContainer.item(posts[i].id,posts[i].id).delete();
+      }
+      container.item(id,id).delete();
+      res.status(200).json({ message: `user deleted successfully and ${numberOfPost} Associated Post also deleted` });
+    } catch (error) {
+      console.error('Error appending post:', error);
+      res.status(500).send('An error occurred while appending the post.');
+    }
+  })
 module.exports = router;

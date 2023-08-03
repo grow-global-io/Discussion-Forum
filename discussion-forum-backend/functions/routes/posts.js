@@ -221,25 +221,36 @@ router.post('/update/:id', async (req, res) => {
 });
 router.delete('/delete/:id', async (req, res) => {
   try {
-    const { id } = req.params;
+   
+    const id = req.params.id
     const querySpec = {
       query: 'SELECT * FROM c WHERE c.id = @postId',
-      parameters: [{ name: '@postId', value: postId }]
+      parameters: [{ name: '@postId', value: id }]
     };
     const { resources } = await container.items.query(querySpec).fetchAll();
     if(resources.length === 0){
       return res.status(404).json({ error: 'Post not found' });
     }
     const post = resources[0];
+    console.log(post);
     // deletion is done by the admin side only
     // if(post.userId !== userId){
     //   return res.status(401).json({ error: 'Unauthorized' });
     // }
-    await container.item(postId).delete();
+    // delete post from the container
+    container.item(id,id).delete();
     res.status(200).json({ message: 'Post deleted successfully' });
   } catch (error) {
     console.error('Error appending post:', error);
     res.status(500).send('An error occurred while appending the post.');
   }
 });
+// async function getAllPostByUserId(uid){
+//   const querySpec = {
+//     query: 'SELECT * FROM c WHERE c.userId = @userId',
+//     parameters: [{ name: '@userId', value: uid }]
+//   };
+//   const { resources: posts } = await container.items.query(querySpec).fetchAll();
+//   return resources;
+// }
 module.exports = router;

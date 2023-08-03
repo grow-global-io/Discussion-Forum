@@ -1,15 +1,15 @@
 import axios from "axios";
 // const baseURL = "http://localhost:5000/commissioning-hub/us-central1/api";
 const baseURL = " https://us-central1-commissioning-hub.cloudfunctions.net/api"
-// export const fetchUsers = async () => {
-//     try {
-//       const response = await axios.get(`${baseURL}/user/getUser`);
-//       return response.data;
-//     } catch (error) {
-//       console.error("Error fetching users:", error);
-//       throw new Error("Error fetching users");
-//     }
-//   };
+export const fetchUsers = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/user/getUser`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw new Error("Error fetching users");
+    }
+  };
 
   export const fetchPosts = async () => {
     try {
@@ -31,10 +31,20 @@ const baseURL = " https://us-central1-commissioning-hub.cloudfunctions.net/api"
   }
   export const deletePost = async (id) => {
     try {
-      const response = await axios.delete(`https://us-central1-commissioning-hub.cloudfunctions.net/api/post/delete/${id}`);
+      const response = await axios.delete(`${baseURL}/post/delete/${id}`);
       return response.data;
     } catch (error) {
       console.error("Error deleting post:", error);
       throw new Error("Error deleting post");
+    }
+  }
+  export const deleteUser = async(id) => {
+    try{
+      const response = await axios.delete(`${baseURL}/user/delete/${id}`);
+      return response.data;
+    }
+    catch(e){
+      console.log("error deleting user",e);
+      throw new Error("Error deleting user");
     }
   }

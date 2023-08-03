@@ -1,51 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import {  Button,  } from '@mui/material';
+import { fetchUsers,deleteUser } from '../app/api';
+import { toast } from 'react-hot-toast';
 
 const UsersManagement = () => {
-    const [rowData, setRowData] = useState([
-        {
-            Name: "Tata", Mobile: 10, Aadhar: "Automatic", License: "AB12CD1234", KycStatus: 5,
-        }
-        ,
-        {
-            Name: "Tata", Mileage: 10, Transmission: "Automatic", Number: "AB12CD1234", Seats: 5, Type: "Sedan", Description: "...", Company: "Tata", Status: "Booked", Power: "64BHP", Pickup: "HYD"
-        }
-        ,
-        {
-            Name: "Tata", Mileage: 10, Transmission: "Automatic", Number: "AB12CD1234", Seats: 5, Type: "Sedan", Description: "...", Company: "Tata", Status: "Booked", Power: "64BHP", Pickup: "HYD"
-        }
-        ,
-        {
-            Name: "Tata", Mileage: 10, Transmission: "Automatic", Number: "AB12CD1234", Seats: 5, Type: "Sedan", Description: "...", Company: "Tata", Status: "Booked", Power: "64BHP", Pickup: "HYD"
-        }
-        ,
-        {
-            Name: "Tata", Mileage: 10, Transmission: "Automatic", Number: "AB12CD1234", Seats: 5, Type: "Sedan", Description: "...", Company: "Tata", Status: "Booked", Power: "64BHP", Pickup: "HYD"
-        }
-        ,
-        {
-            Name: "Tata", Mileage: 10, Transmission: "Automatic", Number: "AB12CD1234", Seats: 5, Type: "Sedan", Description: "...", Company: "Tata", Status: "Booked", Power: "64BHP", Pickup: "HYD"
-        }
 
-    ])
+    async function fetchData() {
+        const response = await fetchUsers();
+        console.log(response);
+        setRowData([]);
+        setRowData(response);
+      };
+      useEffect(() => {
+        
+        fetchData();
+      },[]);
+    const [rowData, setRowData] = useState([
+    ]);
     
 
     const handleAccept = (params)=>{
         console.log(params)
     }
-    const handleReject = (params)=>{
-        console.log(params)
+    const handleReject = async (params)=>{
+        console.log(params);
+        try{
+            const response = await deleteUser(params.id);
+            console.log(response);
+            toast.success(response.message);
+            fetchData();
+        }
+        catch(e){
+            console.log(e);
+        }
     }
     const [columnDefs, setColumnDefs] = useState([
-        { field: "Name", cellDataType: 'text' },
-        { field: "Mobile", cellDataType: 'number' },
-        { field: "Aadhar", cellDataType: 'text' },
-        { field: "License", cellDataType: 'text' },
-        { headerName: "Kyc Status", field: "KycStatus", cellDataType: 'number' },
-        { field: "Documents", cellDataType: 'text', sortable: false, floatingFilter: false, filter: false, },
+        { field: "uid", cellDataType: 'text',width:'300px' },
+        { field: "displayName", cellDataType: 'text' },
+        { field: "email", cellDataType: 'text',width:'300px' },
         {
             field: "Actions", sortable: false, floatingFilter: false, filter: false, cellRenderer: params => {
                 return (
