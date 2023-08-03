@@ -1,12 +1,13 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { AiOutlinePlus } from "react-icons/ai";
+import { BsGrid, BsList } from 'react-icons/bs';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { post } from '../assets/post-data';
 import { CircularProgress } from "@mui/material";
 import { Backend_URL } from "../Constants/backend";
-import Heading from '../components/Heading'
+import Heading from '../components/Heading';
 import Post from "../components/Post";
 import Trends from "../components/Trends";
 import styles from "../styles/Home.module.css";
@@ -16,6 +17,7 @@ const Home = () => {
   const [temporaryPost, setTemporaryPost] = React.useState([]);
   // let unique = [];
   const [sortBy, setSortBy] = React.useState("newestFirst");
+  const [viewLayout, setViewLayout] = React.useState('list');
   const user = useSelector((state) => state.auth.userInfo);
   const navigate = useNavigate();
   let url = Backend_URL + "post/get-data";
@@ -94,9 +96,9 @@ const Home = () => {
         </div>
       )}
       <Heading />
-      <div className={styles.home}>
+      <div className={`${styles.home} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
         {user.id && (
-          <button className={styles.newPost} onClick={createNewPost}>
+          <button className={`${styles.newPost} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`} onClick={createNewPost}>
             <AiOutlinePlus /> New Post
           </button>
         )}
@@ -104,7 +106,7 @@ const Home = () => {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className={styles.sortDropdown}
+            className={`${styles.sortDropdown} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}
           >
             <option value="newestFirst">Sort By Newest</option>
             <option value="comments">Number of Comments</option>
@@ -123,14 +125,22 @@ const Home = () => {
                         <a href="/">📝 My answers</a>
                     </div>
                 </aside> */}
-        <div className={styles.trends}>
+        <div className={`${styles.trends} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
           <p>Popular Tags</p>
           {post ? (
             <Trends tags={unique} sort={sortByTag} />
           ) : (<></>)}
         </div>
+        <div className={`${styles.viewLayout} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
+          <div style={{cursor: 'pointer'}} onClick={() => setViewLayout('list')}>
+            <BsList />
+          </div>
+          <div style={{cursor: 'pointer'}} onClick={() => setViewLayout('grid')}>
+            <BsGrid />
+          </div>
+        </div>
         <a className={styles.homeLink} href="/home">All Posts</a>
-        <div className={styles.posts}>
+        <div className={`${styles.posts} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
           {post ? (
             post.map((p) => (
               <>
