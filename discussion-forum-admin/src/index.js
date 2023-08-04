@@ -8,7 +8,7 @@ import store from './app/store';
 import Home from './pages/Home';
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import Login from './pages/Login';
-import CarsManagement from './pages/CarsManagement';
+import PostsManagement from './pages/PostsManagement.js';
 import UsersManagement from './pages/UsersManagement';
 import "./index.css"
 
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/Posts-Management",
-        element: <CarsManagement />,
+        element: <PostsManagement />,
       },
       {
         path: "/User-Management",

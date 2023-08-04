@@ -63,7 +63,7 @@ const UsersManagement = () => {
 
 
     return (
-        <div className="ag-theme-material" style={{ height: "70vh", width: "100%" }}>
+        <div className="ag-theme-material" style={{ height: "81vh", width: "100%" }}>
             <h3>User Management</h3>
 
             <AgGridReact
