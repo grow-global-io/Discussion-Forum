@@ -1,3 +1,23 @@
 .ag-paging-panel{
     flex-wrap: wrap !important;
 }
+.fileInputBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    /* margin: 10px 0; */
+    cursor: pointer;
+}
+.fileInputBox:hover{
+    background-color: #eee;
+}
+.fileInputBox .fileInput{
+    display: none;
+}
+.fileInputBox .fileInput + label{
+    cursor: pointer;
+}

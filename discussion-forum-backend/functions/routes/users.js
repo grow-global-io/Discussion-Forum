@@ -132,5 +132,61 @@ router.post('/create', async (req, res) => {
       console.error('Error appending post:', error);
       res.status(500).send('An error occurred while appending the post.');
     }
-  })
-module.exports = router;
+  });
+  router.post('/restrict/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      console.log(id);
+      const querySpec = {
+        query: 'SELECT * FROM c WHERE c.id = @userID',
+        parameters: [{ name: '@userID', value: id }]
+      };
+  
+      const { resources: users } = await container.items.query(querySpec).fetchAll();
+      // Get the existing document from Cosmos DB
+      const user = users[0]
+      console.log('user',user);
+      // Update the values if present, or create them if not present
+      const updatedData = {
+        ...user,
+        'isRestricted': true,
+      };
+      console.log('updatedData',updatedData);
+      // // Replace the existing document with the updated version
+      await container.item(id).replace(updatedData);
+  
+      res.status(200).json(updatedData);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      res.status(500).send('An error occurred while updating the profile.' + error);
+    }
+  });
+  router.post('/unrestrict/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      console.log(id);
+      const querySpec = {
+        query: 'SELECT * FROM c WHERE c.id = @userID',
+        parameters: [{ name: '@userID', value: id }]
+      };
+  
+      const { resources: users } = await container.items.query(querySpec).fetchAll();
+      // Get the existing document from Cosmos DB
+      const user = users[0]
+      console.log('user',user);
+      // Update the values if present, or create them if not present
+      const updatedData = {
+        ...user,
+        'isRestricted': false,
+      };
+      console.log('updatedData',updatedData);
+      // // Replace the existing document with the updated version
+      await container.item(id).replace(updatedData);
+  
+      res.status(200).json(updatedData);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      res.status(500).send('An error occurred while updating the profile.' + error);
+    }
+  });
+  module.exports = router;

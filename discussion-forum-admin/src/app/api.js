@@ -48,3 +48,23 @@ export const fetchUsers = async () => {
       throw new Error("Error deleting user");
     }
   }
+  export const restrictUser = async(id) => {
+    try{
+      const response = await axios.post(`${baseURL}/user/restrict/${id}`);
+      return response.data;
+    }
+    catch(e){
+      console.log("error restricting user",e);
+      throw new Error("Error restricting user");
+    }
+  }
+  export const unrestrict = async(id) => {
+    try{
+      const response = await axios.post(`${baseURL}/user/unrestrict/${id}`);
+      return response.data;
+    }
+    catch(e){
+      console.log("error allowing user",e);
+      throw new Error("Error allowing user");
+    }
+  }

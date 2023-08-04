@@ -83,6 +83,7 @@ const CarsManagement = () => {
     rangeOfConsortiumPartnerCommissionFees: "",
     primaryContact: "",
     primaryContactEmail: "",
+    coverphoto: "",
 
   })
 
@@ -126,7 +127,8 @@ const CarsManagement = () => {
     setModalData(e.data)
     setType("edit")
     setOpen(true)
-    console.log(modalData)
+    console.log(modalData);
+    // console.log(modalData["cover-photo"]);
   }
   const handleClose = () => {
     setOpen(false)
@@ -184,8 +186,78 @@ const CarsManagement = () => {
       toast.error("Something went wrong")
     }
   }
+  const handleFileChange = (e) => {
+    console.log(e.target.files[0])
+    // setModalData({ ...modalData, [e.target.name]: e.target.files[0] })
+    // setUpdateClicked(false)
+  }
+  const compressAndEncodeImage = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            var img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                const maxWidth = 500;
+                const maxHeight = 500;
+
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+
+                ctx.drawImage(img, 0, 0, width, height);
+
+                canvas.toBlob((blob) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        resolve(reader.result);
+                    };
+                    reader.onerror = (error) => {
+                        reject(error);
+                    };
+                    reader.readAsDataURL(blob);
+                }, 'image/jpeg', 0.8);
+            };
+        };
+        reader.onerror = (error) => {
+            reject(error);
+        };
+        reader.readAsDataURL(file);
+    });
+};
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    try {
+        var compressedImage = await compressAndEncodeImage(file);
+        // Send the compressed image to the backend
+        console.log('before',modalData['cover-photo'])
+        setModalData({ ...modalData, ['cover-photo']: compressedImage })
+        // setModalData({ ...modalData, ['coverPhoto']: file.name })
+        console.log('after',modalData['cover-photo']);
+        // console.log(compressedImage)
+    } catch (error) {
+        console.error('Error compressing image:', error);
+    }
+};
   return (
-    <div className="ag-theme-material" style={{ height: "70vh", width: "100%" }}>
+    <div className="ag-theme-material" style={{ height: "80vh", width: "100%" }}>
       <h3>Post Management</h3>
       {
       //   <Stack className='m-0' direction="row" justifyContent="end" sx={{mb:5}}>
@@ -232,7 +304,7 @@ const CarsManagement = () => {
         <Box sx={style}>
           <Stack justifyContent="space-between" direction="row">
             {
-              type === "edit" ? <h3>Update Car</h3> : <h3>Create Car</h3>
+              type === "edit" ? <h3>Update Post</h3> : <h3>Create Post</h3>
             }
             <Close onClick={handleClose} sx={{cursor:"pointer"}}/>
           </Stack>
@@ -294,7 +366,15 @@ const CarsManagement = () => {
             <Grid item xs={12} sm={4} lg={3}>
               <TextField fullWidth label="representativeWorkSample" name="representativeWorkSample" variant="outlined" value={modalData.representativeWorkSample} onChange={handleChange} />
             </Grid>
-            
+            <Grid item xs={12} sm={4} lg={3}>
+              {
+                // <TextField fullWidth label="Cover Photo" name="cover-photo" variant="outlined" value={modalData["cover-photo"]} onChange={handleChange} />
+              }
+              <label className='form-label'  htmlFor="coverPhoto">Cover Photo<input type="file" name="cover-photo" className='' id="cover-photo" accept="image/x-png,image/gif,image/jpeg" onChange={(e) => handleImageUpload(e)} /></label>
+              {
+                modalData["cover-photo"] && <img width={180} height={180} src={modalData["cover-photo"]} alt="cover"  />
+              }
+            </Grid>
           </Grid>
           <Stack justifyContent="center" alignItems="center">
             {
