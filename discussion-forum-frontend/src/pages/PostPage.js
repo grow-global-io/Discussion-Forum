@@ -20,13 +20,24 @@ export async function commentAction({ request }) {
 const PostPage = () => {
     const user = useSelector((state) => state.auth.userInfo);
 
-    const handleSubmit= (e)=>{
+    const handleSubmit= async (e)=>{
         e.preventDefault()
         /**
          * userDisplayName
          * userId
          * userProfilePhoto
          */
+
+        const getPostUserEmail = await fetch(Backend_URL + 'user/get/' + data.userId, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const { email: postUserEmail} = await getPostUserEmail.json();
+        console.log("🚀 ~ handleSubmit ~ postUserEmail:", postUserEmail)
+
         if(Object.keys(user).length > 0){
             const body = {
                 userDisplayName: user.displayName,
@@ -37,6 +48,18 @@ const PostPage = () => {
             fetch(Backend_URL+"post/create-thread/"+id,{
             method:"POST",
             body:JSON.stringify(body)
+        })
+        const commentNotifierBody = {
+            emails: [postUserEmail],
+            subject: `You got a comment on your Post!`,
+            html: `<h1>${user.displayName} commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
+        }
+        await fetch('https://us-central1-email-service-e8713.cloudfunctions.net/api/v1/sendEmail', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(commentNotifierBody)
         })
         }
         else{
@@ -49,6 +72,18 @@ const PostPage = () => {
             fetch(Backend_URL+"post/create-thread/"+id,{
             method:"POST",
             body:JSON.stringify(body)
+        })
+        const commentNotifierBody = {
+            emails: [postUserEmail],
+            subject: `You got a comment on your Post!`,
+            html: `<h1>An anonymous person commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
+        }
+        await fetch('https://us-central1-email-service-e8713.cloudfunctions.net/api/v1/sendEmail', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(commentNotifierBody)
         })
         }
         fetch(Backend_URL + "post/get-data/" + id).then(data => data.json()).then(data => {
