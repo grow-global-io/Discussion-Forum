@@ -5,6 +5,7 @@ import { Provider, useSelector } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import store from './app/store';
 import CreatePage, { createAction } from './pages/CreatePage';
+import EditPage from './pages/EditPage';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -15,7 +16,6 @@ import SignUp from './pages/SignUp';
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import Root from './routes/Root';
 import "./styles/styles.css";
-import EditPage from './pages/EditPage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 

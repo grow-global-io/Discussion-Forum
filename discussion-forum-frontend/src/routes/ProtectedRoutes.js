@@ -34,7 +34,7 @@ export default function ProtectedRoutes() {
         const id = localStorage.getItem("uid")
         fetch(Backend_URL+"user/get/"+id).then(data=>data.json()).then(data=>{dispatch(getUser(data))})
     }, [dispatch])
-    if (true) {
+    if (Object.entries(user).length > 0) {
         return (
             <>
                 <NavigationBar />

@@ -1,4 +1,4 @@
-import {  useEffect } from "react"
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +8,7 @@ export default function Root(){
     const isLoggedIn = useSelector((state) => state.auth.userInfo);
     
     useEffect(()=>{
-        if(isLoggedIn){
+        if(Object.entries(isLoggedIn).length > 0){
             navigate("/home")
         }
         else{

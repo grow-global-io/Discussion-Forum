@@ -1,6 +1,6 @@
 // import React from 'react'
 // import { Outlet } from 'react-router-dom'
-import Login from '../pages/Login'
+import Login from '../pages/Login';
 
 // const ProtectedRoutes = () => {
 //     if (true) {
@@ -17,27 +17,28 @@ import Login from '../pages/Login'
 
 // export default ProtectedRoutes
 
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import { BusinessCenter, CarRental, CurrencyRupee, DirectionsCarFilled, Groups3, Sell } from '@mui/icons-material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MenuIcon from '@mui/icons-material/Menu';
+import MuiAppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Link, Outlet, useLocation } from 'react-router-dom';
-import { BusinessCenter, CarRental, CurrencyRupee, DirectionsCarFilled, Groups3, Sell } from '@mui/icons-material';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { styled, useTheme } from '@mui/material/styles';
+import * as React from 'react';
 import { Toaster } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -87,6 +88,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
+    const user = useSelector(state => state.auth.userInfo)
     const [active, setActive] = React.useState(false)
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -100,7 +102,7 @@ export default function PersistentDrawerLeft() {
     };
     const location = useLocation().pathname;
     console.log(location)
-    if (true) {
+    if (Object.entries(user).length > 0) {
         return (
             <Box sx={{ display: 'flex' }}>
                 <Toaster
@@ -180,6 +182,6 @@ export default function PersistentDrawerLeft() {
         );
     }
     else {
-        <Login />
+        return <Login />
     }
 }
