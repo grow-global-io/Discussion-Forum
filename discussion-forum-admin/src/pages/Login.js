@@ -1,10 +1,10 @@
 import {
-  Button,
-  Card,
-  CardContent,
-  Container,
-  TextField,
-  Typography,
+    Button,
+    Card,
+    CardContent,
+    Container,
+    TextField,
+    Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -23,8 +23,8 @@ const Login = () => {
         if (username && password) {
             setError('');
             if (
-                username === 'username' &&
-                password === 'password'
+                username === process.env.REACT_APP_USERNAME &&
+                password === process.env.REACT_APP_PASSWORD
             ) {
               const data = {
                 user: username,
