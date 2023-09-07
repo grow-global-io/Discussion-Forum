@@ -9,17 +9,13 @@ import { toast } from "react-hot-toast";
 const UsersManagement = () => {
   async function fetchData() {
     const response = await fetchUsers();
-    console.log(response);
-    setRowData([]);
     setRowData(response);
   }
   useEffect(() => {
     fetchData();
   }, []);
   const [rowData, setRowData] = useState([]);
-
   const handleAccept = (params) => {
-    console.log(params);
     try {
       const response = restrictUser(params.id);
       console.log(response);
@@ -34,8 +30,7 @@ const UsersManagement = () => {
     try {
       const response = await deleteUser(params.id);
       console.log(response);
-      toast.success(response.message);
-      fetchData();
+      fetchData().then(()=>toast.success(response.message))
     } catch (e) {
       console.log(e);
     }

@@ -32,7 +32,7 @@ const Login = () => {
     })
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
-        provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+        provider.addScope("profile");
         provider.setCustomParameters({
             login_hint: "user@example.com",
         });

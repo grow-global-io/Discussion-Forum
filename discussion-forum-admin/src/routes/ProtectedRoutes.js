@@ -162,7 +162,7 @@ export default function PersistentDrawerLeft() {
                         }
                         ].map((text, index) => (
                             <Link to={text.link} style={{ textDecoration: "none", color: text.isActive ? "white" : "#757575" }} >
-                                <ListItem key={text.name} disablePadding style={{ backgroundColor: text.isActive ? "#45C9A0" : "white" }}>
+                                <ListItem key={text.name} disablePadding style={{ backgroundColor: text.isActive ? "rgb(163,111,173)" : "white" }}>
                                     <ListItemButton>
                                         <ListItemIcon >
                                             {text.icon}

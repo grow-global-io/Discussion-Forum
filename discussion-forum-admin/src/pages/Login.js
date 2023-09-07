@@ -46,7 +46,7 @@ const Login = () => {
                     <img
                         src="https://americancomposers.org/wp-content/uploads/2020/04/aco-logo.png"
                         alt="logo"
-                        style={{ width: '100%' }}
+                        style={{ width: '100%',maxWidth:"100px" }}
                     />
                 </div>
                 <CardContent>
