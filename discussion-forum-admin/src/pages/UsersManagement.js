@@ -18,32 +18,24 @@ const UsersManagement = () => {
   const handleAccept = (params) => {
     try {
       const response = restrictUser(params.id);
-      console.log(response);
       toast.success(response.message);
       fetchData();
     } catch (e) {
-      console.log(e);
     }
   };
   const handleReject = async (params) => {
-    console.log(params);
     try {
       const response = await deleteUser(params.id);
-      console.log(response);
       fetchData().then(()=>toast.success(response.message))
     } catch (e) {
-      console.log(e);
     }
   };
   const handleUnrestrictUser = async (params) => {
-    console.log(params);
     try {
       const response = await unrestrict(params.id);
-      console.log(response);
       toast.success(response.message);
       fetchData();
     } catch (e) {
-      console.log(e);
     }
   };
   // Dynamically style rows based on the isRestricted value

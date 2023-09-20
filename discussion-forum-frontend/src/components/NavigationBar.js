@@ -20,9 +20,11 @@ const NavigationBar = () => {
   }, [window.location])
 
   const changeHandler = (e="") => {
+    console.log(e.target.value)
     setFilteredData(
-      togglerData.filter(each => each.postDescription.toLowerCase().includes(e.target.value.toLowerCase())|| each.composerName.toLowerCase().includes(e.target.value.toLowerCase()))
+      togglerData.filter(each => each.postDescription.toLowerCase().includes(e.target.value.toLowerCase())|| each.userDisplayName.toLowerCase().includes(e.target.value.toLowerCase()))
     )
+    console.log(filteredData)
   }
 
   const redirectHandler = (each)=>{
@@ -97,27 +99,16 @@ const NavigationBar = () => {
             /> */}
           {
             toggler && <Card className={styles.results}>
-              {filteredData.length>0? filteredData.map(each => {
+              {filteredData.length>0 &&  filteredData.map(each => {
+                console.log(each)
                 return (
                   <div onClick={()=>redirectHandler(each)}  style={{textDecoration:"none",color:"black", borderBottom:"1px solid rgba(0,0,0,0.25)"}} className="d-flex justify-content-between">
                     <div className="">
-                      <p>{each.composerName}</p>
+                      <p>{each.userDisplayName}</p>
                       <p>{each.leadCommissioner}</p>
                     </div>
                     <div>
-                      <img src={each["cover-photo"]} height={50}/>
-                    </div>
-                  </div>
-                )
-              }):togglerData.map(each => {
-                return (
-                  <div onClick={()=>redirectHandler(each)}  style={{textDecoration:"none",color:"black", borderBottom:"1px solid rgba(0,0,0,0.25)"}} className="d-flex justify-content-between">
-                    <div className="">
-                      <p>{each.composerName}</p>
-                      <p>{each.leadCommissioner}</p>
-                    </div>
-                    <div>
-                      <img src={each["cover-photo"]} height={50}/>
+                      <img src={each.userProfilePhoto} height={50}/>
                     </div>
                   </div>
                 )

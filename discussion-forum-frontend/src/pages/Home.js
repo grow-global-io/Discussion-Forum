@@ -17,7 +17,7 @@ const Home = () => {
   const [temporaryPost, setTemporaryPost] = React.useState([]);
   // let unique = [];
   const [sortBy, setSortBy] = React.useState("newestFirst");
-  const [viewLayout, setViewLayout] = React.useState('list');
+  const [viewLayout, setViewLayout] = React.useState('grid');
   const user = useSelector((state) => state.auth.userInfo);
   const navigate = useNavigate();
   let url = Backend_URL + "post/get-data";

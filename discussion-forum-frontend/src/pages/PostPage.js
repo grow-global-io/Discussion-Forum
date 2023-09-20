@@ -36,7 +36,6 @@ const PostPage = () => {
         });
 
         const { email: postUserEmail} = await getPostUserEmail.json();
-        console.log("🚀 ~ handleSubmit ~ postUserEmail:", postUserEmail)
 
         if(Object.keys(user).length > 0){
             const body = {

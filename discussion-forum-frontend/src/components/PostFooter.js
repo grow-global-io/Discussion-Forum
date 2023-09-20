@@ -8,7 +8,6 @@ const PostFooter = ({ data, post, like, dislike, handleComments }) => {
     const navigate = useNavigate();
     const [likes, setLikes] = useState(post.likedBy?.length);
     const [isLiked, setIsLiked] = useState(post.likedBy?.includes(data.userId));
-    console.log(data);
     const handleLike = () => {
         setLikes(() => {
             return likes + 1;
@@ -26,7 +25,6 @@ const PostFooter = ({ data, post, like, dislike, handleComments }) => {
     }
     const handleEdit = () => {
         // Perform the edit action
-        console.log('Edit button clicked!');
         navigate('/edit-post/' + post.id);
     }
     return (

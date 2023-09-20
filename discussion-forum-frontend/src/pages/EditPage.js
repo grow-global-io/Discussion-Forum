@@ -107,9 +107,7 @@ const EditPage = () => {
     const [postDescription, setPostDescription] = useState();
     useEffect(() => {
         fetch(Backend_URL + "post/get-data/" + id).then(data => data.json()).then(data => {
-            console.log('postdata', data);
             setData(data);
-            console.log(data.postDescription);
             setPost(data.postDescription);
             setCoverImage(data["cover-photo"]);
             // console.log(data["cover-photo"])

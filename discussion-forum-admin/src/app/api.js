@@ -44,7 +44,6 @@ export const fetchUsers = async () => {
       return response.data;
     }
     catch(e){
-      console.log("error deleting user",e);
       throw new Error("Error deleting user");
     }
   }
@@ -54,7 +53,6 @@ export const fetchUsers = async () => {
       return response.data;
     }
     catch(e){
-      console.log("error restricting user",e);
       throw new Error("Error restricting user");
     }
   }
@@ -64,7 +62,6 @@ export const fetchUsers = async () => {
       return response.data;
     }
     catch(e){
-      console.log("error allowing user",e);
       throw new Error("Error allowing user");
     }
   }
