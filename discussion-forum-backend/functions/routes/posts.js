@@ -61,7 +61,6 @@ router.post("/add-thread/:id", async (req, res) => {
   // const data = JSON.parse(req.body)
   const data = JSON.parse(req.body)
 
-  console.log("here",data)
   const { id } = req.params
   const {userId} = data
   try {
@@ -104,9 +103,9 @@ router.delete('/remove-thread/:postId', async (req, res) => {
     // Update the post in Cosmos DB
     await container.item(postId).replace(post);
 
-    return res.json({ message: 'Value removed from likedBy array' });
+    return res.json({ message: 'Value removed from thread array' });
   } catch (error) {
-    console.error('Error removing value from likedBy array:', error);
+    console.error('Error removing value from thread array:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
