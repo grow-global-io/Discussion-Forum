@@ -59,8 +59,8 @@ router.post("/add-like/:id", async (req, res) => {
 })
 router.post("/add-thread/:id", async (req, res) => {
   // const data = JSON.parse(req.body)
-  console.log(req.body)
-  const data = req.body
+  const data = JSON.parse(req.body)
+
   console.log("here",data)
   const { id } = req.params
   const {userId} = data
@@ -72,7 +72,44 @@ router.post("/add-thread/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to update document." });
   }
 })
+router.delete('/remove-thread/:postId', async (req, res) => {
+  const postId = req.params.postId;
+  const data = req.body
+  const {valueToRemove} = data;
 
+  try {
+    console.log(valueToRemove)
+    // Fetch the post from Cosmos DB
+    const querySpec = {
+      query: 'SELECT * FROM c WHERE c.id = @postId',
+      parameters: [{ name: '@postId', value: postId }]
+    };
+
+    const { resources: posts } = await container.items.query(querySpec).fetchAll();
+    const post = posts[0]
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    
+    const threadPostsArr = post.threadPosts;
+    console.log(valueToRemove)
+    const index = threadPostsArr.indexOf(valueToRemove);
+    
+    if (index === -1) {
+      return res.status(404).json({ error: 'Value not found in threadPosts array' });
+    }
+
+    threadPostsArr.splice(index, 1);
+
+    // Update the post in Cosmos DB
+    await container.item(postId).replace(post);
+
+    return res.json({ message: 'Value removed from likedBy array' });
+  } catch (error) {
+    console.error('Error removing value from likedBy array:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
 router.delete('/remove-like/:postId', async (req, res) => {
   const postId = req.params.postId;
   const data = JSON.parse(req.body)
