@@ -48,8 +48,10 @@ const Post = ({ post, showMore }) => {
     }
 
     useEffect(() => {
-        if (post && post.threadPosts.includes(user.uid)) {
-            setSubscribe(true);
+        if (post && post.threadPosts.length > 0) {
+            if (post.threadPosts.some(e => e.userId === user.uid)) {
+                setSubscribe(true);
+            }
         }
     }, [subscribe, post, user])
 

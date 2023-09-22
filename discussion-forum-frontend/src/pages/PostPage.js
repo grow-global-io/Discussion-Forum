@@ -30,17 +30,16 @@ const PostPage = () => {
         const userEmails = [];
         
         data.threadPosts.forEach(async (item) => {
-            const getPostUserEmail = await fetch(Backend_URL + 'user/get/' + item, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-            const { email: postUserEmail} = await getPostUserEmail.json();
-            userEmails.push(postUserEmail);
+            userEmails.push(item.email);
         })
 
-        console.log("🚀 ~ handleSubmit ~ userEmails:", userEmails)
+        const getPostOwnerEmail = await fetch(Backend_URL + 'user/get/' + data.userId, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+        const { email: postOwnerEmail} = await getPostOwnerEmail.json();
 
         if(Object.keys(user).length > 0){
             const body = {
@@ -53,18 +52,29 @@ const PostPage = () => {
             method:"POST",
             body:JSON.stringify(body)
         })
+        const commentOwnerNotifierBody = {
+            emails: [postOwnerEmail],
+            subject: `Owner You got a comment on your Post!`,
+            html: `<h1>${user.displayName} commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
+        }
         const commentNotifierBody = {
             emails: userEmails,
             subject: `You got a comment on your Post!`,
             html: `<h1>${user.displayName} commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
         }
-        console.log("🚀 ~ handleSubmit ~ commentNotifierBody:", commentNotifierBody)
         await fetch('https://us-central1-email-service-e8713.cloudfunctions.net/api/v1/sendEmail', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(commentNotifierBody)
+        })
+        await fetch('https://us-central1-email-service-e8713.cloudfunctions.net/api/v1/sendEmail', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(commentOwnerNotifierBody)
         })
         }
         else{
@@ -78,6 +88,11 @@ const PostPage = () => {
             method:"POST",
             body:JSON.stringify(body)
         })
+        const commentOwnerNotifierBody = {
+            emails: [postOwnerEmail],
+            subject: `Owner You got a comment on your Post!`,
+            html: `<h1>An anonymous person commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
+        }
         const commentNotifierBody = {
             emails: userEmails,
             subject: `You got a comment on your Post!`,
@@ -90,12 +105,19 @@ const PostPage = () => {
             },
             body: JSON.stringify(commentNotifierBody)
         })
+        await fetch('https://us-central1-email-service-e8713.cloudfunctions.net/api/v1/sendEmail', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(commentOwnerNotifierBody)
+        })
         }
         fetch(Backend_URL + "post/get-data/" + id).then(data => data.json()).then(data => {
             setData(data);
             setComments(data.comments);
         })
-        window.location.reload();
+        // window.location.reload();
     }
     const textAreaRef = useRef();
     const [checked, setChecked] = useState(false);
@@ -107,7 +129,7 @@ const PostPage = () => {
             setData(data);
             setComments(data.comments);
         })
-    }, [])
+    }, [id])
 
     const handleChecked = () => {
         setChecked(!checked);
