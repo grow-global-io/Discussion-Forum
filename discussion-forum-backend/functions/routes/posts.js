@@ -73,7 +73,7 @@ router.post("/add-thread/:id", async (req, res) => {
 })
 router.delete('/remove-thread/:postId', async (req, res) => {
   const postId = req.params.postId;
-  const data = req.body
+  const data = JSON.parse(req.body)
   const {valueToRemove} = data;
 
   try {
