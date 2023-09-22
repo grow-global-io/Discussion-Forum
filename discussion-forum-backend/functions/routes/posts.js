@@ -91,9 +91,11 @@ router.delete('/remove-thread/:postId', async (req, res) => {
     }
     
     const threadPostsArr = post.threadPosts;
-    console.log(valueToRemove)
-    const index = threadPostsArr.indexOf(valueToRemove);
-    
+    const index = threadPostsArr.findIndex((element) => {
+      console.log(element,"ele")
+      return element.userId === valueToRemove.userId;
+    });
+    console.log(index)
     if (index === -1) {
       return res.status(404).json({ error: 'Value not found in threadPosts array' });
     }
