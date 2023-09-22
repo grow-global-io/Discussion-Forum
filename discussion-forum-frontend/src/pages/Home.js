@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineLoading, AiOutlinePlus } from "react-icons/ai";
 import { BsGrid, BsList } from 'react-icons/bs';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -140,7 +140,18 @@ const Home = () => {
           </div>
         </div>
         <a className={styles.homeLink} href="/home">All Posts</a>
-        <div className={`${styles.posts} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
+        {!post && <CircularProgress className={styles.loading} color="secondary" />}
+        {post ? (
+          <div className={`${styles.posts} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
+          {post.map((p) => (
+              <>
+
+                <Post user={user} post={p} key={p.id} showMore={false} />
+              </>
+            ))}
+          </div>
+        ) : (<></>)}
+        {/* <div className={`${styles.posts} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
           {post ? (
             post.map((p) => (
               <>
@@ -151,7 +162,7 @@ const Home = () => {
           ) : (
             <></>
           )}
-        </div>
+        </div> */}
       </div>
     </Container>
   );

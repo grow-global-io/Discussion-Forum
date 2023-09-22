@@ -155,6 +155,10 @@
         grid-row: 3;
         place-self: start;
     }
+    .loading {
+        grid-column: span 2;
+        margin: 0 auto;
+    }
 }
 
 /* mobile M */
@@ -256,5 +260,8 @@
     }
     .heading {
         max-height: none;
+    }
+    .loading {
+        grid-column: span 6;
     }
 }

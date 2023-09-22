@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Chip } from '@mui/material';
+import { Checkbox, Chip } from '@mui/material';
 import styles from '../styles/Post.module.css';
 
+import toast from 'react-hot-toast';
 import { AiFillHeart, AiOutlineComment, AiOutlineHeart } from 'react-icons/ai';
 import { IoMdLink } from 'react-icons/io';
 import { useSelector } from 'react-redux';
@@ -15,6 +16,7 @@ import UserProfile from './UserProfile';
 const Post = ({ post, showMore }) => {
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.userInfo);
+    const [subscribe, setSubscribe] = useState(false);
 
     const data = {
         userId: user.uid
@@ -44,6 +46,36 @@ const Post = ({ post, showMore }) => {
         navigate('/post/' + post.id + '#comments');
         navigate(0);
     }
+
+    useEffect(() => {
+        if (post && post.threadPosts.includes(user.uid)) {
+            setSubscribe(true);
+        }
+    }, [subscribe, post, user])
+
+    const handleSubscribe = async () => {
+        if (!subscribe) {
+            setSubscribe(true)
+            const data = {
+                userId: user.uid
+            }
+            await fetch(Backend_URL+"post/add-thread/"+post.id, {
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            toast("Subscribed to post");
+        } else {
+            setSubscribe(false);
+            const data = {
+                valueToRemove: user.uid
+            }
+            await fetch(Backend_URL+"post/remove-thread/"+post.id, {
+                method: "DELETE",
+                body: JSON.stringify(data)
+            })
+        }
+    }
+    
     return (
         <div className={`${styles.post} ${showMore ? styles.full : ''}`}>
 
@@ -131,6 +163,10 @@ const Post = ({ post, showMore }) => {
                         <p>
                             <strong>Performance Requirements: </strong>
                             {post.performanceRequirements}
+                        </p>
+                        <p>
+                            <Checkbox checked={subscribe} onClick={handleSubscribe} size='small' color='secondary' />
+                            <strong>Subscribe to post</strong>
                         </p>
                         <p className={styles.postDescription}>
                             <strong>Post Description </strong> 
