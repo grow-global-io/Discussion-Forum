@@ -27,15 +27,20 @@ const PostPage = () => {
          * userId
          * userProfilePhoto
          */
+        const userEmails = [];
+        
+        data.threadPosts.forEach(async (item) => {
+            const getPostUserEmail = await fetch(Backend_URL + 'user/get/' + item, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const { email: postUserEmail} = await getPostUserEmail.json();
+            userEmails.push(postUserEmail);
+        })
 
-        const getPostUserEmail = await fetch(Backend_URL + 'user/get/' + data.userId, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        const { email: postUserEmail} = await getPostUserEmail.json();
+        console.log("🚀 ~ handleSubmit ~ userEmails:", userEmails)
 
         if(Object.keys(user).length > 0){
             const body = {
@@ -49,10 +54,11 @@ const PostPage = () => {
             body:JSON.stringify(body)
         })
         const commentNotifierBody = {
-            emails: [postUserEmail],
+            emails: userEmails,
             subject: `You got a comment on your Post!`,
             html: `<h1>${user.displayName} commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
         }
+        console.log("🚀 ~ handleSubmit ~ commentNotifierBody:", commentNotifierBody)
         await fetch('https://us-central1-email-service-e8713.cloudfunctions.net/api/v1/sendEmail', {
             method: "POST",
             headers: {
@@ -73,7 +79,7 @@ const PostPage = () => {
             body:JSON.stringify(body)
         })
         const commentNotifierBody = {
-            emails: [postUserEmail],
+            emails: userEmails,
             subject: `You got a comment on your Post!`,
             html: `<h1>An anonymous person commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
         }

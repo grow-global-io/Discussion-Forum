@@ -57,7 +57,8 @@ const Post = ({ post, showMore }) => {
         if (!subscribe) {
             setSubscribe(true)
             const data = {
-                userId: user.uid
+                userId: user.uid,
+                email: user.email
             }
             await fetch(Backend_URL+"post/add-thread/"+post.id, {
                 method: "POST",
@@ -67,7 +68,12 @@ const Post = ({ post, showMore }) => {
         } else {
             setSubscribe(false);
             const data = {
-                valueToRemove: user.uid
+                valueToRemove: {
+                    
+                    userId: user.uid,
+                    email: user.email
+                    
+                }
             }
             await fetch(Backend_URL+"post/remove-thread/"+post.id, {
                 method: "DELETE",
