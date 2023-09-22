@@ -39,7 +39,6 @@ router.post('/update-profile/:id', async (req, res) => {
   }
 });
 
-
 router.post('/create', async (req, res) => {
     try {
       const userData = JSON.parse(req.body)
