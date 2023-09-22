@@ -62,9 +62,9 @@ router.post("/add-thread/:id", async (req, res) => {
   const data = JSON.parse(req.body)
 
   const { id } = req.params
-  const {userId} = data
+  const {userId,email} = data
   try {
-    const updatedDocument = await updateDocumentThread(id, userId);
+    const updatedDocument = await updateDocumentThread(id, userId,email);
     res.status(200).json({ message: "User ID added to threadPosts array.", document: updatedDocument });
   } catch (error) {
     console.error(error);
@@ -178,7 +178,7 @@ async function updateDocument2(postId, comment) {
   container.item(postId).replace(updatedData)
   return updatedData;
 }
-async function updateDocumentThread(postId, userId) {
+async function updateDocumentThread(postId, userId,email) {
   // Retrieve the document from Cosmos DB
   const querySpec = {
     query: 'SELECT * FROM c WHERE c.id = @postId',
@@ -188,7 +188,7 @@ async function updateDocumentThread(postId, userId) {
   const { resources } = await container.items.query(querySpec).fetchAll();
   const doc = resources[0]
   // Update the document in Cosmos DB
-  const updatedData = { ...doc, threadPosts: [...doc.threadPosts, userId] };
+  const updatedData = { ...doc, threadPosts: [...doc.threadPosts, {userId,email}] };
   container.item(postId).replace(updatedData)
   return updatedData;
 }
