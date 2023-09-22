@@ -55,9 +55,13 @@ const Login = () => {
     }
     const id = localStorage.getItem("uid")
     useEffect(() => {
-        if (id)
-            navigate("/")
-    }, [id])
+        if (id){
+            fetch(Backend_URL + `user/get/${id}`, {
+                method: "GET",
+            })
+            .then(data => data.json()).then(data => { dispatch(getUser(data)); navigate("/")})
+        }
+    }, [])
 
     const triggerOTP = () => {
         const OTP = randomString(10)

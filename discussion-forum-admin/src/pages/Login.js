@@ -20,33 +20,38 @@ const Login = () => {
     const dispatch = useDispatch()
 
     const handleSubmit = async () => {
+
+        console.log( process.env.REACT_APP_USERNAME, process.env.REACT_APP_PASSWORD)
         if (username && password) {
             setError('');
             if (
                 username === process.env.REACT_APP_USERNAME &&
                 password === process.env.REACT_APP_PASSWORD
             ) {
-              const data = {
-                user: username,
-                password
-              }
+                const data = {
+                    user: username,
+                    password
+                }
                 await dispatch(setUser(data))
-               return navigate('/home');
+                return navigate('/home');
             } else {
                 setError('Please enter correct username and password');
             }
         }
-        setError('please enter username and password');
+        else {
+
+            setError('please enter username and password');
+        }
     };
 
     return (
         <Container>
             <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
-                <div style={{ position: 'relative', padding: '5px' }}>
+                <div style={{ position: 'relative', padding: '5px', display: "flex", justifyContent: "center" }}>
                     <img
-                        src="https://americancomposers.org/wp-content/uploads/2020/04/aco-logo.png"
+                        src="aco-logo.png"
                         alt="logo"
-                        style={{ width: '100%',maxWidth:"100px" }}
+                        style={{ width: '100%', maxWidth: "150px" }}
                     />
                 </div>
                 <CardContent>

@@ -122,7 +122,7 @@ export default function PersistentDrawerLeft() {
                             <MenuIcon sx={{ color: "black" }} />
                         </IconButton>
                         <Typography variant="h6" noWrap component="div">
-                            <img src="https://americancomposers.org/wp-content/uploads/2020/04/aco-logo.png" alt="logo" style={{ width: "100%", height: "50px" }} />
+                            <img src="aco-logo.png" alt="logo" style={{ width: "100%", height: "50px" }} />
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -161,7 +161,7 @@ export default function PersistentDrawerLeft() {
 
                         }
                         ].map((text, index) => (
-                            <Link to={text.link} style={{ textDecoration: "none", color: text.isActive ? "white" : "#757575" }} >
+                            <Link to={text.link} key={index} style={{ textDecoration: "none", color: text.isActive ? "white" : "#757575" }} >
                                 <ListItem key={text.name} disablePadding style={{ backgroundColor: text.isActive ? "rgb(163,111,173)" : "white" }}>
                                     <ListItemButton>
                                         <ListItemIcon >

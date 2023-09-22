@@ -7,8 +7,8 @@ const Trends = ({ tags, sort }) => {
     return (
         <div className={styles.trend}>
             {tags && (
-                uniqueTags.map(tag => (
-                    <Chip key={tag} clickable onClick={(e) => sort(e)} label={`#${tag}`} variant='filled' color='secondary' size='small' />
+                uniqueTags.map((tag,index) => (
+                    <Chip key={index}  clickable onClick={(e) => sort(e)} label={`#${tag}`} variant='filled' color='secondary' size='small' />
                 ))
             )}
         </div>

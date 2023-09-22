@@ -60,14 +60,14 @@ const Post = ({ post, showMore }) => {
             </div>
             <div className={styles.postBody}>
                 {post.tags && (<div className={styles.postTags}>
-                    {post.tags.map(tag => (
-                        <Link to={"/"+tag} role="button">
+                    {post.tags.map((tag,index) => (
+                        <Link to={"/"+tag} key={index} role="button">
                         <Chip key={tag} label={`#${tag}`} variant='filled' color='secondary' size='small' />
                         </Link>
                     ))}
                 </div>)}
                 <p>
-                    <p>Composer Name: </p>
+                    <strong>Composer Name: </strong>
                     {post.composerName}
                 </p>
                 <p>
