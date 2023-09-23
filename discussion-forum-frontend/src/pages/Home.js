@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 // import { post } from '../assets/post-data';
 import { CircularProgress } from "@mui/material";
 import { Backend_URL } from "../Constants/backend";
+import Filter from "../components/Filter";
 import Heading from '../components/Heading';
 import Post from "../components/Post";
 import Trends from "../components/Trends";
@@ -125,11 +126,14 @@ const Home = () => {
                         <a href="/">📝 My answers</a>
                     </div>
                 </aside> */}
-        <div className={`${styles.trends} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
-          <p>Popular Tags</p>
-          {post ? (
-            <Trends tags={unique} sort={sortByTag} />
-          ) : (<></>)}
+        <div className={styles.sidebar}>
+          <div className={`${styles.trends} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
+            <p>Popular Tags</p>
+            {post ? (
+              <Trends tags={unique} sort={sortByTag} />
+            ) : (<></>)}
+          </div>
+          <Filter />
         </div>
         <div className={`${styles.viewLayout} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
           <div style={{cursor: 'pointer'}} onClick={() => setViewLayout('list')}>

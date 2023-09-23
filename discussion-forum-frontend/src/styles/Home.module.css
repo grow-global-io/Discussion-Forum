@@ -72,19 +72,31 @@
     grid-column: 3 / span 8;
     grid-row: 2;
 }
-
-.trends {
-    grid-column: 1;
-    grid-row: 1;
+.sidebar {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--_size);
+    height: fit-content;
+}
+.trends, .filter {
+    /* grid-column: 1;
+    grid-row: 1; */
     background: #ffffff;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
     padding: var(--_size);
     text-align: center;
     border-radius: 12px;
 }
-.trends > :first-child {
+.trends > :first-child, .filter > :first-child {
     font-size: large;
     font-weight: 700;
+}
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .trends .trend {
     display: flex;
@@ -148,9 +160,9 @@
         width: 100px;
         font-size: small;
     }
-    .trends {
+    /* .trends {
         grid-column: span 2;
-    }
+    } */
     .homeLink {
         grid-row: 3;
         place-self: start;
@@ -185,10 +197,8 @@
         --_size: 1.5rem;
     }
     .home {
-        grid-template-columns: repeat(12, 1fr);
-    }
-    .home.grid {
         grid-template-columns: repeat(6, 1fr);
+        gap: var(--_size) calc(var(--_size) * 2);
     }
     .results {
         top: 75px;
@@ -197,52 +207,41 @@
         transform: translateX(-75%);
     }
     .newPost {
-        grid-column: 12;
-        grid-row: 1;
-    }
-    .newPost.grid {
         grid-column: 6;
+        grid-row: 1;
     }
     .posts {
         display: grid;
-        grid-row: 3;
-        grid-column: 1 / 9;
-        gap: calc(var(--_size) * 1) calc(var(--_size) * 3);
+        grid-template-columns: repeat(1, 1fr);
+        grid-column: 3 / 7;
+        grid-row: 2;
+        gap: calc(var(--_size)) calc(var(--_size) * 2);
         /* grid-template-columns: repeat(2, 1fr); */
         /* grid-row: 2; */
     }
     .posts.grid {
-        gap: calc(var(--_size) * 2) calc(var(--_size) * 3);
         grid-template-columns: repeat(2, 1fr);
-        grid-column: 1 / 7;
-        grid-row: 3;
     }
     .sortDropdown {
-        grid-column: 7 / span 2;
+        grid-column: 5;
         grid-row: 1;
         width: 100%;
     }
-    .sortDropdown.grid {
-        grid-column: 5;
-    }
-    .trends {
+    /* .trends {
         grid-column: 10 / span 3;
         grid-row: 3;
-        max-height: 500px;
-    }
-    .trends.grid {
+        height: fit-content;
+    } */
+    /* .trends.grid {
         grid-column: 1 / span 2;
         grid-row: 2;
-    }
+    } */
     .viewLayout {
-        grid-column: 5 / span 2;
+        grid-column: 4;
         justify-self: end;
         align-self: center;
         display: flex;
         gap: 10px;
-    }
-    .viewLayout.grid {
-        grid-column: 4;
     }
     .viewLayout svg {
         width: 32px;
