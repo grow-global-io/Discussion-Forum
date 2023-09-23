@@ -15,6 +15,7 @@ import styles from "../styles/Home.module.css";
 const Home = () => {
   const [post, setPost] = React.useState([]);
   const [unique, setUnique] = React.useState([]);
+  const [filteredPost,setFilteredPost] = React.useState([]);
   const [temporaryPost, setTemporaryPost] = React.useState([]);
   // let unique = [];
   const [sortBy, setSortBy] = React.useState("newestFirst");
@@ -42,6 +43,7 @@ const Home = () => {
       .then((data) => {
         setPost(data);
         setTemporaryPost(data);
+        setFilteredPost(data);
         for (let index = 0; index < data.length; index++) {
           const element = data[index];
           let tags = element.tags;
@@ -133,7 +135,7 @@ const Home = () => {
               <Trends tags={unique} sort={sortByTag} />
             ) : (<></>)}
           </div>
-          <Filter />
+          <Filter setFilteredPost={setFilteredPost} post={post}/>
         </div>
         <div className={`${styles.viewLayout} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
           <div style={{cursor: 'pointer'}} onClick={() => setViewLayout('list')}>
@@ -147,9 +149,8 @@ const Home = () => {
         {!post && <CircularProgress className={styles.loading} color="secondary" />}
         {post ? (
           <div className={`${styles.posts} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
-          {post.map((p) => (
+          {filteredPost.map((p) => (
               <>
-
                 <Post user={user} post={p} key={p.id} showMore={false} />
               </>
             ))}

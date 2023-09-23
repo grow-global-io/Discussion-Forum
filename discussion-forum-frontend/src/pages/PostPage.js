@@ -54,13 +54,13 @@ const PostPage = () => {
         })
         const commentOwnerNotifierBody = {
             emails: [postOwnerEmail],
-            subject: `Owner You got a comment on your Post!`,
+            subject: `${user.displayName} You got a comment on your Post!`,
             html: `<h1>${user.displayName} commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
         }
         const commentNotifierBody = {
             emails: userEmails,
             subject: `You got a comment on your Post!`,
-            html: `<h1>${user.displayName} commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
+            html: `<h1>${user.displayName} commented on a post  you subscribed for </h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
         }
         await fetch('https://us-central1-email-service-e8713.cloudfunctions.net/api/v1/sendEmail', {
             method: "POST",
@@ -90,13 +90,13 @@ const PostPage = () => {
         })
         const commentOwnerNotifierBody = {
             emails: [postOwnerEmail],
-            subject: `Owner You got a comment on your Post!`,
+            subject: `${user.displayName} You got a comment on your Post!`,
             html: `<h1>An anonymous person commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
         }
         const commentNotifierBody = {
             emails: userEmails,
             subject: `You got a comment on your Post!`,
-            html: `<h1>An anonymous person commented on your post</h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
+            html: `<h1>An anonymous person commented on post you subscribed for </h1><a href='https://commissioning-hub.web.app/post/${id}'>Go to post</a>`,
         }
         await fetch('https://us-central1-email-service-e8713.cloudfunctions.net/api/v1/sendEmail', {
             method: "POST",

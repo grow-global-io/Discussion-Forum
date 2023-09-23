@@ -6,17 +6,16 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    TextField,
+    TextField
 } from '@mui/material';
 import { MuiChipsInput } from 'mui-chips-input';
 import { useState } from 'react';
 import { BsFilter } from 'react-icons/bs';
 import styles from '../styles/Home.module.css';
 
-const Filter = () => {
+const Filter = ({ setFilteredPost, post }) => {
     const [tagArr, setTagArr] = useState([]);
     const [showMore, setShowMore] = useState(false);
-    var ChipArr = [];
     const [ethnicity, setEthnicity] = useState([]);
     const ethnicityOptions = [
         'American Indian or Alaska Native',
@@ -33,6 +32,53 @@ const Filter = () => {
         'Gender Nonconforming',
         'A Different Gender Identity',
     ];
+    const [formData, setFormData] = useState({
+        userDisplayName: "",
+        composerWebsite: "",
+        representativeWorkSample: "",
+        leadCommissioner: "",
+        premiereDate: "",
+        totalCommissionFee: "",
+        fundingStatus: "",
+        numberOfPartnersSought: "",
+        fundsCommittedToDate: "",
+        deadlineToJoinConsortium: "",
+        partnersCommittedToDate: "",
+        rangeOfConsortiumPartnerCommissionFees: "",
+        duration: "",
+        instrumentation: "",
+        gender: "",
+        performanceRequirements: "",
+
+    })
+    for (const key in formData) {
+        if (formData[key] !== '') {
+          formData[key] = formData[key].toLowerCase();
+        } else {
+          delete formData[key];
+        }
+      }
+      
+      const filteredPost = post.filter((obj) => {
+        return Object.keys(formData).some((key) => {
+          return String(obj[key]).toLowerCase().includes(formData[key]);
+        });
+      });
+      
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+    const handleFilter = (e) => {
+        e.preventDefault()
+        if (Object.entries(formData).length>0)
+            setFilteredPost(filteredPost)
+        else
+            setFilteredPost(post)
+    }
+
+
+
+
     return (
         <div className={styles.filter}>
             <div
@@ -51,9 +97,10 @@ const Filter = () => {
                 </Button>
             </div>
             {showMore && (
-                <>
+                <form onSubmit={handleFilter}>
                     <TextField
-                        name="composerName"
+                        onChange={handleChange}
+                        name="userDisplayName"
                         color="secondary"
                         required
                         id="composerName"
@@ -62,6 +109,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         name="composerWebsite"
                         color="secondary"
                         id="composerWebsite"
@@ -70,6 +118,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         name="representativeWorkSample"
                         color="secondary"
                         id="representativeWorkSample"
@@ -78,6 +127,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         name="leadCommissioner"
                         color="secondary"
                         id="leadCommissioner"
@@ -86,6 +136,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         type="date"
                         color="secondary"
                         name="premiereDate"
@@ -96,6 +147,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         type="number"
                         name="totalCommissionFee"
                         color="secondary"
@@ -129,6 +181,7 @@ const Filter = () => {
                         </Select>
                     </FormControl>
                     <TextField
+                        onChange={handleChange}
                         type="number"
                         name="numberOfPartnersSought"
                         color="secondary"
@@ -138,6 +191,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         type="number"
                         name="fundsCommittedToDate"
                         color="secondary"
@@ -147,6 +201,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         type="date"
                         name="deadlineToJoinConsortium"
                         color="secondary"
@@ -157,6 +212,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         type="number"
                         name="partnersCommittedToDate"
                         color="secondary"
@@ -166,6 +222,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         name="rangeOfConsortiumPartnerCommissionFees"
                         color="secondary"
                         id="rangeOfConsortiumPartnerCommissionFees"
@@ -174,6 +231,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         name="duration"
                         color="secondary"
                         id="duration"
@@ -203,6 +261,7 @@ const Filter = () => {
                         </Select>
                     </FormControl>
                     <TextField
+                        onChange={handleChange}
                         name="conductor"
                         color="secondary"
                         id="conductor"
@@ -211,6 +270,7 @@ const Filter = () => {
                         style={{ width: '100%' }}
                     />
                     <TextField
+                        onChange={handleChange}
                         name="soloist"
                         color="secondary"
                         id="soloist"
@@ -218,14 +278,7 @@ const Filter = () => {
                         variant="outlined"
                         style={{ width: '100%' }}
                     />
-                    <MuiChipsInput
-                        placeholder="Enter Your Tags"
-                        value={tagArr}
-                        onChange={(e) => {
-                            setTagArr(e);
-                            ChipArr = e;
-                        }}
-                    />
+
                     <FormControl fullWidth>
                         <InputLabel
                             color="secondary"
@@ -286,6 +339,7 @@ const Filter = () => {
                         </Select>
                     </FormControl>
                     <TextField
+                        onChange={handleChange}
                         name="performanceRequirements"
                         color="secondary"
                         id="performanceRequirements"
@@ -293,10 +347,10 @@ const Filter = () => {
                         variant="outlined"
                         style={{ width: '100%' }}
                     />
-                    <Button color="secondary" variant="contained">
+                    <Button color="secondary" type='submit' variant="contained" onClick={handleFilter}>
                         Submit
                     </Button>
-                </>
+                </form>
             )}
         </div>
     );
