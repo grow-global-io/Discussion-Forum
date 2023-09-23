@@ -5,7 +5,7 @@ import { BsGrid, BsList } from 'react-icons/bs';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { post } from '../assets/post-data';
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Link } from "@mui/material";
 import { Backend_URL } from "../Constants/backend";
 import Filter from "../components/Filter";
 import Heading from '../components/Heading';
@@ -99,9 +99,9 @@ const Home = () => {
       <Heading />
       <div className={`${styles.home} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
         {user.id && (
-          <button className={`${styles.newPost} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`} onClick={createNewPost}>
+          <Button variant='contained' color='secondary' className={`${styles.newPost} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`} onClick={createNewPost}>
             <AiOutlinePlus /> New Post
-          </button>
+          </Button>
         )}
         {
           <select
@@ -143,7 +143,7 @@ const Home = () => {
             <BsGrid />
           </div>
         </div>
-        <a className={styles.homeLink} href="/home">All Posts</a>
+        <Link underline="none" className={styles.homeLink} href="/home"><Button variant="contained" color="secondary" style={{width: '100%'}}>All Posts</Button></Link>
         {!post && <CircularProgress className={styles.loading} color="secondary" />}
         {post ? (
           <div className={`${styles.posts} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
