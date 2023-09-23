@@ -33,7 +33,7 @@ const Filter = ({ setFilteredPost, post }) => {
         'A Different Gender Identity',
     ];
     const [formData, setFormData] = useState({
-        userDisplayName: "",
+        composerName: "",
         composerWebsite: "",
         representativeWorkSample: "",
         leadCommissioner: "",
@@ -100,7 +100,7 @@ const Filter = ({ setFilteredPost, post }) => {
                 <form onSubmit={handleFilter}>
                     <TextField
                         onChange={handleChange}
-                        name="userDisplayName"
+                        name="composerName"
                         color="secondary"
                         required
                         id="composerName"
