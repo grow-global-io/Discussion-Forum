@@ -230,6 +230,7 @@
     }
     .post {
         grid-column: auto;
+        height: fit-content;
     }
     .postWrapper .full {
         grid-column: 2 / 6;

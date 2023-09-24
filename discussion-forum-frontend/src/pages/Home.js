@@ -146,8 +146,8 @@ const Home = () => {
           </div>
         </div>
         <Link underline="none" className={styles.homeLink} href="/home"><Button variant="contained" color="secondary" style={{width: '100%'}}>All Posts</Button></Link>
-        {!post && <CircularProgress className={styles.loading} color="secondary" />}
-        {post ? (
+        {post.length === 0 && <CircularProgress className={styles.loading} color="secondary" />}
+        {post && post.length !== 0 ? (
           <div className={`${styles.posts} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
           {filteredPost.map((p) => (
               <>

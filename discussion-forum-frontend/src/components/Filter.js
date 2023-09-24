@@ -97,7 +97,7 @@ const Filter = ({ setFilteredPost, post }) => {
                 </Button>
             </div>
             {showMore && (
-                <form onSubmit={handleFilter}>
+                <form className={styles.form} onSubmit={handleFilter}>
                     <TextField
                         onChange={handleChange}
                         name="composerName"
