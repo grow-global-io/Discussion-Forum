@@ -6,7 +6,7 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    TextField
+    TextField,
 } from '@mui/material';
 import { MuiChipsInput } from 'mui-chips-input';
 import { useState } from 'react';
@@ -33,51 +33,45 @@ const Filter = ({ setFilteredPost, post }) => {
         'A Different Gender Identity',
     ];
     const [formData, setFormData] = useState({
-        composerName: "",
-        composerWebsite: "",
-        representativeWorkSample: "",
-        leadCommissioner: "",
-        premiereDate: "",
-        totalCommissionFee: "",
-        fundingStatus: "",
-        numberOfPartnersSought: "",
-        fundsCommittedToDate: "",
-        deadlineToJoinConsortium: "",
-        partnersCommittedToDate: "",
-        rangeOfConsortiumPartnerCommissionFees: "",
-        duration: "",
-        instrumentation: "",
-        gender: "",
-        performanceRequirements: "",
-
-    })
+        composerName: '',
+        composerWebsite: '',
+        representativeWorkSample: '',
+        leadCommissioner: '',
+        premiereDate: '',
+        totalCommissionFee: '',
+        fundingStatus: '',
+        numberOfPartnersSought: '',
+        fundsCommittedToDate: '',
+        deadlineToJoinConsortium: '',
+        partnersCommittedToDate: '',
+        rangeOfConsortiumPartnerCommissionFees: '',
+        duration: '',
+        instrumentation: '',
+        gender: '',
+        performanceRequirements: '',
+    });
     for (const key in formData) {
         if (formData[key] !== '') {
-          formData[key] = formData[key].toLowerCase();
+            formData[key] = formData[key].toLowerCase();
         } else {
-          delete formData[key];
+            delete formData[key];
         }
-      }
-      
-      const filteredPost = post.filter((obj) => {
+    }
+
+    const filteredPost = post.filter((obj) => {
         return Object.keys(formData).some((key) => {
-          return String(obj[key]).toLowerCase().includes(formData[key]);
+            return String(obj[key]).toLowerCase().includes(formData[key]);
         });
-      });
-      
+    });
+
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
     const handleFilter = (e) => {
-        e.preventDefault()
-        if (Object.entries(formData).length>0)
-            setFilteredPost(filteredPost)
-        else
-            setFilteredPost(post)
-    }
-
-
-
+        e.preventDefault();
+        if (Object.entries(formData).length > 0) setFilteredPost(filteredPost);
+        else setFilteredPost(post);
+    };
 
     return (
         <div className={styles.filter}>
@@ -107,6 +101,9 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Composer Name"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -116,6 +113,9 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Composer Website"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -125,6 +125,9 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Representative Work Sample"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -134,6 +137,9 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Lead Commissioner"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -142,9 +148,15 @@ const Filter = ({ setFilteredPost, post }) => {
                         name="premiereDate"
                         id="premiereDate"
                         label="Premiere Date"
-                        InputLabelProps={{ shrink: true, required: true }}
+                        InputLabelProps={{
+                            shrink: true,
+                            required: true,
+                            style: { fontSize: '12px' },
+                        }}
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{style: {fontSize: '12px'}}}
                     />
                     <TextField
                         onChange={handleChange}
@@ -155,9 +167,17 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Total Commission Fee"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
-                    <FormControl fullWidth>
-                        <InputLabel id="fundingStatus-label" color="secondary">
+                    <FormControl
+                        fullWidth
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
+                    >
+                        <InputLabel id="fundingStatus-label" color="secondary" sx={{fontSize: '12px'}}>
                             Funding Status
                         </InputLabel>
                         <Select
@@ -168,14 +188,16 @@ const Filter = ({ setFilteredPost, post }) => {
                             id="fundingStatus"
                             label="Funding Status"
                             defaultValue="seekingFunding"
+                            size='small'
+                            sx={{fontSize: '12px'}}
                         >
-                            <MenuItem value="Seeking Funding">
+                            <MenuItem value="Seeking Funding" sx={{fontSize: '12px'}}>
                                 Seeking Funding
                             </MenuItem>
-                            <MenuItem value="Partially Funded">
+                            <MenuItem value="Partially Funded" sx={{fontSize: '12px'}}>
                                 Partially Funded
                             </MenuItem>
-                            <MenuItem value="Fully Funded">
+                            <MenuItem value="Fully Funded" sx={{fontSize: '12px'}}>
                                 Fully Funded
                             </MenuItem>
                         </Select>
@@ -189,6 +211,9 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Number of Partners Sought"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -199,6 +224,9 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Funds Committed to Date"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -208,8 +236,14 @@ const Filter = ({ setFilteredPost, post }) => {
                         id="deadlineToJoinConsortium"
                         label="Deadline to Join Consortium"
                         variant="outlined"
-                        InputLabelProps={{ shrink: true, required: true }}
+                        InputLabelProps={{
+                            shrink: true,
+                            required: true,
+                            style: { fontSize: '12px' },
+                        }}
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -220,6 +254,9 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Partners Committed to Date"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -229,6 +266,9 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Partner Fee Range"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -237,13 +277,25 @@ const Filter = ({ setFilteredPost, post }) => {
                         id="duration"
                         label="Duration"
                         variant="outlined"
-                        InputLabelProps={{ shrink: true, required: true }}
+                        InputLabelProps={{
+                            shrink: true,
+                            required: true,
+                            style: { fontSize: '12px' },
+                        }}
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
                     />
-                    <FormControl fullWidth>
+                    <FormControl
+                        fullWidth
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
+                    >
                         <InputLabel
                             id="instrumentation-label"
                             color="secondary"
+                            sx={{fontSize: '12px'}}
                         >
                             Instrumentation
                         </InputLabel>
@@ -255,9 +307,11 @@ const Filter = ({ setFilteredPost, post }) => {
                             required
                             label="Instrumentation"
                             defaultValue="fixed"
+                            size='small'
+                            sx={{fontSize: '12px'}}
                         >
-                            <MenuItem value="Fixed">Fixed</MenuItem>
-                            <MenuItem value="Flexible">Flexible</MenuItem>
+                            <MenuItem value="Fixed" sx={{fontSize: '12px'}}>Fixed</MenuItem>
+                            <MenuItem value="Flexible" sx={{fontSize: '12px'}}>Flexible</MenuItem>
                         </Select>
                     </FormControl>
                     <TextField
@@ -268,6 +322,9 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Conductor"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
                     <TextField
                         onChange={handleChange}
@@ -277,12 +334,22 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Soloist"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
 
-                    <FormControl fullWidth>
+                    <FormControl
+                        fullWidth
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
+                    >
                         <InputLabel
                             color="secondary"
                             id="demo-multiple-name-label"
+                            size='small'
+                            sx={{fontSize: '12px'}}
                         >
                             Composer Race/Ethnicity
                         </InputLabel>
@@ -292,6 +359,7 @@ const Filter = ({ setFilteredPost, post }) => {
                             id="demo-multiple-name"
                             multiple
                             value={ethnicity}
+                            sx={{fontSize: '12px'}}
                             onChange={(e) => setEthnicity(e.target.value)}
                             renderValue={(selected) => (
                                 <Box
@@ -299,6 +367,7 @@ const Filter = ({ setFilteredPost, post }) => {
                                         display: 'flex',
                                         flexWrap: 'wrap',
                                         gap: 0.5,
+                                        fontSize: '12px'
                                     }}
                                 >
                                     {selected.map((value) => (
@@ -306,20 +375,26 @@ const Filter = ({ setFilteredPost, post }) => {
                                             color="secondary"
                                             key={value}
                                             label={value}
+                                            size='small'
+                                            sx={{fontSize: '12px'}}
                                         />
                                     ))}
                                 </Box>
                             )}
                         >
                             {ethnicityOptions.map((option) => (
-                                <MenuItem key={option} value={option}>
+                                <MenuItem key={option} value={option} sx={{fontSize: '12px'}}>
                                     {option}
                                 </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
-                    <FormControl fullWidth>
-                        <InputLabel id="gender-label" color="secondary">
+                    <FormControl
+                        fullWidth
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
+                    >
+                        <InputLabel id="gender-label" color="secondary" sx={{fontSize: '12px'}}>
                             Composer Gender
                         </InputLabel>
                         <Select
@@ -330,9 +405,11 @@ const Filter = ({ setFilteredPost, post }) => {
                             color="secondary"
                             required
                             label="Gender"
+                            sx={{fontSize: '12px'}}
+                            size='small'
                         >
                             {genderOptions.map((option) => (
-                                <MenuItem key={option} value={option}>
+                                <MenuItem key={option} value={option} sx={{fontSize: '12px'}}>
                                     {option}
                                 </MenuItem>
                             ))}
@@ -346,8 +423,16 @@ const Filter = ({ setFilteredPost, post }) => {
                         label="Detailed Instrumentation and Performance Requirements"
                         variant="outlined"
                         style={{ width: '100%' }}
+                        size="small"
+                        inputProps={{ style: { fontSize: '12px' } }}
+                        InputLabelProps={{ style: { fontSize: '12px' } }}
                     />
-                    <Button color="secondary" type='submit' variant="contained" onClick={handleFilter}>
+                    <Button
+                        color="secondary"
+                        type="submit"
+                        variant="contained"
+                        onClick={handleFilter}
+                    >
                         Submit
                     </Button>
                 </form>

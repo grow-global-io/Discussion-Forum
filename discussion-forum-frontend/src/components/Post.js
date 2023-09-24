@@ -184,7 +184,7 @@ const Post = ({ post, showMore }) => {
                 )}
                 {post.coverPhoto && (
                     <div className={styles.postHighlight} style={{overflow: `${showMore ? 'auto' : 'hidden'}`, aspectRatio: `${showMore ? '' : '1 / 0.5'}`}}>
-                        <img src={post["cover-photo"]} width={300} style={{margin: '0 auto'}} alt="" />
+                        <img src={post["cover-photo"]} style={{margin: '0 auto'}} alt="" />
                     </div>
                 )}
             </div>
