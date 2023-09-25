@@ -48,7 +48,10 @@ export default function ProtectedRoutes() {
     }
     else {
         return (
-            <Home />
+            <>
+                <NavigationBar />
+                <Home />
+            </>
         )
     }
 }

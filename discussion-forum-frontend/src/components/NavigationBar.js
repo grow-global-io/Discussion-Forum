@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Card, Container, Image, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -74,14 +74,16 @@ const NavigationBar = () => {
             }}
             />
             {!user.id && (
-              <button
+              <Button
+                variant="contained"
+                color='secondary'
                 className={styles.newPost}
                 onClick={() => {
                   navigate("/login");
                 }}
               >
                 Login
-              </button>
+              </Button>
             )}
             {userProfileImage}
           </Navbar.Collapse>

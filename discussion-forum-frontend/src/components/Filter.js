@@ -181,6 +181,7 @@ const Filter = ({ setFilteredPost, post }) => {
                             Funding Status
                         </InputLabel>
                         <Select
+                            onChange={handleChange}
                             labelId="fundingStatus-label"
                             color="secondary"
                             required
@@ -300,6 +301,7 @@ const Filter = ({ setFilteredPost, post }) => {
                             Instrumentation
                         </InputLabel>
                         <Select
+                            onChange={handleChange}
                             labelId="instrumentation-label"
                             name="instrumentation"
                             id="instrumentation"
@@ -398,6 +400,7 @@ const Filter = ({ setFilteredPost, post }) => {
                             Composer Gender
                         </InputLabel>
                         <Select
+                            onChange={handleChange}
                             defaultValue=""
                             labelId="gender-label"
                             name="gender"
