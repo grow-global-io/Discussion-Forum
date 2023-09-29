@@ -4,7 +4,7 @@ import { Card, Container, Image, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Backend_URL } from "../Constants/backend";
-import BrandLogo from "../assets/aco-logo.png";
+import BrandLogo from "../assets/aco-logo.svg";
 import styles from "../styles/Home.module.css";
 import ProfileToggle from "./ProfileToggle";
 

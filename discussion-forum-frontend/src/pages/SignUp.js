@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Form, useNavigate } from 'react-router-dom';
-import BrandLogo from '../assets/aco-logo.png';
+import BrandLogo from '../assets/aco-logo.svg';
 import emailjs from '@emailjs/browser'
 import { randomString } from '../assets/utils';
 import toast, { Toaster } from "react-hot-toast";

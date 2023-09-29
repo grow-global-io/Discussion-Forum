@@ -27,7 +27,7 @@
     grid-column: 9 / 11;
     grid-row: 1;
     /* place-self: end; */
-    /* background: #722282; */
+    /* background: #EE9B00; */
     /* border: none; */
     /* color: white; */
     /* border-radius: 12px; */
@@ -112,13 +112,13 @@
     place-self: center;
     text-align: center;
     text-decoration: none;
-    background-color: #722282;
+    background-color: #EE9B00;
     padding: 10px;
     border-radius: 12px;
     color: white;
 }
 .homeLink:hover {
-    color: #722282;
+    color: #EE9B00;
 }
 .homeLink:visited {
     color: white;

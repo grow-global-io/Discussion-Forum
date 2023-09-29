@@ -122,7 +122,7 @@ export default function PersistentDrawerLeft() {
                             <MenuIcon sx={{ color: "black" }} />
                         </IconButton>
                         <Typography variant="h6" noWrap component="div">
-                            <img src="aco-logo.png" alt="logo" style={{ width: "100%", height: "50px" }} />
+                            <img src="aco-logo.svg" alt="logo" style={{ width: "100%", height: "50px" }} />
                         </Typography>
                     </Toolbar>
                 </AppBar>

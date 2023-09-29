@@ -21,7 +21,6 @@ const Login = () => {
 
     const handleSubmit = async () => {
 
-        console.log( process.env.REACT_APP_USERNAME, process.env.REACT_APP_PASSWORD)
         if (username && password) {
             setError('');
             if (
@@ -49,7 +48,7 @@ const Login = () => {
             <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
                 <div style={{ position: 'relative', padding: '5px', display: "flex", justifyContent: "center" }}>
                     <img
-                        src="aco-logo.png"
+                        src="aco-logo.svg"
                         alt="logo"
                         style={{ width: '100%', maxWidth: "150px" }}
                     />

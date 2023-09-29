@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { FcGoogle } from 'react-icons/fc';
 import { Form, useNavigate } from 'react-router-dom';
-import BrandLogo from '../assets/aco-logo.png';
+import BrandLogo from '../assets/aco-logo.svg';
 import toast, { Toaster } from "react-hot-toast"
 import { FaDiscord, FaFacebookF } from 'react-icons/fa';
 import emailjs from '@emailjs/browser'

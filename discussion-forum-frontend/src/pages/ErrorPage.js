@@ -10,7 +10,7 @@ const ErrorPage = () => {
   return (
     <>
       <BeatLoader
-        color="#722282"
+        color="#EE9B00"
         size={20}
         cssOverride={override}
       />
