@@ -15,26 +15,26 @@ router.post('/update-profile/:id', async (req, res) => {
   try {
     const {id} = req.params
     const querySpec = {
-      query: 'SELECT * FROM c WHERE c.uid = @userID',
-      parameters: [{ name: '@userID', value: id }]
-    };
+        query: 'SELECT * FROM c WHERE c.uid = @id',
+        parameters: [
+          { name: '@id', value: id }
+        ]
+      };
 
     const { resources: posts } = await container.items.query(querySpec).fetchAll();
     // Get the existing document from Cosmos DB
     const resource = posts[0]
-
+    const body = JSON.parse(req.body)
     // Update the values if present, or create them if not present
     const updatedData = {
       ...resource,
-      ...req.body
+      ...body
     };
 
     // Replace the existing document with the updated version
-    await container.item(id).replace(updatedData);
-
+    await container.item(resource.id).replace(updatedData);
     res.status(200).json(updatedData);
   } catch (error) {
-    console.error('Error updating profile:', error);
     res.status(500).send('An error occurred while updating the profile.' + error);
   }
 });

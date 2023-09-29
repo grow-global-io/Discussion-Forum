@@ -5,6 +5,7 @@ import styles from '../styles/Profile.module.css';
 
 import { BiLogOut } from 'react-icons/bi';
 import { BsChevronRight } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import { Backend_URL, Base_URL } from '../Constants/backend';
 
 const ProfileToggle = ({ user, show }) => {
@@ -33,7 +34,7 @@ const ProfileToggle = ({ user, show }) => {
                                 {user.displayName}
                             </p>
                         </div>
-                            <div className={styles.profileRoute}><a href={`/profile/${user.uid}`} className=''><p>View Profile</p><BsChevronRight width={44} /></a></div>
+                            <div className={styles.profileRoute}><Link to={`/profile/${user.uid}`} className=''><p>View Profile</p><BsChevronRight width={44} /></Link></div>
                     </div>
                     <button className={styles.profileLogout} onClick={logout}><BiLogOut width={44} className={styles.icon} /> Logout</button>
                 </div>

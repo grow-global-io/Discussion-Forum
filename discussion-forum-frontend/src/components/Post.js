@@ -117,7 +117,7 @@ const Post = ({ post, showMore }) => {
                 <p>
                     <strong>Total Commission Fees: </strong>
                     {post.totalCommissionFee}
-                    {!showMore && <a href={`/post/${post.id}`}>...see more</a>}
+                    {!showMore && <Link to={`/post/${post.id}`}>...see more</Link>}
                 </p>
 
                 {showMore && (

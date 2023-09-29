@@ -142,8 +142,16 @@ const ProfilePage = () => {
         setCoverImage(compressedImage)
         CoverPhoto = compressedImage
     };
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
+        const formData = new FormData(e.target);
+        const values = Object.fromEntries(formData.entries());
+        console.log(CoverPhoto);
+        const body = {...values, photoURL: CoverPhoto}
+        await fetch(Backend_URL + 'user/update-profile/' + id, {
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
         // profileAction(e.target, ethnicity, gender);
     }
 
@@ -229,7 +237,7 @@ const ProfilePage = () => {
             }
 
             {edit && user && (
-                <Form method='post' className={styles.create}>
+                <Form onSubmit={submitHandler} className={styles.create}>
                     <div>
                         <label htmlFor="profilePhoto" style={{ display: 'grid', placeItems: 'center' }}>
                             <img src={coverImage} width={75} height={75} style={{ borderRadius: '50%' }} alt="" />
@@ -244,16 +252,16 @@ const ProfilePage = () => {
                         <TextField type='email' color='secondary' name="email" id="email" label="Email" defaultValue={user.email} variant="outlined" style={{ width: '100%' }} disabled />
                     </div>
                     <div>
-                        <TextField type="date" color='secondary' name="dob" id="dob" InputLabelProps={{ shrink: true, required: true }} label='Date of Birth' variant="outlined" style={{ width: '100%' }} />
+                        <TextField type="date" color='secondary' name="dob" id="dob" InputLabelProps={{ shrink: true, required: true }} label='Date of Birth' variant="outlined" style={{ width: '100%' }} defaultValue={user.dob} />
                     </div>
                     <div>
-                        <TextField label="Personality" color='secondary' name="personality" id="personality" variant="outlined" style={{ width: '100%' }} />
+                        <TextField label="Personality" color='secondary' name="personality" id="personality" variant="outlined" style={{ width: '100%' }} defaultValue={user.personality} />
                     </div>
                     <div>
-                        <TextField label="Instrument" color='secondary' name="instrument" id="instrument" variant="outlined" style={{ width: '100%' }} />
+                        <TextField label="Instrument" color='secondary' name="instrument" id="instrument" variant="outlined" style={{ width: '100%' }} defaultValue={user.instrument} />
                     </div>
                     <div>
-                        <TextField label="Website" color='secondary' name="website" id="website" variant="outlined" style={{ width: '100%' }} />
+                        <TextField label="Website" color='secondary' name="website" id="website" variant="outlined" style={{ width: '100%' }} defaultValue={user.website} />
                     </div>
                     {/* <div>
                         <FormControl variant="outlined" style={{ width: '100%' }}>
