@@ -58,7 +58,7 @@ const NavigationBar = () => {
                 />
               </Link>
             </Navbar.Brand>
-            <Link to="/" style={{ color: '#722282', display: 'inline' }}>National Co-Commissioning Hub</Link>
+            <Link to="/" style={{ color: '#EE9B00', display: 'inline' }}>National Co-Commissioning Hub</Link>
           </div>
           <Navbar.Collapse className="justify-content-end">
           <TextField variant="outlined" color="secondary" fullWidth className="mx-2 mx-sm-5 mt-3 mt-md-0" type="search"

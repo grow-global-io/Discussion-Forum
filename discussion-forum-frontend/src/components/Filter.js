@@ -85,6 +85,7 @@ const Filter = ({ setFilteredPost, post }) => {
                 <p>Filters</p>
                 <Button
                     color="secondary"
+                    sx={{justifyContent: 'end', minWidth: 0}}
                     onClick={() => setShowMore(!showMore)}
                 >
                     <BsFilter />
@@ -434,6 +435,7 @@ const Filter = ({ setFilteredPost, post }) => {
                         color="secondary"
                         type="submit"
                         variant="contained"
+                        sx={{color: 'white'}}
                         onClick={handleFilter}
                     >
                         Submit

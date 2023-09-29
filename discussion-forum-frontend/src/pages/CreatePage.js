@@ -262,7 +262,7 @@ const CreatePage = () => {
                         <TextField name='soloist' color='secondary' id="soloist" label="Soloist" variant="outlined" style={{ width: '100%' }} />
                     </div>
                     <div>
-                        <MuiChipsInput placeholder='Enter Your Tags' value={tagArr} onChange={(e) => {
+                        <MuiChipsInput color='secondary' placeholder='Enter Your Tags' value={tagArr} onChange={(e) => {
                             setTagArr(e)
                             ChipArr = e
                         }} />
@@ -371,7 +371,7 @@ const CreatePage = () => {
                                 onChange={(e) => setUserConfirmation(e.target.checked)}
                             />
                             <span className={styles.checkboxText}>
-                                I confirm to have approved all these details for public posting
+                            I confirm that all details are correct and approved for public posting
 
                             </span>
                         </label>

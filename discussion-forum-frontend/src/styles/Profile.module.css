@@ -45,7 +45,7 @@
     align-items: center;
     text-decoration: none;
     justify-content: space-between;
-    color: purple;
+    color: #EE9B00;
 }
 
 .profileLogout {
@@ -55,7 +55,7 @@
     padding-block: 20px;
     width: 125px;
     height: 75px;
-    color: purple;
+    color: #EE9B00;
     display: flex;
     align-items: center;
 }
@@ -86,7 +86,7 @@
 }
 
 .profileUser button {
-    background: #722282;
+    background: #EE9B00;
     border: none;
     color: white;
     padding: 5px;
@@ -169,7 +169,7 @@
 .submit button {
     width: 149px;
     height: 44px;
-    background: #722282;
+    background: #EE9B00;
     color: white;
     border: none;
     border-radius: 12px;

@@ -101,7 +101,7 @@ const Home = () => {
       <Heading />
       <div className={`${styles.home} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
         {user.id && (
-          <Button variant='contained' color='secondary' className={`${styles.newPost} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`} onClick={createNewPost}>
+          <Button variant='contained' color='secondary' sx={{color: 'white'}} className={`${styles.newPost} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`} onClick={createNewPost}>
             <AiOutlinePlus /> New Post
           </Button>
         )}
@@ -145,7 +145,7 @@ const Home = () => {
             <BsGrid />
           </div>
         </div>
-        <Link underline="none" className={styles.homeLink} href="/home"><Button variant="contained" color="secondary" style={{width: '100%'}}>All Posts</Button></Link>
+        <Link underline="none" className={styles.homeLink} href="/home"><Button variant="contained" sx={{color: 'white'}} color="secondary" style={{width: '100%'}}>All Posts</Button></Link>
         {post.length === 0 && <CircularProgress className={styles.loading} color="secondary" />}
         {post && post.length !== 0 ? (
           <div className={`${styles.posts} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
