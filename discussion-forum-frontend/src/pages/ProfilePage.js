@@ -63,8 +63,8 @@ const ProfilePage = () => {
     //     'Others'
     // ];
 
-    useEffect(() => {
-        fetch(Backend_URL + "user/get/" + id, {
+    const fetchData = async () => {
+        await fetch(Backend_URL + "user/get/" + id, {
             method: "GET"
         }).then(data => data.json()).then(data => {
             setUser(data);
@@ -72,6 +72,10 @@ const ProfilePage = () => {
             CoverPhoto = data.photoURL
             dispatch(getUser(data))
         })
+    }
+
+    useEffect(() => {
+        fetchData()
     }, [])
 
     const handleImageUpload = async (event) => {
@@ -151,6 +155,9 @@ const ProfilePage = () => {
         await fetch(Backend_URL + 'user/update-profile/' + id, {
             method: 'POST',
             body: JSON.stringify(body)
+        }).then(() => {
+            fetchData();
+            setEdit(false);
         })
         // profileAction(e.target, ethnicity, gender);
     }

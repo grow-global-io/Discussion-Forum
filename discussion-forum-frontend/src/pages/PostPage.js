@@ -19,6 +19,7 @@ export async function commentAction({ request }) {
 
 const PostPage = () => {
     const user = useSelector((state) => state.auth.userInfo);
+    const [userComment, setUserComment] = useState('');
 
     const handleSubmit= async (e)=>{
         e.preventDefault()
@@ -51,7 +52,7 @@ const PostPage = () => {
             fetch(Backend_URL+"post/create-thread/"+id,{
             method:"POST",
             body:JSON.stringify(body)
-        })
+        }).then(() => setUserComment(''));
         const commentOwnerNotifierBody = {
             emails: [postOwnerEmail],
             subject: `${user.displayName} You got a comment on your Post!`,
@@ -87,7 +88,7 @@ const PostPage = () => {
             fetch(Backend_URL+"post/create-thread/"+id,{
             method:"POST",
             body:JSON.stringify(body)
-        })
+        }).then(() => setUserComment(''));
         const commentOwnerNotifierBody = {
             emails: [postOwnerEmail],
             subject: `${user.displayName} You got a comment on your Post!`,
@@ -118,6 +119,7 @@ const PostPage = () => {
             setComments(data.comments);
         })
         // window.location.reload();
+        setUserComment('');
     }
     const textAreaRef = useRef();
     const [checked, setChecked] = useState(false);
@@ -147,7 +149,7 @@ const PostPage = () => {
                 <div className={styles.comments} id="comments">
                     <p className={styles.commentHead}>Comments</p>
                     <Form method='post' className={styles.commentBox} onSubmit={handleSubmit}>
-                        <textarea ref={textAreaRef} name="comment" id="comment" cols="30" rows={2} placeholder='Leave Your Thoughts here...'></textarea>
+                        <textarea ref={textAreaRef} name="comment" id="comment" cols="30" rows={2} placeholder='Leave Your Thoughts here...' value={userComment} onChange={(e) => setUserComment(e.target.value)}></textarea>
                         <button type="submit">Comment</button>
                         {/* <FormControlLabel control={<Checkbox checked={checked} onChange={handleChecked} color='secondary' type="checkbox" name="anonymous" value='anonymous' id="anonymous" />} label="Comment as anonymous" /> */}
                     </Form>
