@@ -1,4 +1,4 @@
-import { Box, Chip, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box, Chip, FormControl, IconButton, InputLabel, MenuItem, Select, Stack, TextField, Tooltip } from '@mui/material';
 import {
     CreateTableButton,
     HeadingLevelButtonGroup,
@@ -322,6 +322,7 @@ const CreatePage = () => {
                     <div className={styles.performanceRequirements}>
                         <TextField name='performanceRequirements' color='secondary' id="performanceRequirements" label="Detailed Instrumentation and Performance Requirements" variant="outlined" style={{ width: '100%' }} />
                     </div>
+
                     <div className={styles.postDescription}>
                         <InputLabel htmlFor="postDescription">
                             Post Description
@@ -358,9 +359,14 @@ const CreatePage = () => {
                             </ThemeProvider>
                         </div>
                     </div>
-                    <div>
+                    <Stack direction={"row"} alignItems={"center"}>
                         <label className={styles.upload} htmlFor="coverPhoto">Cover Photo<input type="file" name="coverPhoto" id="coverPhoto" accept="image/x-png,image/gif,image/jpeg" onChange={(e) => handleImageUpload(e)} /></label>
-                    </div>
+                        <Tooltip title="Please use images in 16:9 aspect ratio" sx={{ width: "20px", height: "20px", fontSize: "14px", fontWeight: "bold" }}>
+                            <IconButton>
+                                i
+                            </IconButton>
+                        </Tooltip>
+                    </Stack>
                     <img src={coverImage} alt="" style={{ width: '100%', gridColumn: 'span 3' }} />
                     <div className={styles.checkboxContainer}>
                         <label >
@@ -371,7 +377,7 @@ const CreatePage = () => {
                                 onChange={(e) => setUserConfirmation(e.target.checked)}
                             />
                             <span className={styles.checkboxText}>
-                            I confirm that all details are correct and approved for public posting
+                                I confirm that all details are correct and approved for public posting
 
                             </span>
                         </label>
