@@ -1,27 +1,26 @@
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { FcGoogle } from 'react-icons/fc';
 import { Form, useNavigate } from 'react-router-dom';
 import BrandLogo from '../assets/aco-logo.svg';
 import toast, { Toaster } from "react-hot-toast"
-import { FaDiscord, FaFacebookF } from 'react-icons/fa';
 import { randomString } from '../assets/utils'
 import emailjs from '@emailjs/browser'
 import { v4 as uuidv4 } from 'uuid';
-
+import { triggerLoading } from '../features/loading/loadingSlice';
 import styles from '../styles/Login.module.css';
 import { Backend_URL } from '../Constants/backend';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../config/fbconfig';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../features/auth/authSlice';
-
+import LottieLoader from 'react-lottie-loader';
+import Loading from '../assets/gramaphone.json'
 const Login = () => {
     const isLoggedIn = false;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const loading = useSelector(state => state.loading.loading)
     const [emailOTP, setEmailOTP] = useState('')
     const [otp, setOtp] = useState(false)
     const [formInput, updateFormInput] = useState({
@@ -55,11 +54,16 @@ const Login = () => {
     }
     const id = localStorage.getItem("uid")
     useEffect(() => {
-        if (id){
+        if (id) {
+            dispatch(triggerLoading(true))
+
             fetch(Backend_URL + `user/get/${id}`, {
                 method: "GET",
             })
-            .then(data => data.json()).then(data => { dispatch(getUser(data)); navigate("/")})
+                .then(data => data.json()).then(data => { dispatch(getUser(data)); navigate("/"); dispatch(triggerLoading(false)) }).catch(err => {
+                    console.error(err)
+                    dispatch(triggerLoading(false))
+                })
         }
     }, [])
 
@@ -130,77 +134,84 @@ const Login = () => {
         }
     }
 
-    if (!isLoggedIn)
+    if (!isLoggedIn) {
+        if (loading) {
+            return (<LottieLoader animationData={Loading} style={{ height: "300px" }} loop={true} />)
 
-        return (
-            <Container>
-                {/* <Row className='justify-content-center align-items-center mt-5'>
-            <Col xs={8} >
-                <Card className='p-5'>
-                    <h3 className='text-center'>Please Login Using</h3>
-                    <Button className="w-30 mx-auto mt-3" onClick={googleSignIn}>Login with Google</Button>
-                </Card>
-            </Col>
-        </Row> */}
-                <Toaster position='top-center' reverseOrder="false" />
-                <div className={styles.loginWrapper}>
-                    <div className={styles.login}>
-                        <img src={BrandLogo} alt="" />
-                        {otp === true ? (
-                            <Form>
+        }
+        else {
+            return (
 
-                                <TextField onChange={
-                                    (e) =>
-                                        updateFormInput((formInput) => ({
-                                            ...formInput,
-                                            otp: e.target.value,
-                                        }))
-                                } name='OTP' id="otp" label="Enter Your OTP" variant="outlined" color='secondary' style={{ width: '400px' }} />
-                                <button type="submit" onClick={() => onSubmitOTP()}>Verify</button>
-                            </Form>
-                        ) : (
-                            <>
-                                {
-                                    <Form>
-                                        <TextField
-                                            onChange={
-                                                (e) => updateFormInput((formInput) => ({
-                                                    ...formInput,
-                                                    displayName: e.target.value
-                                                }))
-                                            }
-                                            label="Enter Your Name" variant="outlined" color='secondary' style={{ width: '400px' }}
-                                        />
-                                        <TextField type='email' onChange={
-                                            (e) =>
-                                                updateFormInput((formInput) => ({
-                                                    ...formInput,
-                                                    email: e.target.value,
-                                                }))
-                                        } name='email' id="email" label="Enter Your Email" variant="outlined" color='secondary' style={{ width: '400px' }} />
-                                        <button type="submit" onClick={() => triggerOTP()}>Login</button>
-                                        <button type="submit" onClick={googleSignIn}>Login with Google</button>
-                                    </Form>
-                                    
-                                }
+                <Container>
+                    {/* <Row className='justify-content-center align-items-center mt-5'>
+                    <Col xs={8} >
+                        <Card className='p-5'>
+                            <h3 className='text-center'>Please Login Using</h3>
+                            <Button className="w-30 mx-auto mt-3" onClick={googleSignIn}>Login with Google</Button>
+                        </Card>
+                    </Col>
+                </Row> */}
+                    <Toaster position='top-center' reverseOrder="false" />
+                    <div className={styles.loginWrapper}>
+                        <div className={styles.login}>
+                            <img src={BrandLogo} alt="" />
+                            {otp === true ? (
+                                <Form>
 
-                                {
-                                    //     <p>Login using</p>
-                                    // <Button variant="outlined" color='secondary' onClick={googleSignIn} startIcon={<FcGoogle />}>Google</Button>
-                                }
-                                {/* <Button variant="outlined" color="primary" startIcon={<FaDiscord />}>
-                                    Discord
-                                </Button>
-                                <Button variant="outlined" color="primary" startIcon={<FaFacebookF />}>
-                                    Facebook
-                                </Button> */}
-                            </>
-                        )}
+                                    <TextField onChange={
+                                        (e) =>
+                                            updateFormInput((formInput) => ({
+                                                ...formInput,
+                                                otp: e.target.value,
+                                            }))
+                                    } name='OTP' id="otp" label="Enter Your OTP" variant="outlined" color='secondary' style={{ width: '400px' }} />
+                                    <button type="submit" onClick={() => onSubmitOTP()}>Verify</button>
+                                </Form>
+                            ) : (
+                                <>
+                                    {
+                                        <Form>
+                                            <TextField
+                                                onChange={
+                                                    (e) => updateFormInput((formInput) => ({
+                                                        ...formInput,
+                                                        displayName: e.target.value
+                                                    }))
+                                                }
+                                                label="Enter Your Name" variant="outlined" color='secondary' style={{ width: '400px' }}
+                                            />
+                                            <TextField type='email' onChange={
+                                                (e) =>
+                                                    updateFormInput((formInput) => ({
+                                                        ...formInput,
+                                                        email: e.target.value,
+                                                    }))
+                                            } name='email' id="email" label="Enter Your Email" variant="outlined" color='secondary' style={{ width: '400px' }} />
+                                            <button type="submit" onClick={() => triggerOTP()}>Login</button>
+                                            <button type="submit" onClick={googleSignIn}>Login with Google</button>
+                                        </Form>
 
-                    </div>
-                </div >
-            </Container >
-        )
+                                    }
+
+                                    {
+                                        //     <p>Login using</p>
+                                        // <Button variant="outlined" color='secondary' onClick={googleSignIn} startIcon={<FcGoogle />}>Google</Button>
+                                    }
+                                    {/* <Button variant="outlined" color="primary" startIcon={<FaDiscord />}>
+                                            Discord
+                                        </Button>
+                                        <Button variant="outlined" color="primary" startIcon={<FaFacebookF />}>
+                                            Facebook
+                                        </Button> */}
+                                </>
+                            )}
+
+                        </div>
+                    </div >
+                </Container >
+            )
+        }
+    }
     else
         return navigate("/home")
 }

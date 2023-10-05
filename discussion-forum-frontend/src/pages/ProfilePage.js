@@ -2,35 +2,23 @@ import { useDispatch } from 'react-redux';
 
 import styles from '../styles/Profile.module.css';
 
-import { Backdrop, InputLabel } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import MenuItem from '@mui/material/MenuItem';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Select from '@mui/material/Select';
+import { InputLabel } from '@mui/material';
+
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 import { Container, ProgressBar } from 'react-bootstrap';
 import { AiOutlineCalendar, AiOutlineMail } from 'react-icons/ai';
-import { BsGenderAmbiguous, BsGlobe, BsPersonCircle } from 'react-icons/bs';
+import { BsGlobe, BsPersonCircle } from 'react-icons/bs';
 import { FaGuitar } from 'react-icons/fa';
-import { IoIosPeople } from "react-icons/io";
 import { Form, redirect, useParams } from 'react-router-dom';
 import { Backend_URL } from '../Constants/backend';
 import { getUser } from '../features/auth/authSlice';
 
 let CoverPhoto;
-// let ethnicityValue = [];
-// let genderValue = [];
 export async function profileAction({ request, params }) {
     const data = await request.formData();
     const { ...values } = Object.fromEntries(data);
     values.photoURL = CoverPhoto;
-    // console.log(ethnicityValue);
-    // console.log(genderValue);
-    // values.ethnicity = ethnicityValue; // Add ethnicity value
-    // values.gender = genderValue; // Add gender value
-    //debugger
     await fetch(Backend_URL + "user/update-profile/" + params.id, {
         method: "POST",
         body: JSON.stringify(values)
@@ -41,35 +29,18 @@ export async function profileAction({ request, params }) {
 const ProfilePage = () => {
     const dispatch = useDispatch();
     const { id } = useParams()
-    // const user = useSelector((state) => state.auth.userInfo);
     const [user, setUser] = useState()
     const [edit, setEdit] = useState(false);
-
-    // const [ethnicity, setEthnicity] = useState([]);
-    // const [gender, setGender] = useState('');
     const [coverImage, setCoverImage] = useState("");
-    // const ethnicityOptions = [
-    //     'American Indian or Alaska Native',
-    //     'Asian',
-    //     'Black or African American',
-    //     'Hispanic or Latino',
-    //     'Native Hawaiian or Other Pacific Islander',
-    //     'White'
-    // ];
-
-    // const genderOptions = [
-    //     'Male',
-    //     'Female',
-    //     'Others'
-    // ];
-
     const fetchData = async () => {
+        console.log("fetchData Called")
         await fetch(Backend_URL + "user/get/" + id, {
             method: "GET"
         }).then(data => data.json()).then(data => {
             setUser(data);
             setCoverImage(data.photoURL)
             CoverPhoto = data.photoURL
+            console.log(data)
             dispatch(getUser(data))
         })
     }
@@ -151,7 +122,7 @@ const ProfilePage = () => {
         const formData = new FormData(e.target);
         const values = Object.fromEntries(formData.entries());
         console.log(CoverPhoto);
-        const body = {...values, photoURL: CoverPhoto}
+        const body = { ...values, photoURL: CoverPhoto }
         await fetch(Backend_URL + 'user/update-profile/' + id, {
             method: 'POST',
             body: JSON.stringify(body)
@@ -159,18 +130,8 @@ const ProfilePage = () => {
             fetchData();
             setEdit(false);
         })
-        // profileAction(e.target, ethnicity, gender);
     }
 
-    // const user = {
-    //     photos: [{value: 'alt'}],
-    //     email: 'akshatsinghdelhi@gmail.com',
-    //     dob: '04/02/2003',
-    //     displayName: 'Akshat Singh',
-    //     personality: 'aklsdjfas',
-    //     website: 'example.com',
-    //     instrument: 'guitar'
-    // }
 
     return (
         <Container>
@@ -245,8 +206,8 @@ const ProfilePage = () => {
 
             {edit && user && (
                 <Form onSubmit={submitHandler} className={styles.create}>
-                    <div>
-                        <label htmlFor="profilePhoto" style={{ display: 'grid', placeItems: 'center' }}>
+                    <div >
+                        <label htmlFor="profilePhoto" style={{ display: 'grid', placeItems: 'center', cursor: "pointer" }}>
                             <img src={coverImage} width={75} height={75} style={{ borderRadius: '50%' }} alt="" />
                             <InputLabel>Change Profile Picture</InputLabel>
                             <input type="file" color='secondary' accept='image/png, image/jpeg' style={{ display: 'none' }} name="profilePhoto" id="profilePhoto" onChange={(e) => handleImageUpload(e)} />
