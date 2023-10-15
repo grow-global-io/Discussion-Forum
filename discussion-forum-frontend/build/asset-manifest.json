@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.702d5483.css",
-    "main.js": "/static/js/main.22cb6f78.js",
+    "main.js": "/static/js/main.50606b45.js",
     "static/media/aco-logo.svg": "/static/media/aco-logo.b2977ae1e47adb047160f2fce947fc6e.svg",
     "index.html": "/index.html",
     "main.702d5483.css.map": "/static/css/main.702d5483.css.map",
-    "main.22cb6f78.js.map": "/static/js/main.22cb6f78.js.map"
+    "main.50606b45.js.map": "/static/js/main.50606b45.js.map"
   },
   "entrypoints": [
     "static/css/main.702d5483.css",
-    "static/js/main.22cb6f78.js"
+    "static/js/main.50606b45.js"
   ]
 }

@@ -42,14 +42,15 @@ const Login = () => {
                 // const token = credential.accessToken;
                 // The signed-in user info.
                 let user = result.user;
+                console.log("resss",result)
                 localStorage.setItem("uid", user.providerData[0].uid);
                 localStorage.setItem("displayName", user.providerData[0].displayName);
                 localStorage.setItem("email", user.providerData[0].email);
-                const data = user.providerData[0]
-                fetch(Backend_URL + "user/create", {
-                    method: "POST",
-                    body: JSON.stringify(data)
-                }).then(data => data.json()).then(data => { dispatch(getUser(data)); navigate("/") })
+                // const data = user.providerData[0]
+                // fetch(Backend_URL + "user/create", {
+                //     method: "POST",
+                //     body: JSON.stringify(data)
+                // }).then(data => data.json()).then(data => { dispatch(getUser(data)); navigate("/") })
             })
     }
     const id = localStorage.getItem("uid")

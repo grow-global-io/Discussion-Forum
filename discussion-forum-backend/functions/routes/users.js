@@ -71,7 +71,6 @@ router.post('/create', async (req, res) => {
   router.get('/get/:id', async (req, res) => {
     try {
       const {id} = req.params;
-  
       // Define the query to fetch the specific user based on the email
       const querySpec = {
         query: 'SELECT * FROM c WHERE c.uid = @id',

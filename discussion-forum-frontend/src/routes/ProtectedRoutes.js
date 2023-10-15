@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Backend_URL } from "../Constants/backend";
 import Footer from "../components/Footer";
 import NavigationBar from "../components/NavigationBar";
@@ -14,10 +14,17 @@ export default function ProtectedRoutes() {
     const loading = useSelector(state => state.loading.loading)
     const user = useSelector(state => state.auth.userInfo)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
-        dispatch(triggerLoading(true))
         const id = localStorage.getItem("uid")
-        fetch(Backend_URL + "user/get/" + id).then(data => data.json()).then(data => { dispatch(getUser(data));dispatch(triggerLoading(false)) })
+        if (id) {
+            dispatch(triggerLoading(true))
+            fetch(Backend_URL + "user/get/" + id).then(data => data.json()).then(data => { dispatch(getUser(data)); dispatch(triggerLoading(false)) }).catch(err => { console.log(err); 
+                
+                // localStorage.clear(); 
+                // window.location.reload() 
+            })
+        }
     }, [dispatch])
     if (loading) {
         return (<LottieLoader animationData={Loading} style={{ height: "300px" }} loop={true} />)
