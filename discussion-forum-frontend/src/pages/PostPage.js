@@ -20,9 +20,10 @@ export async function commentAction({ request }) {
 const PostPage = () => {
     const user = useSelector((state) => state.auth.userInfo);
     const [userComment, setUserComment] = useState('');
-
+    const [loading,setLoading] = useState(false)
     const handleSubmit= async (e)=>{
         e.preventDefault()
+        setLoading(true)
         /**
          * userDisplayName
          * userId
@@ -117,8 +118,11 @@ const PostPage = () => {
         fetch(Backend_URL + "post/get-data/" + id).then(data => data.json()).then(data => {
             setData(data);
             setComments(data.comments);
+        }).then(()=>{
+            setLoading(false)
         })
         // window.location.reload();
+        
         setUserComment('');
     }
     const textAreaRef = useRef();
@@ -150,7 +154,7 @@ const PostPage = () => {
                     <p className={styles.commentHead}>Comments</p>
                     <Form method='post' className={styles.commentBox} onSubmit={handleSubmit}>
                         <textarea ref={textAreaRef} name="comment" id="comment" cols="30" rows={2} placeholder='Leave Your Thoughts here...' value={userComment} onChange={(e) => setUserComment(e.target.value)}></textarea>
-                        <button type="submit">Comment</button>
+                        <button type="submit">{!loading?"Comment":"Please Wait..."}</button>
                         {/* <FormControlLabel control={<Checkbox checked={checked} onChange={handleChecked} color='secondary' type="checkbox" name="anonymous" value='anonymous' id="anonymous" />} label="Comment as anonymous" /> */}
                     </Form>
                     {
