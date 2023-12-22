@@ -101,7 +101,7 @@ export default function PersistentDrawerLeft() {
         setOpen(false);
     };
     const location = useLocation().pathname;
-    console.log(location)
+    // console.log(location)
     if (Object.entries(user).length > 0) {
         return (
             <Box sx={{ display: 'flex' }}>

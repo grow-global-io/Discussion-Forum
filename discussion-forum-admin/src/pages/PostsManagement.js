@@ -127,7 +127,7 @@ const CarsManagement = () => {
     setModalData(e.data)
     setType("edit")
     setOpen(true)
-    console.log(modalData);
+    // console.log(modalData);
     // console.log(modalData["cover-photo"]);
   }
   const handleClose = () => {
@@ -152,42 +152,42 @@ const CarsManagement = () => {
     setUpdateClicked(false)
   }
   const handlePostUpdate = async (data) => {
-    console.log('data ',data)
-    console.log('id',data.id)
+    // console.log('data ',data)
+    // console.log('id',data.id)
     setUpdateClicked(true)
     try {
       // api to update post
       const response = await updatePost(data.id,data);
-      console.log(response)
+      // console.log(response)
       fetchData();
       toast.success("Post Updated Successfully")
       setOpen(false)
     }
     catch (e) {
-      console.log(e)
+      // console.log(e)
       toast.error("Something went wrong")
     }
   }
   const handlePostDelete = async (data) => {
     // console.log('data ',data)
-    console.log('id',data.id)
+    // console.log('id',data.id)
     setUpdateClicked(true)
     try {
       // api to delete post
       const response = await deletePost(data.id);
       toast.dismiss();
       toast.success("Post deleted Successfully")
-      console.log(response)
+      // console.log(response)
       fetchData();
       setOpen(false)
     }
     catch (e) {
-      console.log(e)
+      // console.log(e)
       toast.error("Something went wrong")
     }
   }
   const handleFileChange = (e) => {
-    console.log(e.target.files[0])
+    // console.log(e.target.files[0])
     // setModalData({ ...modalData, [e.target.name]: e.target.files[0] })
     // setUpdateClicked(false)
   }
@@ -247,10 +247,10 @@ const CarsManagement = () => {
     try {
         var compressedImage = await compressAndEncodeImage(file);
         // Send the compressed image to the backend
-        console.log('before',modalData['cover-photo'])
+        // console.log('before',modalData['cover-photo'])
         setModalData({ ...modalData, ['cover-photo']: compressedImage })
         // setModalData({ ...modalData, ['coverPhoto']: file.name })
-        console.log('after',modalData['cover-photo']);
+        // console.log('after',modalData['cover-photo']);
         // console.log(compressedImage)
     } catch (error) {
         console.error('Error compressing image:', error);
