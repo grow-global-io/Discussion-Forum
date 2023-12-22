@@ -40,6 +40,7 @@ import { Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
+import logo from '../assets/logo.svg'
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -122,7 +123,7 @@ export default function PersistentDrawerLeft() {
                             <MenuIcon sx={{ color: "black" }} />
                         </IconButton>
                         <Typography variant="h6" noWrap component="div">
-                            <img src="aco-logo.svg" alt="logo" style={{ width: "100%", height: "50px" }} />
+                            <img src={logo} alt="logo" style={{ width: "100%", height: "50px" }} />
                         </Typography>
                     </Toolbar>
                 </AppBar>

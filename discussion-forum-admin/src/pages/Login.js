@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '../features/authSlice';
-
+import logo from '../assets/logo.svg'
 const Login = () => {
     
     const [username, setUsername] = useState('');
@@ -23,6 +23,7 @@ const Login = () => {
     const handleSubmit = async () => {
 
         if (username && password) {
+            console.log(process.env.REACT_APP_USERNAME,process.env.REACT_APP_PASSWORD)
             setError('');
             if (
                 username === process.env.REACT_APP_USERNAME &&
@@ -49,16 +50,12 @@ const Login = () => {
             <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
                 <div style={{ position: 'relative', padding: '5px', display: "flex", justifyContent: "center" }}>
                     <img
-                        src="aco-logo.svg"
+                        src={logo}
                         alt="logo"
                         style={{ width: '100%', maxWidth: "150px" }}
                     />
                 </div>
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        Welcome back, Admin!
-                    </Typography>
-                </CardContent>
+               
                 <div style={{ paddingInline: '25px' }}>
                     <TextField
                         label="Username"
@@ -71,6 +68,7 @@ const Login = () => {
                     <TextField
                         label="Password"
                         variant="outlined"
+                        type='password'
                         color="secondary"
                         style={{ width: '100%', marginBottom: '5px' }}
                         value={password}
