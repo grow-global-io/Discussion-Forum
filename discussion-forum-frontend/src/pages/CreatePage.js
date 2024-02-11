@@ -437,7 +437,7 @@ const CreatePage = () => {
           <div>
             <MuiChipsInput
               color="secondary"
-              placeholder="Enter Your Tags"
+              placeholder="Enter Tag, Press enter"
               value={tagArr}
               onChange={(e) => {
                 setTagArr(e);

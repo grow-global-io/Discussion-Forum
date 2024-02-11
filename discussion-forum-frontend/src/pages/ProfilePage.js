@@ -10,7 +10,7 @@ import { Container, ProgressBar } from 'react-bootstrap';
 import { AiOutlineCalendar, AiOutlineMail } from 'react-icons/ai';
 import { BsGlobe, BsPersonCircle } from 'react-icons/bs';
 import { FaGuitar } from 'react-icons/fa';
-import { Form, redirect, useParams } from 'react-router-dom';
+import { Form,  useParams } from 'react-router-dom';
 import { Backend_URL } from '../Constants/backend';
 import { getUser } from '../features/auth/authSlice';
 

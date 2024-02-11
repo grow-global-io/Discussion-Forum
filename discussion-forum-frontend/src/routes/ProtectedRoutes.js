@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Backend_URL } from "../Constants/backend";
 import Footer from "../components/Footer";
 import NavigationBar from "../components/NavigationBar";
@@ -14,7 +14,6 @@ export default function ProtectedRoutes() {
     const loading = useSelector(state => state.loading.loading)
     const user = useSelector(state => state.auth.userInfo)
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     useEffect(() => {
         const id = localStorage.getItem("uid")
         if (id) {

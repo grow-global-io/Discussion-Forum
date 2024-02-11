@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import store from './app/store';
 import CreatePage, { createAction } from './pages/CreatePage';
-import EditPage from './pages/EditPage';
+import EditPage, { updateAction } from './pages/EditPage';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
             {
                 path: '/user/:id/:username',
                 element: <ProfileView />,
-                loader: userProfileLoader,
+                // loader: userProfileLoader,
             },
             {
                 path: '/edit-post/:id',
