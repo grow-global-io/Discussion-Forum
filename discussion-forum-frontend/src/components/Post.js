@@ -48,7 +48,7 @@ const Post = ({ post, showMore }) => {
     }
 
     useEffect(() => {
-        if (post && post.threadPosts.length > 0) {
+        if (post && post.threadPosts?.length > 0) {
             if (post.threadPosts.some(e => e.userId === user.uid)) {
                 setSubscribe(true);
             }
@@ -117,7 +117,7 @@ const Post = ({ post, showMore }) => {
                 <p>
                     <strong>Total Commission Fees: </strong>
                     {post.totalCommissionFee}
-                    {!showMore && <Link to={`/post/${post.id}`}>...see more</Link>}
+                    {!showMore && <a href={`/post/${post.id}`}>...see more</a>}
                 </p>
 
                 {showMore && (

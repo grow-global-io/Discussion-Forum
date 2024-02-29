@@ -131,7 +131,7 @@ const PostPage = () => {
     const [data, setData] = useState()
     const [comments, setComments] = useState()
     useEffect(() => {
-        fetch(Backend_URL+"post/get-data/" + id).then(data => data.json()).then(data => {
+        fetch(Backend_URL+"post/get-data/" +    id).then(data => data.json()).then(data => {
             setData(data);
             setComments(data.comments);
         })
@@ -158,7 +158,7 @@ const PostPage = () => {
                         {/* <FormControlLabel control={<Checkbox checked={checked} onChange={handleChecked} color='secondary' type="checkbox" name="anonymous" value='anonymous' id="anonymous" />} label="Comment as anonymous" /> */}
                     </Form>
                     {
-                        comments.map((comment, index) => (
+                        comments?.map((comment, index) => (
                             <PostComment key={index} comment={comment} />
                         ))
                     }

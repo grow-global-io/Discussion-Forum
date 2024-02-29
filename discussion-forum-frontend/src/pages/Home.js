@@ -23,7 +23,6 @@ const Home = () => {
   const user = useSelector((state) => state.auth.userInfo);
   const navigate = useNavigate();
   let url = Backend_URL + "post/get-data";
-
   React.useEffect(() => {
 
     if (sortBy === 'comments') {

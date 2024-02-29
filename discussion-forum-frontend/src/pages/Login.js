@@ -188,7 +188,15 @@ const Login = () => {
                                                         email: e.target.value,
                                                     }))
                                             } name='email' id="email" label="Enter Your Email" variant="outlined" color='secondary' style={{ width: '400px' }} />
-                                            <button type="submit" onClick={() => triggerOTP()}>Login</button>
+                                            <button type="submit" onClick={() => {
+                                                if(formInput.displayName && formInput.email){
+                                                    triggerOTP();
+
+                                                }
+                                                else{
+                                                    toast.error("Please Enter Name and Email")
+                                                }
+                                            }}>Login</button>
                                             <button type="submit" onClick={googleSignIn}>Login with Google</button>
                                         </Form>
 
