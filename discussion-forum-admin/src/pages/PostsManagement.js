@@ -94,7 +94,13 @@ const CarsManagement = () => {
     primaryContactEmail: "",
     coverphoto: "",
   });
-
+  const genderOptions = [
+    "Female",
+    "Male",
+    "Nonbinary",
+    "Gender Nonconforming",
+    "A Different Gender Identity",
+  ];
   const [type, setType] = useState("");
   const [updateClicked, setUpdateClicked] = useState(false);
   const [deleteClicked, setDeleteClicked] = useState(false);
@@ -519,32 +525,81 @@ const CarsManagement = () => {
                 onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
+            <Grid item
+              xs={12}
+              sm={4}
+              lg={3}
+              alignItems={"flex-start"}
+              justifyContent={"flex-start"}>
+            <FormControl fullWidth>
+              <InputLabel id="gender-label" color="secondary">
+                Composer Gender
+              </InputLabel>
+              <Select
+                // defaultValue={modalData.gender}
+                value={modalData.gender}
+                onChange={handleChange}
+                labelId="gender-label"
+                name="gender"
+                id="gender"
+                color="secondary"
+                required
+                label="Composer Gender"
+              >
+                {genderOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              alignItems={"flex-start"}
+              justifyContent={"flex-start"}
+            >
               {
                 // <TextField fullWidth label="Cover Photo" name="cover-photo" variant="outlined" value={modalData["cover-photo"]} onChange={handleChange} />
               }
-              <label className="form-label" htmlFor="coverPhoto">
-                Cover Photo
-                <input
-                  type="file"
-                  name="cover-photo"
-                  className=""
-                  id="coverPhoto"
-                  accept="image/x-png,image/gif,image/jpeg"
-                  onChange={(e) => handleImageUpload(e)}
-                  style={{ display: "none" }}
-                />
-              </label>
-              {modalData["cover-photo"] && (
-                <img
-                  width={180}
-                  height={180}
-                  src={modalData["cover-photo"]}
-                  alt="cover"
-                />
-              )}
+              <Stack direction={"row"} gap={5}>
+                <label
+                  className="form-label"
+                  htmlFor="coverPhoto"
+                  style={{
+                    backgroundColor: "#EE9B00",
+                    padding: "10px 15px",
+                    borderRadius: 8,
+                    color: "white",
+                    cursor: "pointer",
+                    maxHeight: 48,
+                  }}
+                >
+                  Cover Photo
+                  <input
+                    type="file"
+                    name="cover-photo"
+                    className=""
+                    id="coverPhoto"
+                    accept="image/x-png,image/gif,image/jpeg"
+                    onChange={(e) => handleImageUpload(e)}
+                    style={{ display: "none" }}
+                  />
+                </label>
+                {modalData["cover-photo"] && (
+                  <img
+                    width={180}
+                    height={180}
+                    src={modalData["cover-photo"]}
+                    alt="cover"
+                  />
+                )}
+              </Stack>
             </Grid>
           </Grid>
+          
           <Stack justifyContent="center" alignItems="center">
             {type === "edit" && (
               <Box sx={{ mt: 5 }}>
