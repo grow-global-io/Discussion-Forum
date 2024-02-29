@@ -434,7 +434,7 @@ const CreatePage = () => {
               style={{ width: "100%" }}
             />
           </div>
-          <div>
+          {/* <div>
             <MuiChipsInput
               color="secondary"
               placeholder="Enter Tag, Press enter"
@@ -444,8 +444,9 @@ const CreatePage = () => {
                 ChipArr = e;
               }}
             />
-            {/* <TextField name='tags' color='secondary' required id="tags" label="Post Tags" variant="outlined" style={{width: '100%'}} placeholder='new band guitarist' /> */}
-          </div>
+            {/* <TextField name='tags' color='secondary' required id="tags" label="Post Tags" variant="outlined" style={{width: '100%'}} placeholder='new band guitarist' /> 
+          </div> 
+          */}
           <div>
             <FormControl fullWidth>
               <InputLabel color="secondary" id="demo-multiple-name-label">

@@ -8,7 +8,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { ThemeProvider, Remirror, useRemirror, Toolbar } from "@remirror/react";
+import { ThemeProvider, Remirror, useRemirror, Toolbar, ToggleBoldButton, ToggleItalicButton, ToggleUnderlineButton, ToggleStrikeButton, HeadingLevelButtonGroup, ListButtonGroup, CreateTableButton } from "@remirror/react";
 import { htmlToProsemirrorNode, prosemirrorNodeToHtml } from "@remirror/core";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -442,7 +442,13 @@ const EditPage = () => {
                     autoRender="start"
                   >
                     <Toolbar style={{ flexWrap: "wrap" }}>
-                      {/* Your toolbar buttons */}
+                      <ToggleBoldButton />
+                      <ToggleItalicButton />
+                      <ToggleUnderlineButton />
+                      <ToggleStrikeButton />
+                      <HeadingLevelButtonGroup showAll />
+                      <ListButtonGroup />
+                      <CreateTableButton />
                     </Toolbar>
                   </Remirror>
                 </ThemeProvider>
@@ -507,7 +513,7 @@ const EditPage = () => {
             variant="outlined"
             color="success"
             onClick={() => {
-              handlePostUpdate({...modalData,postDescription:post});
+              handlePostUpdate({ ...modalData, postDescription: post });
               toast.success("Post has been successfully updated!");
             }}
           >

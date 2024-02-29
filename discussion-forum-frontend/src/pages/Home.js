@@ -128,12 +128,12 @@ const Home = () => {
                     </div>
                 </aside> */}
         <div className={styles.sidebar}>
-          <div className={`${styles.trends} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
+          {/* <div className={`${styles.trends} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
             <p>Popular Tags</p>
             {post ? (
               <Trends tags={unique} sort={sortByTag} />
             ) : (<></>)}
-          </div>
+          </div> */}
           <Filter setFilteredPost={setFilteredPost} post={post}/>
         </div>
         <div className={`${styles.viewLayout} ${viewLayout === 'grid' ? `${styles.grid}` : ''}`}>
