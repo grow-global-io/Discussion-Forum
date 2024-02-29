@@ -8,11 +8,31 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { ThemeProvider, Remirror, useRemirror, Toolbar } from "@remirror/react";
+import { htmlToProsemirrorNode, prosemirrorNodeToHtml } from "@remirror/core";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Backend_URL } from "../Constants/backend";
 import toast from "react-hot-toast";
 import axios from "axios";
+import styles from "../styles/Create.module.css";
+
+import {
+  BoldExtension,
+  BulletListExtension,
+  CalloutExtension,
+  DropCursorExtension,
+  HardBreakExtension,
+  HeadingExtension,
+  ImageExtension,
+  ItalicExtension,
+  LinkExtension,
+  OrderedListExtension,
+  StrikeExtension,
+  TableExtension,
+  TaskListExtension,
+  UnderlineExtension,
+} from "remirror/extensions";
 const EditPage = () => {
   const [modalData, setModalData] = useState({
     // Name: "",
@@ -20,6 +40,8 @@ const EditPage = () => {
     // Transmission: "",
     // Number: "",
     // Seats: "",
+    gender: "",
+    postDescription: "",
     // Type: "",
     // Description: "",
     // Company: "",
@@ -59,7 +81,15 @@ const EditPage = () => {
     primaryContactEmail: "",
     coverphoto: "",
   });
+  const genderOptions = [
+    "Female",
+    "Male",
+    "Nonbinary",
+    "Gender Nonconforming",
+    "A Different Gender Identity",
+  ];
   const handleChange = (e) => {
+    console.log(e.target.name, e.target.value);
     setModalData({ ...modalData, [e.target.name]: e.target.value });
   };
   const handleImageUpload = async (event) => {
@@ -78,6 +108,13 @@ const EditPage = () => {
       .then((data) => data.json())
       .then((data) => {
         setModalData(data);
+
+        const initialState = htmlToProsemirrorNode({
+          schema: manager.schema,
+          content: data.postDescription,
+        });
+
+        setState(initialState);
       });
   }, []);
   const navigate = useNavigate();
@@ -150,21 +187,28 @@ const EditPage = () => {
     }
   };
   const handlePostUpdate = async (data) => {
-    console.log("data ", modalData);
-    console.log("id", data.id);
     try {
       // api to update post
       await updatePost(data.id, data);
       // console.log(response)
+      toast.success("Updated Successfully!");
       navigate("/");
     } catch (e) {
       // console.log(e)
       toast.error("Something went wrong");
     }
   };
+  const { manager } = useRemirror();
+
+  // Convert your HTML string to a ProseMirror node
+
+  // Set up your component state
+  const [state, setState] = useState(null);
+  const [post, setPost] = useState("");
+
   return (
     <Paper sx={{ m: 5, p: 5 }}>
-      <Grid container spacing={2} >
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={4} lg={3}>
           <TextField
             fullWidth
@@ -174,6 +218,31 @@ const EditPage = () => {
             value={modalData.composerName}
             onChange={handleChange}
           />
+        </Grid>
+
+        <Grid item xs={12} sm={4} lg={3}>
+          <FormControl fullWidth>
+            <InputLabel id="gender-label" color="secondary">
+              Composer Gender
+            </InputLabel>
+            <Select
+              // defaultValue={modalData.gender}
+              value={modalData.gender}
+              onChange={handleChange}
+              labelId="gender-label"
+              name="gender"
+              id="gender"
+              color="secondary"
+              required
+              label="Composer Gender"
+            >
+              {genderOptions.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={4} lg={3}>
           <TextField
@@ -295,24 +364,27 @@ const EditPage = () => {
             onChange={handleChange}
           />
         </Grid>
+
         <Grid item xs={12} sm={4} lg={3}>
-        <FormControl fullWidth>
-              <InputLabel id="partnerFees">
-                Consortium Partner Commission Fees
-              </InputLabel>
-              <Select
-                labelId="partnerFees"
-                label="Consortium Partner Commission Fees"
-                name="rangeOfConsortiumPartnerCommissionFees"
-                value={modalData.rangeOfConsortiumPartnerCommissionFees || "0-2499"}
-                onChange={handleChange}
-              >
-                <MenuItem value={"0-2499"}>0-2499 </MenuItem>
-                <MenuItem value={"2500-4999"}>2500-4999 </MenuItem>
-                <MenuItem value={"5000-9999"}>5000-9999 </MenuItem>
-                <MenuItem value={"10000 and above"}>10000 and above</MenuItem>
-              </Select>
-            </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="partnerFees">
+              Consortium Partner Commission Fees
+            </InputLabel>
+            <Select
+              labelId="partnerFees"
+              label="Consortium Partner Commission Fees"
+              name="rangeOfConsortiumPartnerCommissionFees"
+              value={
+                modalData.rangeOfConsortiumPartnerCommissionFees || "0-2499"
+              }
+              onChange={handleChange}
+            >
+              <MenuItem value={"0-2499"}>0-2499 </MenuItem>
+              <MenuItem value={"2500-4999"}>2500-4999 </MenuItem>
+              <MenuItem value={"5000-9999"}>5000-9999 </MenuItem>
+              <MenuItem value={"10000 and above"}>10000 and above</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
 
         <Grid item xs={12} sm={4} lg={3}>
@@ -346,6 +418,38 @@ const EditPage = () => {
             </Select>
           </FormControl>
         </Grid>
+        {modalData.postDescription && (
+          <Grid item xs={12}>
+            <div className={styles.postDescription}>
+              <InputLabel htmlFor="postDescription">
+                Post Description
+              </InputLabel>
+              <input
+                type="hidden"
+                name="postDescription"
+                value={post}
+                required
+              />
+              <div className="remirror-theme" name="card" id="card">
+                <ThemeProvider>
+                  <Remirror
+                    manager={manager}
+                    initialContent={state}
+                    onChange={(paramater) => {
+                      console.log(prosemirrorNodeToHtml(paramater.state.doc));
+                      setPost(prosemirrorNodeToHtml(paramater.state.doc));
+                    }}
+                    autoRender="start"
+                  >
+                    <Toolbar style={{ flexWrap: "wrap" }}>
+                      {/* Your toolbar buttons */}
+                    </Toolbar>
+                  </Remirror>
+                </ThemeProvider>
+              </div>
+            </div>
+          </Grid>
+        )}
         <Grid item xs={12} sm={4} lg={3}>
           <TextField
             fullWidth
@@ -394,7 +498,7 @@ const EditPage = () => {
               height={180}
               src={modalData["cover-photo"]}
               alt="cover"
-              style={{marginLeft:50}}
+              style={{ marginLeft: 50 }}
             />
           )}
         </Grid>
@@ -403,7 +507,7 @@ const EditPage = () => {
             variant="outlined"
             color="success"
             onClick={() => {
-              handlePostUpdate(modalData);
+              handlePostUpdate({...modalData,postDescription:post});
               toast.success("Post has been successfully updated!");
             }}
           >
