@@ -457,6 +457,7 @@ const CreatePage = () => {
                 labelId="demo-multiple-name-label"
                 id="demo-multiple-name"
                 multiple
+                label="Composer Race/Ethnicity"
                 value={ethnicity}
                 onChange={(e) => setEthnicity(e.target.value)}
                 renderValue={(selected) => (
@@ -492,8 +493,7 @@ const CreatePage = () => {
                 name="gender"
                 id="gender"
                 color="secondary"
-                required
-                label="Gender"
+                label="Composer Gender"
               >
                 {genderOptions.map((option) => (
                   <MenuItem key={option} value={option}>

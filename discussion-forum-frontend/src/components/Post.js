@@ -55,6 +55,8 @@ const Post = ({ post, showMore }) => {
         }
     }, [subscribe, post, user])
 
+    console.log(post)
+
     const handleSubscribe = async () => {
         if (!subscribe) {
             setSubscribe(true)
@@ -182,8 +184,8 @@ const Post = ({ post, showMore }) => {
                         </p>
                     </React.Fragment>
                 )}
-                {post.coverPhoto && (
-                    <div className={styles.postHighlight} style={{overflow: `${showMore ? 'auto' : 'hidden'}`, aspectRatio: `${showMore ? '' : '1 / 0.5'}`}}>
+                {(post.coverPhoto || post["cover-photo"]) && (
+                    <div className={styles.postHighlight} style={{overflow: `${showMore ? 'hidden' : 'hidden'}`, aspectRatio: `${showMore ? '1/0.8' : '1 / 0.5'}`}}>
                         <img src={post["cover-photo"]} style={{margin: '0 auto'}} alt="" />
                     </div>
                 )}

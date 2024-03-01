@@ -166,7 +166,7 @@ const CarsManagement = () => {
   };
 
   const handleClick = (e) => {
-    console.log(e.data)
+    console.log(e.data);
     setModalData(e.data);
     setInitialState(e.data.postDescription);
 
@@ -202,7 +202,10 @@ const CarsManagement = () => {
     setUpdateClicked(true);
     try {
       // api to update post
-      const response = await updatePost(data.id, {...data,postDescription:post});
+      const response = await updatePost(data.id, {
+        ...data,
+        postDescription: post,
+      });
       // console.log(response)
       fetchData();
       toast.success("Post Updated Successfully");
@@ -304,8 +307,8 @@ const CarsManagement = () => {
     }
   };
 
-  const [post,setPost] = useState("")
-  
+  const [post, setPost] = useState("");
+
   return (
     <div
       className="ag-theme-material"
@@ -354,410 +357,424 @@ const CarsManagement = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Stack justifyContent="space-between" direction="row">
-            {type === "edit" ? <h3>Update Post</h3> : <h3>Create Post</h3>}
-            <Close onClick={handleClose} sx={{ cursor: "pointer" }} />
-          </Stack>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Composer Name"
-                name="composerName"
-                variant="outlined"
-                value={modalData.composerName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Composer Website"
-                name="composerWebsite"
-                variant="outlined"
-                value={modalData.composerWebsite}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Conductor"
-                name="conductor"
-                variant="outlined"
-                value={modalData.conductor}
-                onChange={handleChange}
-              />
-            </Grid>
+          <div style={{
+            maxHeight:600,
+            overflowY:"auto",
+            overflowX:"hidden"
+          }}>
+            <Stack justifyContent="space-between" direction="row">
+              {type === "edit" ? <h3>Update Post</h3> : <h3>Create Post</h3>}
+              <Close onClick={handleClose} sx={{ cursor: "pointer" }} />
+            </Stack>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Composer Name"
+                  name="composerName"
+                  variant="outlined"
+                  value={modalData.composerName}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Composer Website"
+                  name="composerWebsite"
+                  variant="outlined"
+                  value={modalData.composerWebsite}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Conductor"
+                  name="conductor"
+                  variant="outlined"
+                  value={modalData.conductor}
+                  onChange={handleChange}
+                />
+              </Grid>
 
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Deadline To Join Consortium"
-                name="deadlineToJoinConsortium"
-                variant="outlined"
-                value={modalData.deadlineToJoinConsortium}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Duration"
-                name="duration"
-                variant="outlined"
-                value={modalData.duration}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Funds Committed To Date"
-                name="fundsCommittedToDate"
-                variant="outlined"
-                value={modalData.fundsCommittedToDate}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Lead Commissioner"
-                name="leadCommissioner"
-                variant="outlined"
-                value={modalData.leadCommissioner}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Number of Partners Sought"
-                name="numberOfPartnersSought"
-                variant="outlined"
-                value={modalData.numberOfPartnersSought}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Partners Committed To Date"
-                name="partnersCommittedToDate"
-                variant="outlined"
-                value={modalData.partnersCommittedToDate}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Performance Requirements"
-                name="performanceRequirements"
-                variant="outlined"
-                value={modalData.performanceRequirements}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Premiere Date"
-                name="premiereDate"
-                variant="outlined"
-                value={modalData.premiereDate}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="Primary Contact"
-                name="primaryContact"
-                variant="outlined"
-                value={modalData.primaryContact}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <FormControl fullWidth>
-                <InputLabel id="partnerFees">
-                  Consortium Partner Commission Fees
-                </InputLabel>
-                <Select
-                  labelId="partnerFees"
-                  label="Consortium Partner Commission Fees"
-                  name="rangeOfConsortiumPartnerCommissionFees"
-                  value={modalData.rangeOfConsortiumPartnerCommissionFees}
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Deadline To Join Consortium"
+                  name="deadlineToJoinConsortium"
+                  variant="outlined"
+                  value={modalData.deadlineToJoinConsortium}
                   onChange={handleChange}
-                >
-                  <MenuItem value={"0-2499"}>0-2499 </MenuItem>
-                  <MenuItem value={"2500-4999"}>2500-4999 </MenuItem>
-                  <MenuItem value={"5000-9999"}>5000-9999 </MenuItem>
-                  <MenuItem value={"10000 and above"}>10000 and above</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="representativeWorkSample"
-                name="representativeWorkSample"
-                variant="outlined"
-                value={modalData.representativeWorkSample}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="soloist"
-                name="soloist"
-                variant="outlined"
-                value={modalData.soloist}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <FormControl fullWidth>
-                <InputLabel id="totalCommissionFee">
-                  Total Commission Fee
-                </InputLabel>
-                <Select
-                  name="totalCommissionFee"
-                  id="totalCommissionFee"
-                  labelId="totalCommissionFee"
-                  label="Total Commission Fee"
-                  value={modalData.totalCommissionFee}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Duration"
+                  name="duration"
+                  variant="outlined"
+                  value={modalData.duration}
                   onChange={handleChange}
-                >
-                  <MenuItem value={"5000-9999"}>5000-9999</MenuItem>
-                  <MenuItem value={"10000-14999"}>10000-14999</MenuItem>
-                  <MenuItem value={"15000-19999"}>15000-19999</MenuItem>
-                  <MenuItem value={"20000 and above"}>20000 and above</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="userDisplayName"
-                name="userDisplayName"
-                variant="outlined"
-                value={modalData.userDisplayName}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4} lg={3}>
-              <TextField
-                fullWidth
-                label="representativeWorkSample"
-                name="representativeWorkSample"
-                variant="outlined"
-                value={modalData.representativeWorkSample}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={4}
-              lg={3}
-              alignItems={"flex-start"}
-              justifyContent={"flex-start"}
-            >
-              <FormControl fullWidth>
-                <InputLabel id="gender-label" color="secondary">
-                  Composer Gender
-                </InputLabel>
-                <Select
-                  // defaultValue={modalData.gender}
-                  value={modalData.gender}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Funds Committed To Date"
+                  name="fundsCommittedToDate"
+                  variant="outlined"
+                  value={modalData.fundsCommittedToDate}
                   onChange={handleChange}
-                  labelId="gender-label"
-                  name="gender"
-                  id="gender"
-                  color="secondary"
-                  required
-                  label="Composer Gender"
-                >
-                  {genderOptions.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Lead Commissioner"
+                  name="leadCommissioner"
+                  variant="outlined"
+                  value={modalData.leadCommissioner}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Number of Partners Sought"
+                  name="numberOfPartnersSought"
+                  variant="outlined"
+                  value={modalData.numberOfPartnersSought}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Partners Committed To Date"
+                  name="partnersCommittedToDate"
+                  variant="outlined"
+                  value={modalData.partnersCommittedToDate}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Performance Requirements"
+                  name="performanceRequirements"
+                  variant="outlined"
+                  value={modalData.performanceRequirements}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Premiere Date"
+                  name="premiereDate"
+                  variant="outlined"
+                  value={modalData.premiereDate}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="Primary Contact"
+                  name="primaryContact"
+                  variant="outlined"
+                  value={modalData.primaryContact}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <FormControl fullWidth>
+                  <InputLabel id="partnerFees">
+                    Consortium Partner Commission Fees
+                  </InputLabel>
+                  <Select
+                    labelId="partnerFees"
+                    label="Consortium Partner Commission Fees"
+                    name="rangeOfConsortiumPartnerCommissionFees"
+                    value={modalData.rangeOfConsortiumPartnerCommissionFees}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={"0-2499"}>0-2499 </MenuItem>
+                    <MenuItem value={"2500-4999"}>2500-4999 </MenuItem>
+                    <MenuItem value={"5000-9999"}>5000-9999 </MenuItem>
+                    <MenuItem value={"10000 and above"}>
+                      10000 and above
                     </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="representativeWorkSample"
+                  name="representativeWorkSample"
+                  variant="outlined"
+                  value={modalData.representativeWorkSample}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="soloist"
+                  name="soloist"
+                  variant="outlined"
+                  value={modalData.soloist}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <FormControl fullWidth>
+                  <InputLabel id="totalCommissionFee">
+                    Total Commission Fee
+                  </InputLabel>
+                  <Select
+                    name="totalCommissionFee"
+                    id="totalCommissionFee"
+                    labelId="totalCommissionFee"
+                    label="Total Commission Fee"
+                    value={modalData.totalCommissionFee}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={"5000-9999"}>5000-9999</MenuItem>
+                    <MenuItem value={"10000-14999"}>10000-14999</MenuItem>
+                    <MenuItem value={"15000-19999"}>15000-19999</MenuItem>
+                    <MenuItem value={"20000 and above"}>
+                      20000 and above
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="userDisplayName"
+                  name="userDisplayName"
+                  variant="outlined"
+                  value={modalData.userDisplayName}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4} lg={3}>
+                <TextField
+                  fullWidth
+                  label="representativeWorkSample"
+                  name="representativeWorkSample"
+                  variant="outlined"
+                  value={modalData.representativeWorkSample}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                lg={3}
+                alignItems={"flex-start"}
+                justifyContent={"flex-start"}
+              >
+                <FormControl fullWidth>
+                  <InputLabel id="gender-label" color="secondary">
+                    Composer Gender
+                  </InputLabel>
+                  <Select
+                    // defaultValue={modalData.gender}
+                    value={modalData.gender}
+                    onChange={handleChange}
+                    labelId="gender-label"
+                    name="gender"
+                    id="gender"
+                    color="secondary"
+                    required
+                    label="Composer Gender"
+                  >
+                    {genderOptions.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                lg={3}
+                alignItems={"flex-start"}
+                justifyContent={"flex-start"}
+              >
+                {
+                  // <TextField fullWidth label="Cover Photo" name="cover-photo" variant="outlined" value={modalData["cover-photo"]} onChange={handleChange} />
+                }
+                <Stack direction={"row"} gap={5}>
+                  <label
+                    className="form-label"
+                    htmlFor="coverPhoto"
+                    style={{
+                      backgroundColor: "#EE9B00",
+                      padding: "10px 15px",
+                      borderRadius: 8,
+                      color: "white",
+                      cursor: "pointer",
+                      maxHeight: 48,
+                    }}
+                  >
+                    Cover Photo
+                    <input
+                      type="file"
+                      name="cover-photo"
+                      className=""
+                      id="coverPhoto"
+                      accept="image/x-png,image/gif,image/jpeg"
+                      onChange={(e) => handleImageUpload(e)}
+                      style={{ display: "none" }}
+                    />
+                  </label>
+                  {modalData["cover-photo"] && (
+                    <img
+                      width={100}
+                      height={100}
+                      src={modalData["cover-photo"]}
+                      alt="cover"
+                    />
+                  )}
+                </Stack>
+              </Grid>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={4}
-              lg={3}
-              alignItems={"flex-start"}
-              justifyContent={"flex-start"}
-            >
-              {
-                // <TextField fullWidth label="Cover Photo" name="cover-photo" variant="outlined" value={modalData["cover-photo"]} onChange={handleChange} />
-              }
-              <Stack direction={"row"} gap={5}>
-                <label
-                  className="form-label"
-                  htmlFor="coverPhoto"
-                  style={{
-                    backgroundColor: "#EE9B00",
-                    padding: "10px 15px",
-                    borderRadius: 8,
-                    color: "white",
-                    cursor: "pointer",
-                    maxHeight: 48,
+            {initialState && (
+              <div className="remirror-theme">
+                {/* the className is used to define css variables necessary for the editor */}
+                {/* {modalData.postDescription} */}
+                <Remirror
+                  manager={manager}
+                  initialContent={initialState}
+                  onChange={(paramater) => {
+                    // console.log(prosemirrorNodeToHtml(paramater.state.doc));
+                    setPost(prosemirrorNodeToHtml(paramater.state.doc));
                   }}
-                >
-                  Cover Photo
-                  <input
-                    type="file"
-                    name="cover-photo"
-                    className=""
-                    id="coverPhoto"
-                    accept="image/x-png,image/gif,image/jpeg"
-                    onChange={(e) => handleImageUpload(e)}
-                    style={{ display: "none" }}
-                  />
-                </label>
-                {modalData["cover-photo"] && (
-                  <img
-                    width={100}
-                    height={100}
-                    src={modalData["cover-photo"]}
-                    alt="cover"
-                  />
-                )}
-              </Stack>
-            </Grid>
-          </Grid>
-          {initialState && (
-            <div className="remirror-theme">
-              {/* the className is used to define css variables necessary for the editor */}
-              {/* {modalData.postDescription} */}
-              <Remirror manager={manager} initialContent={initialState} onChange={(paramater) => {
-                      // console.log(prosemirrorNodeToHtml(paramater.state.doc));
-                      setPost(prosemirrorNodeToHtml(paramater.state.doc));
-                    }} />
-            </div>
-          )}
-          <Stack justifyContent="center" alignItems="center">
-            {type === "edit" && (
-              <Box sx={{ mt: 5 }}>
-                {deleteClicked ? (
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    sx={{ mr: 1 }}
-                    onClick={() => {
-                      setDeleteClicked(false);
-                      toast.loading("deleting the post!");
-                      handlePostDelete(modalData);
-                      setOpen(false);
-                    }}
-                  >
-                    Confirm Delete
-                  </Button>
-                ) : (
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    sx={{ mr: 1 }}
-                    onClick={() => {
-                      setDeleteClicked(true);
-                    }}
-                  >
-                    Delete Post
-                  </Button>
-                )}
-                {updateClicked ? (
-                  <Button
-                    variant="outlined"
-                    color="success"
-                    onClick={() => {
-                      setOpen(false);
-                      setUpdateClicked(false);
-                      handlePostUpdate(modalData);
-                      toast.success("Post has been successfully updated!");
-                    }}
-                  >
-                    Confirm Update
-                  </Button>
-                ) : (
-                  <Button
-                    variant="outlined"
-                    color="success"
-                    onClick={() => {
-                      setUpdateClicked(true);
-                      setDeleteClicked(false);
-                    }}
-                  >
-                    Update Post
-                  </Button>
-                )}
-              </Box>
+                />
+              </div>
             )}
-            {type === "create" && (
-              <Box sx={{ mt: 5 }}>
-                {cancelClicked ? (
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    sx={{ mr: 1 }}
-                    onClick={() => {
-                      setModalData({});
-                      setOpen(false);
-                      setCancelClicked(false);
-                    }}
-                  >
-                    Confirm Cancel
-                  </Button>
-                ) : (
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    sx={{ mr: 1 }}
-                    onClick={() => {
-                      setCancelClicked(true);
-                      setConfirmClicked(false);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                )}
-                {confirmClicked ? (
-                  <Button
-                    variant="outlined"
-                    color="success"
-                    onClick={() => {
-                      setModalData({});
-                      setOpen(false);
-                      setConfirmClicked(false);
-                      toast.success("Car has been added successfully!");
-                    }}
-                  >
-                    Confirm Add
-                  </Button>
-                ) : (
-                  <Button
-                    variant="outlined"
-                    color="success"
-                    onClick={() => {
-                      setConfirmClicked(true);
-                      setCancelClicked(false);
-                    }}
-                  >
-                    Add Car
-                  </Button>
-                )}
-              </Box>
-            )}
-          </Stack>
+            <Stack justifyContent="center" alignItems="center">
+              {type === "edit" && (
+                <Box sx={{ mt: 5 }}>
+                  {deleteClicked ? (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      sx={{ mr: 1 }}
+                      onClick={() => {
+                        setDeleteClicked(false);
+                        toast.loading("deleting the post!");
+                        handlePostDelete(modalData);
+                        setOpen(false);
+                      }}
+                    >
+                      Confirm Delete
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      sx={{ mr: 1 }}
+                      onClick={() => {
+                        setDeleteClicked(true);
+                      }}
+                    >
+                      Delete Post
+                    </Button>
+                  )}
+                  {updateClicked ? (
+                    <Button
+                      variant="outlined"
+                      color="success"
+                      onClick={() => {
+                        setOpen(false);
+                        setUpdateClicked(false);
+                        handlePostUpdate(modalData);
+                        toast.success("Post has been successfully updated!");
+                      }}
+                    >
+                      Confirm Update
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      color="success"
+                      onClick={() => {
+                        setUpdateClicked(true);
+                        setDeleteClicked(false);
+                      }}
+                    >
+                      Update Post
+                    </Button>
+                  )}
+                </Box>
+              )}
+              {type === "create" && (
+                <Box sx={{ mt: 5 }}>
+                  {cancelClicked ? (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      sx={{ mr: 1 }}
+                      onClick={() => {
+                        setModalData({});
+                        setOpen(false);
+                        setCancelClicked(false);
+                      }}
+                    >
+                      Confirm Cancel
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      sx={{ mr: 1 }}
+                      onClick={() => {
+                        setCancelClicked(true);
+                        setConfirmClicked(false);
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  )}
+                  {confirmClicked ? (
+                    <Button
+                      variant="outlined"
+                      color="success"
+                      onClick={() => {
+                        setModalData({});
+                        setOpen(false);
+                        setConfirmClicked(false);
+                        toast.success("Car has been added successfully!");
+                      }}
+                    >
+                      Confirm Add
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      color="success"
+                      onClick={() => {
+                        setConfirmClicked(true);
+                        setCancelClicked(false);
+                      }}
+                    >
+                      Add Car
+                    </Button>
+                  )}
+                </Box>
+              )}
+            </Stack>
+          </div>
         </Box>
       </Modal>
     </div>
