@@ -9,9 +9,9 @@
     "@mui/material": "^5.14.2",
     "@mui/styled-engine": "^5.13.2",
     "@reduxjs/toolkit": "^1.9.5",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@remirror/extension-list": "^2.0.16",
+    "@remirror/pm": "^2.0.6",
+    "@remirror/react": "^2.0.28",
     "ag-grid-community": "^30.0.5",
     "ag-grid-react": "^30.0.5",
     "axios": "^1.4.0",
@@ -21,7 +21,7 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "remirror": "^2.0.32"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

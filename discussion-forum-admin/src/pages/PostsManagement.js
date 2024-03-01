@@ -15,11 +15,41 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import "remirror/styles/all.css";
+
 import { Add, Close } from "@mui/icons-material";
 import { toast } from "react-hot-toast";
+import { Remirror, useRemirror } from "@remirror/react";
 import { fetchPosts, updatePost, deletePost } from "../app/api";
+import {
+  BoldExtension,
+  CalloutExtension,
+  ItalicExtension,
+} from "remirror/extensions";
+import { prosemirrorNodeToHtml } from "remirror";
+
 const CarsManagement = () => {
   const [posts, setPosts] = useState([]);
+  const [initialState, setInitialState] = useState(null);
+  const { manager } = useRemirror({
+    extensions: () => [
+      new BoldExtension(),
+      new ItalicExtension(),
+      new CalloutExtension({ defaultType: "warn" }),
+    ],
+
+    // Set the initial content.
+
+    // Place the cursor at the start of the document. This can also be set to
+    // `end`, `all` or a numbered position.
+    selection: "start",
+
+    // Set the string handler which means the content provided will be
+    // automatically handled as html.
+    // `markdown` is also available when the `MarkdownExtension`
+    // is added to the editor.
+    stringHandler: "html",
+  });
   // useEffect(async () => {
   //   try{
   //     const response = await fetchPosts();
@@ -42,7 +72,6 @@ const CarsManagement = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [rowData, setRowData] = useState([
     // {
@@ -137,8 +166,10 @@ const CarsManagement = () => {
   };
 
   const handleClick = (e) => {
-    // console.log(e)
+    console.log(e.data)
     setModalData(e.data);
+    setInitialState(e.data.postDescription);
+
     setType("edit");
     setOpen(true);
     // console.log(modalData);
@@ -171,7 +202,7 @@ const CarsManagement = () => {
     setUpdateClicked(true);
     try {
       // api to update post
-      const response = await updatePost(data.id, data);
+      const response = await updatePost(data.id, {...data,postDescription:post});
       // console.log(response)
       fetchData();
       toast.success("Post Updated Successfully");
@@ -272,6 +303,9 @@ const CarsManagement = () => {
       console.error("Error compressing image:", error);
     }
   };
+
+  const [post,setPost] = useState("")
+  
   return (
     <div
       className="ag-theme-material"
@@ -525,39 +559,42 @@ const CarsManagement = () => {
                 onChange={handleChange}
               />
             </Grid>
-            <Grid item
-              xs={12}
-              sm={4}
-              lg={3}
-              alignItems={"flex-start"}
-              justifyContent={"flex-start"}>
-            <FormControl fullWidth>
-              <InputLabel id="gender-label" color="secondary">
-                Composer Gender
-              </InputLabel>
-              <Select
-                // defaultValue={modalData.gender}
-                value={modalData.gender}
-                onChange={handleChange}
-                labelId="gender-label"
-                name="gender"
-                id="gender"
-                color="secondary"
-                required
-                label="Composer Gender"
-              >
-                {genderOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
             <Grid
               item
               xs={12}
               sm={4}
+              lg={3}
+              alignItems={"flex-start"}
+              justifyContent={"flex-start"}
+            >
+              <FormControl fullWidth>
+                <InputLabel id="gender-label" color="secondary">
+                  Composer Gender
+                </InputLabel>
+                <Select
+                  // defaultValue={modalData.gender}
+                  value={modalData.gender}
+                  onChange={handleChange}
+                  labelId="gender-label"
+                  name="gender"
+                  id="gender"
+                  color="secondary"
+                  required
+                  label="Composer Gender"
+                >
+                  {genderOptions.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              lg={3}
               alignItems={"flex-start"}
               justifyContent={"flex-start"}
             >
@@ -590,8 +627,8 @@ const CarsManagement = () => {
                 </label>
                 {modalData["cover-photo"] && (
                   <img
-                    width={180}
-                    height={180}
+                    width={100}
+                    height={100}
                     src={modalData["cover-photo"]}
                     alt="cover"
                   />
@@ -599,7 +636,16 @@ const CarsManagement = () => {
               </Stack>
             </Grid>
           </Grid>
-          
+          {initialState && (
+            <div className="remirror-theme">
+              {/* the className is used to define css variables necessary for the editor */}
+              {/* {modalData.postDescription} */}
+              <Remirror manager={manager} initialContent={initialState} onChange={(paramater) => {
+                      // console.log(prosemirrorNodeToHtml(paramater.state.doc));
+                      setPost(prosemirrorNodeToHtml(paramater.state.doc));
+                    }} />
+            </div>
+          )}
           <Stack justifyContent="center" alignItems="center">
             {type === "edit" && (
               <Box sx={{ mt: 5 }}>

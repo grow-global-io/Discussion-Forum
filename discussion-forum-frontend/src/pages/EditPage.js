@@ -16,23 +16,6 @@ import { Backend_URL } from "../Constants/backend";
 import toast from "react-hot-toast";
 import axios from "axios";
 import styles from "../styles/Create.module.css";
-
-import {
-  BoldExtension,
-  BulletListExtension,
-  CalloutExtension,
-  DropCursorExtension,
-  HardBreakExtension,
-  HeadingExtension,
-  ImageExtension,
-  ItalicExtension,
-  LinkExtension,
-  OrderedListExtension,
-  StrikeExtension,
-  TableExtension,
-  TaskListExtension,
-  UnderlineExtension,
-} from "remirror/extensions";
 const EditPage = () => {
   const [modalData, setModalData] = useState({
     // Name: "",
