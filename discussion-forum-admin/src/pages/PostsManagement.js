@@ -129,6 +129,7 @@ const CarsManagement = () => {
     "Nonbinary",
     "Gender Nonconforming",
     "A Different Gender Identity",
+    "Select for Empty"
   ];
   const [type, setType] = useState("");
   const [updateClicked, setUpdateClicked] = useState(false);
@@ -176,7 +177,8 @@ const CarsManagement = () => {
     // console.log(modalData["cover-photo"]);
   };
   const handleClose = () => {
-    setOpen(false);
+    // setOpen(false);
+    window.location.reload();   
   };
   const style = {
     position: "absolute",
@@ -595,7 +597,7 @@ const CarsManagement = () => {
                     label="Composer Gender"
                   >
                     {genderOptions.map((option) => (
-                      <MenuItem key={option} value={option}>
+                      <MenuItem key={option} value={option==="Select for Empty"?" ":option}>
                         {option}
                       </MenuItem>
                     ))}
