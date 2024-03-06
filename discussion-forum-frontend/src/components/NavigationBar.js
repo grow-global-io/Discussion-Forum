@@ -20,11 +20,11 @@ const NavigationBar = () => {
   }, [window.location])
 
   const changeHandler = (e="") => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setFilteredData(
       togglerData.filter(each => each.postDescription.toLowerCase().includes(e.target.value.toLowerCase())|| each.userDisplayName.toLowerCase().includes(e.target.value.toLowerCase()))
     )
-    console.log(filteredData)
+    // console.log(filteredData)
   }
 
   const redirectHandler = (each)=>{
@@ -102,7 +102,7 @@ const NavigationBar = () => {
           {
             toggler && <Card className={styles.results}>
               {filteredData.length>0 &&  filteredData.map(each => {
-                console.log(each)
+                // console.log(each)
                 return (
                   <div onClick={()=>redirectHandler(each)}  style={{textDecoration:"none",color:"black", borderBottom:"1px solid rgba(0,0,0,0.25)"}} className="d-flex justify-content-between">
                     <div className="">

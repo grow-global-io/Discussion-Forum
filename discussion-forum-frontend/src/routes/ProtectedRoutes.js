@@ -18,7 +18,7 @@ export default function ProtectedRoutes() {
         const id = localStorage.getItem("uid")
         if (id) {
             dispatch(triggerLoading(true))
-            fetch(Backend_URL + "user/get/" + id).then(data => data.json()).then(data => { dispatch(getUser(data)); dispatch(triggerLoading(false)) }).catch(err => { console.log(err); 
+            fetch(Backend_URL + "user/get/" + id).then(data => data.json()).then(data => { dispatch(getUser(data)); dispatch(triggerLoading(false)) }).catch(err => { 
                 
                 // localStorage.clear(); 
                 // window.location.reload() 

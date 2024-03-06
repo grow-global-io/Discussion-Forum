@@ -42,7 +42,7 @@ const Login = () => {
                 // const token = credential.accessToken;
                 // The signed-in user info.
                 let user = result.user;
-                console.log("resss",result)
+                // console.log("resss",result)
                 localStorage.setItem("uid", user.providerData[0].uid);
                 localStorage.setItem("displayName", user.providerData[0].displayName);
                 localStorage.setItem("email", user.providerData[0].email);

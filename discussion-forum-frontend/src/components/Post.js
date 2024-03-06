@@ -55,7 +55,7 @@ const Post = ({ post, showMore }) => {
         }
     }, [subscribe, post, user])
 
-    console.log(post)
+    // console.log(post)
 
     const handleSubscribe = async () => {
         if (!subscribe) {

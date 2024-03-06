@@ -33,14 +33,14 @@ const ProfilePage = () => {
     const [edit, setEdit] = useState(false);
     const [coverImage, setCoverImage] = useState("");
     const fetchData = async () => {
-        console.log("fetchData Called")
+        // console.log("fetchData Called")
         await fetch(Backend_URL + "user/get/" + id, {
             method: "GET"
         }).then(data => data.json()).then(data => {
             setUser(data);
             setCoverImage(data.photoURL)
             CoverPhoto = data.photoURL
-            console.log(data)
+            // console.log(data)
             dispatch(getUser(data))
         })
     }
@@ -121,7 +121,7 @@ const ProfilePage = () => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const values = Object.fromEntries(formData.entries());
-        console.log(CoverPhoto);
+        // console.log(CoverPhoto);
         const body = { ...values, photoURL: CoverPhoto }
         await fetch(Backend_URL + 'user/update-profile/' + id, {
             method: 'POST',

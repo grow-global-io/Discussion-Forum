@@ -60,7 +60,7 @@ const Filter = ({ setFilteredPost, post }) => {
 
   const filteredPost = post.filter((obj) => {
     return Object.keys(formData).some((key) => {
-      console.log("Key", key);
+      // console.log("Key", key);
       return String(obj[key]).toLowerCase().includes(formData[key]);
     });
   });

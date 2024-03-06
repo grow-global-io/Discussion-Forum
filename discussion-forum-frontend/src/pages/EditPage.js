@@ -419,19 +419,19 @@ const EditPage = () => {
                     manager={manager}
                     initialContent={state}
                     onChange={(paramater) => {
-                      console.log(prosemirrorNodeToHtml(paramater.state.doc));
+                      // console.log(prosemirrorNodeToHtml(paramater.state.doc));
                       setPost(prosemirrorNodeToHtml(paramater.state.doc));
                     }}
                     autoRender="start"
                   >
                     <Toolbar style={{ flexWrap: "wrap" }}>
-                      <ToggleBoldButton />
+                      {/* <ToggleBoldButton />
                       <ToggleItalicButton />
                       <ToggleUnderlineButton />
                       <ToggleStrikeButton />
                       <HeadingLevelButtonGroup showAll />
                       <ListButtonGroup />
-                      <CreateTableButton />
+                      <CreateTableButton /> */}
                     </Toolbar>
                   </Remirror>
                 </ThemeProvider>
