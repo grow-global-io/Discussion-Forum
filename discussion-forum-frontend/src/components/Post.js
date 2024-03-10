@@ -113,6 +113,10 @@ const Post = ({ post, showMore }) => {
                     {post.composerName}
                 </p>
                 <p>
+                    <strong>Premiere Date: </strong>
+                    {post.premiereDate}
+                </p>
+                <p>
                     <strong>Lead Commissioner: </strong>
                     {post.leadCommissioner}
                 </p>

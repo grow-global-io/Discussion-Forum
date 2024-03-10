@@ -676,7 +676,8 @@ const CarsManagement = () => {
                         setDeleteClicked(false);
                         toast.loading("deleting the post!");
                         handlePostDelete(modalData);
-                        setOpen(false);
+                        // setOpen(false);
+                        handleClose();
                       }}
                     >
                       Confirm Delete
@@ -698,7 +699,8 @@ const CarsManagement = () => {
                       variant="outlined"
                       color="success"
                       onClick={() => {
-                        setOpen(false);
+                        // setOpen(false);
+                        handleClose();
                         setUpdateClicked(false);
                         handlePostUpdate(modalData);
                         toast.success("Post has been successfully updated!");
