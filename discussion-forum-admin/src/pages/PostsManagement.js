@@ -209,8 +209,10 @@ const CarsManagement = () => {
         postDescription: post,
       });
       // console.log(response)
-      fetchData();
-      toast.success("Post Updated Successfully");
+      // fetchData();
+      handleClose();
+
+      // toast.success("Post Updated Successfully");
       setOpen(false);
     } catch (e) {
       // console.log(e)
@@ -228,7 +230,8 @@ const CarsManagement = () => {
       toast.success("Post deleted Successfully");
       // console.log(response)
       fetchData();
-      setOpen(false);
+      // setOpen(false);
+      handleClose();
     } catch (e) {
       // console.log(e)
       toast.error("Something went wrong");
@@ -677,7 +680,7 @@ const CarsManagement = () => {
                         toast.loading("deleting the post!");
                         handlePostDelete(modalData);
                         // setOpen(false);
-                        handleClose();
+                        // handleClose();
                       }}
                     >
                       Confirm Delete
@@ -700,7 +703,6 @@ const CarsManagement = () => {
                       color="success"
                       onClick={() => {
                         // setOpen(false);
-                        handleClose();
                         setUpdateClicked(false);
                         handlePostUpdate(modalData);
                         toast.success("Post has been successfully updated!");
